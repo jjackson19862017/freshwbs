@@ -71,7 +71,7 @@ Solution: - Just after to work out the differences between what I have learnt an
 
 ### Local and Remote Migrations in SQL
 
-It seems everytime I try to update my remote server with the remote/local migrations it doesnt update the database.
+It seems everytime I try to update my remote server with the remote/local migrations it doesn't update the database.
 
 Possible Solution: - Start again fresh on a new laravel install, but only operate it remotely not have a local one and a remote one?
 
@@ -83,5 +83,9 @@ I have decided to add some additional information to the Home and About pages.  
 
 ## Reloading everything I have done from the old laravel
 
+Finally grabbed everythign from the old laravel to the fresh one,
 
+had to do a 'composer dumpautoload' to fix the app\models\user issue that occured when upgrading from 7 to 8.
+
+also had to update auth.php
 
