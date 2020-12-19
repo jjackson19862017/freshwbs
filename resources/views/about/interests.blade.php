@@ -37,17 +37,6 @@
 
                 <div class="card text-center">
                     <div class="card-header">
-                        Sci-Fi &amp Anime
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">I have always enjoyed watching Star Trek: Next Generation, because thats something I used to do growing up with my Dad, I must have watched the majority of all Star Trek.  I also enjoy watching Stargate SG1, and the other series that have spawned from the original.  I have a small collection of Anime, mainly having Sci-fi like 'Ghost in the Shell' and 'Deathnote'.</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="card text-center">
-                    <div class="card-header">
                         Call of Duty Mobile
                     </div>
                     <div class="card-body">
