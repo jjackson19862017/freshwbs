@@ -89,3 +89,41 @@ had to do a 'composer dumpautoload' to fix the app\models\user issue that occure
 
 also had to update auth.php
 
+## Things to do
+
+- Setup Users and the ability to edit there only profiles, as well as log out.
+  - Create User Roles, Super (Sees everything, Owner access to income information, Manager access to Customers & Events)
+  - Setup Staff Details, to record when they started working at the Hotels, this can record the two different hotels.
+    - There will need to be at least six tables.
+        - Users -> Allow access to the Admin Area
+        - Role -> Super, Owner, Manager
+        - Permissions -> Grant certain access to admin areas
+        - Staff -> For Data entry about the staff details
+        - Hotels -> Different Hotels different staff members
+        - Position -> Roles within the company
+- Setup Customers Table for brides and grooms
+    - Brides Name
+    - Grooms Name
+    - Contact Number
+    - Contact Email
+    - Address 1
+    - Address 2
+    - Town/City
+    - County
+    - PostCode
+    - FK User_Id to see who inputted the details.  Could be used for stats later on.
+  
+- Setup Wedding Events Table for 1 to Many, ie 1 Customer to many events, (just incase they want an anniversary, or renew of vows).
+    - Event_ID
+    - FK Customer_ID
+    - Appointment Date
+    - 
+
+
+## Creating Permissions and Roles
+
+'php artisan make:model Permission -mc' Creates a Model called Permission
+'php artisan make:model Role -mc' Creates a Model called Role
+'php artisan make:migration create_users_permissions_table --create=permission_user' Creates a Pivot table
+'php artisan make:migration create_users_roles_table --create=role_user' Creates a Pivot table
+'php artisan make:migration create_roles_permissions_table --create=permission_role' Creates a Pivot table

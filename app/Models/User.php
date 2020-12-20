@@ -48,4 +48,14 @@ class User extends Authenticatable
         # Encrypts passwords
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }
