@@ -113,11 +113,24 @@ also had to update auth.php
     - PostCode
     - FK User_Id to see who inputted the details.  Could be used for stats later on.
   
-- Setup Wedding Events Table for 1 to Many, ie 1 Customer to many events, (just incase they want an anniversary, or renew of vows).
+- Setup Wedding Events Table for 1 to Many, ie 1 Customer to many events, (just in case they want an anniversary, or renew of vows).
     - Event_ID
     - FK Customer_ID
     - Appointment Date
-    - 
+    - Hold Till Date
+    - Contract Issued Date
+    - Function Date
+    - Deposit Taken Date
+    - 25 Due Date
+    - Final Wedding Talk
+    - Final Payment Date
+    - On Hold
+    - Contract Returned
+    - Agreement Signed
+    - Deposit Taken
+    - 25% Payment Taken
+    - Had Final Talk
+    - Cost
 
 
 ## Creating Permissions and Roles
@@ -127,3 +140,17 @@ also had to update auth.php
 'php artisan make:migration create_users_permissions_table --create=permission_user' Creates a Pivot table
 'php artisan make:migration create_users_roles_table --create=role_user' Creates a Pivot table
 'php artisan make:migration create_roles_permissions_table --create=permission_role' Creates a Pivot table
+
+### Creating Roles & Permissions
+
+'php artisan tinker'
+'$user = App\Models\User::find(1)' // Finds the First User
+'$admin = App\Models\Role::create(['name'=>'Example','slug'=>'example'])' // Creates a role called example
+'$user->roles()->attach($admin)' // Attaches the role to the user
+'$view_dashboard = App\Models\Permission::create(['name'=>'View Dashboard', 'slug'=>'view-dashboard'])' // Creates the permission
+'$admin->permissions()->attach($view_dashboard)' // Attaches permission to role.
+
+## Testing
+
+- Created an if statement to see if Admin roles could see text
+    - Passed

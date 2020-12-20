@@ -58,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    // Checks to see if a user has a certain role, see admin
+    public function userHasRole($role_name){
+        foreach ($this->roles as $role){
+            if($role_name == $role->name)
+                return true;
+        }
+    }
 }
