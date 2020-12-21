@@ -14,7 +14,7 @@ class RoleMiddleWare
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
         // This makes sure you have an admin role before allowing you to see the page.
         if(!$request->user()->userHasRole($role)){

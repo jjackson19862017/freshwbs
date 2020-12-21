@@ -37,7 +37,6 @@ Route::middleware(['can:view,user','auth'])->group(function(){
 
 });
 
-Route::middleware('role:Admin')->group(function(){
+Route::middleware(['role:Admin','role:Manager'])->group(function(){
     Route::get('/admin/users/', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-
 });
