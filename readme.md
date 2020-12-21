@@ -154,3 +154,13 @@ also had to update auth.php
 
 - Created an if statement to see if Admin roles could see text
     - Passed
+
+## Security
+
+I have started to lock down certain things,
+    - Only people who have been authorised (logged in), can get to the admin area.
+    - Everyone except staff members can see the user list.
+
+## Housekeeping
+
+I have separated the routes over multiple files and updated the RouteServiceProvider with the new file directorys
