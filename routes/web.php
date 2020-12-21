@@ -27,7 +27,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin.index');
     Route::get('/admin/users/{user}/profile', [App\Http\Controllers\UserController::class, 'show'])->name('user.profile.show');
     Route::put('/admin/users/{user}/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.profile.update');
-    route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
     Route::delete('/admin/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy'); //info This allows users to delete users in the admin area
+    Route::get('/admin/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+    Route::post('/admin/users', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
 
 });

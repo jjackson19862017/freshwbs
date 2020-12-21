@@ -83,9 +83,9 @@ I have decided to add some additional information to the Home and About pages.  
 
 ## Reloading everything I have done from the old laravel
 
-Finally grabbed everythign from the old laravel to the fresh one,
+Finally grabbed everything from the old laravel to the fresh one,
 
-had to do a 'composer dumpautoload' to fix the app\models\user issue that occured when upgrading from 7 to 8.
+had to do a 'composer dumpautoload' to fix the app\models\user issue that occurred when upgrading from 7 to 8.
 
 also had to update auth.php
 

@@ -2,7 +2,9 @@
     @section('content')
 
 <h1>All Users</h1>
-        <h6 class="m-0 font-weight-bold text-danger">
+        <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
+        {{Session::get('text-class')}}
+        @endif">
             @if (Session::has('message'))
                 {{Session::get('message')}}
             @endif

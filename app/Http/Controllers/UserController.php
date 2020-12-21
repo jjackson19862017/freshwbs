@@ -12,6 +12,28 @@ class UserController extends Controller
         return view('admin.users.index', ['users'=>$users]);
     }
 
+    // Shows the Create New Users Page
+    public function create(){
+        return view('admin.users.create');
+    }
+
+    // Shows the Create New Users Page
+    public function store(Request $request){
+
+        $inputs = request()->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        User::create($inputs);
+        $request->session()->flash('message', 'User was Created... ');
+        $request->session()->flash('text-class', 'text-success');
+        $users = User::all();
+        return view('admin.users.index', ['users'=>$users]);
+    }
+
     // Shows the Users Profile
     public function show(User $user){
         return view('admin.users.profile', ['user'=>$user]);
@@ -35,8 +57,8 @@ class UserController extends Controller
 
     public function destroy(Request $request, User $user){
         $user->delete();
-        $this->authorize('delete', $user); // info Only Allows users to edit their own posts.
         $request->session()->flash('message', 'User was Deleted...');
+        $request->session()->flash('text-class', 'text-danger');
         return back();
     }
 }
