@@ -1,7 +1,7 @@
 <x-admin-master>
     @section('content')
 
-<h1>All Users</h1>
+<h1>All {{$count}} Users</h1>
         <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
         {{Session::get('text-class')}}
         @endif">

@@ -31,4 +31,6 @@ Route::get('/users/{user}/profile', [App\Http\Controllers\UserController::class,
 
 Route::middleware(['role:Admin,Manager,Owner'])->group(function(){
 Route::get('/users/', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}/attach', [App\Http\Controllers\UserController::class, 'attach'])->name('user.role.attach');
+    Route::put('/users/{user}/detach', [App\Http\Controllers\UserController::class, 'detach'])->name('user.role.detach');
 });

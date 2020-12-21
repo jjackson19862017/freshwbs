@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 class UserController extends Controller
 {
     // Shows the All the Users
     public function index(){
         $users = User::all();
-        return view('admin.users.index', ['users'=>$users]);
+        $count = count($users);
+        return view('admin.users.index', ['users'=>$users, 'count'=>$count]);
     }
 
     // Shows the Create New Users Page
@@ -36,7 +38,7 @@ class UserController extends Controller
 
     // Shows the Users Profile
     public function show(User $user){
-        return view('admin.users.profile', ['user'=>$user]);
+        return view('admin.users.profile', ['user'=>$user, 'roles'=>Role::all()]);
     }
 
     public function update(User $user, Request $request): \Illuminate\Http\RedirectResponse
@@ -59,6 +61,20 @@ class UserController extends Controller
         $user->delete();
         $request->session()->flash('message', 'User was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
+        return back();
+    }
+
+    public function attach(User $user)
+    {
+        # Attach a role to a user
+        $user->roles()->attach(request ('role'));
+        return back();
+    }
+
+    public function detach(User $user)
+    {
+        # Detach a role to a user
+        $user->roles()->detach(request ('role'));
         return back();
     }
 }
