@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     @if (auth()->user()->userHasRole('Admin'))
-    <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
+        <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
     @endif
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">

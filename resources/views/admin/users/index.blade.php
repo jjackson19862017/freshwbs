@@ -22,15 +22,23 @@
             <tbody>
             @foreach($users as $user)
             <tr>
-                <td>{{$user->username}}</td>
+                <td>
+                @if (auth()->user()->userHasRole('Admin'))
+                    <a href="{{route('user.profile.show', $user)}}">{{$user->username}}</a>
+                @else
+                    {{$user->username}}
+                @endif
+                </td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>
+                @if (auth()->user()->id <> $user->id) <!--info Stops User from deleting own account-->
                     <form action="{{route('user.destroy', $user->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger"><i class="fas fa-user-times"></i> Delete</button>
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-times"></i> Delete</button>
                     </form>
+                @endif
                 </td>
             </tr>
             @endforeach
