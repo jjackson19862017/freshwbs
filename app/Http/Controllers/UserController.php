@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index(){
         $users = User::all();
         $count = count($users);
-        return view('admin.users.index', ['users'=>$users, 'count'=>$count]);
+        return view('admin.users.index', ['users'=>$users, 'count'=>$count, 'roles'=>Role::all()]);
     }
 
     // Shows the Create New Users Page
@@ -19,9 +19,8 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    // Shows the Create New Users Page
+    // Creating a New User
     public function store(Request $request){
-
         $inputs = request()->validate([
             'username' => ['required', 'string', 'max:255', 'unique:users', 'alpha_dash'],
             'name' => ['required', 'string', 'max:255'],
@@ -29,11 +28,12 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        User::create($inputs);
+        $createduser = User::create($inputs);
+        $staff = Role::findOrFail(4);
+        $createduser->roles()->attach($staff);
         $request->session()->flash('message', 'User was Created... ');
         $request->session()->flash('text-class', 'text-success');
-        $users = User::all();
-        return view('admin.users.index', ['users'=>$users]);
+        return redirect()->route('users.index');
     }
 
     // Shows the Users Profile
@@ -41,19 +41,22 @@ class UserController extends Controller
         return view('admin.users.profile', ['user'=>$user, 'roles'=>Role::all()]);
     }
 
-    public function update(User $user, Request $request): \Illuminate\Http\RedirectResponse
+    public function update(User $user, Role $role, Request $request): \Illuminate\Http\RedirectResponse
     {
         # Updating a Users Profile
         $inputs = request()->validate([
 
-            'username'=> ['required', 'string', 'max:255', 'alpha_dash'],
-            'name'=> ['required', 'string', 'max:255'],
-            'email'=> ['required', 'email', 'max:255'],
-            //'password'=>['min:5','max:255', 'confirmed'],
+            'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            //'password'=>['min:8','max:255', 'confirmed'],
         ]);
 
-        $request->session()->flash('message', 'Profile Updated...');
         $user->update($inputs);
+            $user->roles()->detach();
+            $user->roles()->attach(request('role'));
+        $request->session()->flash('message', 'Profile Updated...');
+
         return back();
     }
 

@@ -13,6 +13,7 @@
         <table class="table table-hover table-inverse table-responsive">
             <thead class="thead-dark">
             <tr>
+                <th>Role</th>
                 <th>Username</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -22,6 +23,11 @@
             <tbody>
             @foreach($users as $user)
             <tr>
+                <td> @foreach ($user->roles as $user_role)
+                        @if ($user_role->slug == $user_role->slug)
+                            {{$user_role->name}}
+                        @endif
+                    @endforeach</td>
                 <td>
                 @if (auth()->user()->userHasRole('Admin'))
                     <a href="{{route('user.profile.show', $user)}}">{{$user->username}}</a>
@@ -39,6 +45,7 @@
                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-times"></i> Delete</button>
                     </form>
                 @endif
+
                 </td>
             </tr>
             @endforeach
