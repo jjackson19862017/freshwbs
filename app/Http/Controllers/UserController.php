@@ -9,12 +9,12 @@ class UserController extends Controller
 {
     // Shows the All the Users
     public function index(){
-        $users = User::all();
-        $admins = count(Role::whereName('Admin')->first()->users);
-        $owners = count(Role::whereName('Owner')->first()->users);
-        $managers = count(Role::whereName('Manager')->first()->users);
-        $staffs = count(Role::whereName('Staff')->first()->users);
-        $count = count($users);
+        $users = User::all(); // Returns all the information back from the Users Table
+        $admins = count(Role::whereName('Admin')->first()->users); // Counts all the admins in the roles/users Table
+        $owners = count(Role::whereName('Owner')->first()->users); // Counts all the owners in the roles/users Table
+        $managers = count(Role::whereName('Manager')->first()->users); // Counts all the managers in the roles/users Table
+        $staffs = count(Role::whereName('Staff')->first()->users); // Counts all the staff in the roles/users Table
+        $count = count($users); // Counts all the users Table
         return view('admin.users.index', ['users'=>$users, 'count'=>$count, 'roles'=>Role::all(), 'admins'=>$admins, 'owners'=>$owners, 'managers'=>$managers, 'staffs'=>$staffs]);
     }
 
@@ -33,8 +33,8 @@ class UserController extends Controller
         ]);
 
         $createduser = User::create($inputs);
-        $staff = Role::findOrFail(4);
-        $createduser->roles()->attach($staff);
+        $staff = Role::findOrFail(4); // Finds the role of staff.
+        $createduser->roles()->attach($staff); // Gives all the new users the role of Staff
         $request->session()->flash('message', 'User was Created... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('users.index');
@@ -57,8 +57,8 @@ class UserController extends Controller
         ]);
 
         $user->update($inputs);
-            $user->roles()->detach();
-            $user->roles()->attach(request('role'));
+            $user->roles()->detach(); // Removes all roles attached to the user
+            $user->roles()->attach(request('role')); // Attaches the selected role to the user
         $request->session()->flash('message', 'Profile Updated...');
 
         return back();

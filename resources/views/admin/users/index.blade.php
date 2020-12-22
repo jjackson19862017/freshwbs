@@ -2,9 +2,6 @@
     @section('content')
 <div class="row">
     <div class="col-sm-8">
-<h1>All {{$count}} Users</h1>
-
-
         <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
         {{Session::get('text-class')}}
         @endif">
@@ -55,19 +52,17 @@
             </tbody>
         </table>
     </div>
-
-    <div class="col-sm-4">
-        <h4>There are currently;</h4>
+    <div class="col-sm-3 offset-1">
+        @if($count > 0)
+        <h4>There are currently <br>{{$count}} members of staff;</h4>
         <ul>
-        <li>{{$admins}} Admins</li>
-        <li>{{$owners}} Owners</li>
-        <li>{{$managers}} Managers</li>
-        <li>{{$staffs}} Staff Members</li>
+            <li>@if($admins == 0) No Admins @elseif($admins == 1){{$admins}} Admin @else {{$admins}}  Admins @endif</li>
+            <li>@if($owners == 0) No Owners @elseif($owners == 1){{$owners}} Owner @else {{$owners}} Owners @endif</li>
+            <li>@if($managers == 0) No Mangers @elseif($managers == 1){{$managers}} Manager @else {{$managers}}  Managers @endif</li>
+            <li>@if($staffs == 0) No Members of Staff @elseif($staffs == 1){{$staffs}} Staff Member @else {{$staffs}} Staff Members @endif</li>
         </ul>
+        @endif
     </div>
-
-
-
 </div>
     @endsection
 </x-admin-master>

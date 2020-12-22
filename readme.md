@@ -163,4 +163,7 @@ I have started to lock down certain things,
 
 ## Housekeeping
 
-I have separated the routes over multiple files and updated the RouteServiceProvider with the new file directorys
+I have separated the routes over multiple files and updated the RouteServiceProvider with the new file directory.
+
+I commented my code as I tend to code ahead and get caught up in the moment and forget to comment my code.
+

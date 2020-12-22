@@ -13,6 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        // Allows only logged in users to see the frontend pages.
         // $this->middleware('auth');
     }
 
