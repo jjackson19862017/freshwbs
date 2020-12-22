@@ -83,55 +83,8 @@
             </div>
 
             <div class="col-sm-4 offset-1">
-                @if(!auth()->user()->userHasRole('Staff'))
-                <h1>Roles</h1>
-                <table class="table table-hover table-inverse table-responsive">
-                    <thead class="thead-dark">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Options</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($roles as $role)
-                                    <tr>
-                                        <td>{{$role->id}}</td>
-                                        <td>{{$role->name}}</td>
-                                        <td>{{$role->slug}}</td>
-                                        <td>
-                                            @if (!$user->roles->contains($role))
-                                                <form action="{{route('user.role.attach', $user->id)}}" method="post">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="role" id="role" value="{{$role->id}}">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary btn-sm">Attach</button>
-                                                </form>
-                                            @else
-                                                <form action="{{route('user.role.detach', $user->id)}}" method="post">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="role" id="role" value="{{$role->id}}">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-danger btn-sm">Detach</button>
-                                                </form>
-                                            @endif
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
-        @endif
         </div>
 
 

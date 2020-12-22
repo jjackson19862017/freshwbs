@@ -1,7 +1,10 @@
 <x-admin-master>
     @section('content')
-
+<div class="row">
+    <div class="col-sm-8">
 <h1>All {{$count}} Users</h1>
+
+
         <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
         {{Session::get('text-class')}}
         @endif">
@@ -51,6 +54,20 @@
             @endforeach
             </tbody>
         </table>
+    </div>
 
+    <div class="col-sm-4">
+        <h4>There are currently;</h4>
+        <ul>
+        <li>{{$admins}} Admins</li>
+        <li>{{$owners}} Owners</li>
+        <li>{{$managers}} Managers</li>
+        <li>{{$staffs}} Staff Members</li>
+        </ul>
+    </div>
+
+
+
+</div>
     @endsection
 </x-admin-master>

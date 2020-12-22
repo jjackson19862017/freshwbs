@@ -10,8 +10,12 @@ class UserController extends Controller
     // Shows the All the Users
     public function index(){
         $users = User::all();
+        $admins = count(Role::whereName('Admin')->first()->users);
+        $owners = count(Role::whereName('Owner')->first()->users);
+        $managers = count(Role::whereName('Manager')->first()->users);
+        $staffs = count(Role::whereName('Staff')->first()->users);
         $count = count($users);
-        return view('admin.users.index', ['users'=>$users, 'count'=>$count, 'roles'=>Role::all()]);
+        return view('admin.users.index', ['users'=>$users, 'count'=>$count, 'roles'=>Role::all(), 'admins'=>$admins, 'owners'=>$owners, 'managers'=>$managers, 'staffs'=>$staffs]);
     }
 
     // Shows the Create New Users Page
