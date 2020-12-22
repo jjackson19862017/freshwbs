@@ -31,6 +31,14 @@
         <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
         <x-admin.sidebar.admin-sidebar-authorization></x-admin.sidebar.admin-sidebar-authorization>
     @endif
+
+    @if(!auth()->user()->userHasRole('Staff'))
+        <x-admin.sidebar.admin-sidebar-staff></x-admin.sidebar.admin-sidebar-staff>
+        <x-admin.sidebar.admin-sidebar-customers></x-admin.sidebar.admin-sidebar-customers>
+        <x-admin.sidebar.admin-sidebar-events></x-admin.sidebar.admin-sidebar-events>
+
+@endif
+
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
