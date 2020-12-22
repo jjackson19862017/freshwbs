@@ -1,6 +1,6 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEventsArea" aria-expanded="true" aria-controls="collapseUserArea">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-calendar-day"></i>
         <span>Events:</span>
     </a>
     <div id="collapseEventsArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
