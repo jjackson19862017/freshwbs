@@ -6,8 +6,8 @@
     <div id="collapseCustomerArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Customers:</h6>
-            <a class="collapse-item" href="">New Customer</a>
-            <a class="collapse-item" href="">View All Customers</a>
+            <a class="collapse-item" href="{{route('customer.create')}}">New Customer</a>
+            <a class="collapse-item" href="{{route('customers.index')}}">View All Customers</a>
         </div>
     </div>
 </li>

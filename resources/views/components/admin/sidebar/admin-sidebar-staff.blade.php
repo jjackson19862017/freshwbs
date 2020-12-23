@@ -6,8 +6,8 @@
     <div id="collapseStaffArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Staff:</h6>
-            <a class="collapse-item" href="">Add Staff Member</a>
-            <a class="collapse-item" href="">View All Staff Members</a>
+            <a class="collapse-item" href="{{route('staff.create')}}">Add Staff Member</a>
+            <a class="collapse-item" href="{{route('staffs.index')}}">View All Staff Members</a>
         </div>
     </div>
 </li>
