@@ -1,58 +1,58 @@
 <x-admin-master>
     @section('content')
-        <h1 class="h3 mb-4 text-gray-800">staffs</h1>
-
         <div class="row">
-            <div class="col-sm-3">
-                <form action="{{route('staff.store')}}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Name of staff">
-                        @error('name')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
-                    </div>
+            <div class="col-sm-8">
+                <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
+                {{Session::get('text-class')}}
+                @endif">
+                    @if (Session::has('message'))
+                        {{Session::get('message')}}
+                    @endif
+                </h6>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="col-sm-9">
-                        <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
-                        {{Session::get('text-class')}}@endif">
-                            @if (Session::has('message'))
-                                {{Session::get('message')}}
-                            @endif
-                        </h6>
-                <table class="table table-hover table-inverse table-responsive">
+                <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Delete</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($staffs as $staff)
-                                    <tr>
-                                        <td><a href="{{route('staffs.edit', $staff->id)}}">{{$staff->name}}</a></td>
-                                        <td>{{$staff->slug}}</td>
-                                        <td><form action="{{route('staff.destroy', $staff->id)}}" method="post" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form></td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                    <tr>
+                        <th>Name</th>
+                        <th>Telephone</th>
+                        <th>Email</th>
+                        <th>Personal License</th>
+                        <th>Employment Type</th>
+                        <th>Position</th>
+                        <th>Hotel</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($staffs as $staff)
+                        <tr>
+                            <td>@if(auth()->user()->userHasRole('Admin'))
+                                    <a href="">{{$staff->forename}} {{$staff->surname}}</a>
+                                @else
+                                {{$staff->forename}} {{$staff->surname}}
+                                    @endif
+                            </td>
+                            <td>{{$staff->telephone}}</td>
+                            <td>{{$staff->email}}</td>
+                            <td>{{$staff->personallicense}}</td>
+                            <td>{{$staff->employmenttype}}</td>
+                            <td>{{$staff->position}}</td>
+                            <td>{{$staff->hotel}}</td>
+                            <td>{{$staff->status}}</td>
+                            <td>
+                                <form action="{{route('staff.destroy', $staff->id)}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-times"></i> Delete</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     @endsection
-
-
-
 </x-admin-master>

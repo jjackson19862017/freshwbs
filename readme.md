@@ -133,13 +133,18 @@ also had to update auth.php
     - Cost
 
 
-## Creating Permissions and Roles
+## Creating
 
+### Permissions and Roles
 'php artisan make:model Permission -mc' Creates a Model called Permission
 'php artisan make:model Role -mc' Creates a Model called Role
 'php artisan make:migration create_users_permissions_table --create=permission_user' Creates a Pivot table
 'php artisan make:migration create_users_roles_table --create=role_user' Creates a Pivot table
 'php artisan make:migration create_roles_permissions_table --create=permission_role' Creates a Pivot table
+
+### Staff and Customers
+'php artisan make:model Staff -mc' Creates a Model called Permission
+'php artisan make:model Customer -mc' Creates a Model called Role
 
 ### Creating Roles & Permissions
 

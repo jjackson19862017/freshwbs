@@ -64,7 +64,8 @@ class UserController extends Controller
         return back();
     }
 
-    public function destroy(Request $request, User $user){
+    public function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    {
         $user->delete();
         $request->session()->flash('message', 'User was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
