@@ -21,13 +21,14 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Administrator
-    </div>
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     @if(auth()->user()->userHasRole('Admin'))
+        <!-- Heading -->
+            <div class="sidebar-heading">
+                Administrator
+            </div>
         <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
         <x-admin.sidebar.admin-sidebar-authorization></x-admin.sidebar.admin-sidebar-authorization>
     @endif

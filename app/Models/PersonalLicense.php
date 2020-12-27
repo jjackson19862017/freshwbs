@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model
+class PersonalLicense extends Model
 {
     use HasFactory;
     // Allows Mass assignments.
     protected $guarded = [];
 
-    public function PersonalLicense(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne('App\Models\PersonalLicense');
-    }
+
 }

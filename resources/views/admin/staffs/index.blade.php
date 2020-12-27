@@ -35,7 +35,7 @@
                             </td>
                             <td>{{$staff->telephone}}</td>
                             <td>{{$staff->email}}</td>
-                            <td>{{$staff->personallicense}}</td>
+                            <td>{{$staff->personallicense->yesorno}}</td>
                             <td>{{$staff->employmenttype}}</td>
                             <td>{{$staff->position}}</td>
                             <td>{{$staff->hotel}}</td>

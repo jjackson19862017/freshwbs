@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PersonalLicense;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class StaffController extends Controller
     // Shows the All the Staff Members
     public function index(){
         $staffs = Staff::all(); // Returns all the information back from the Staff Table
-        return view('admin.staffs.index', ['staffs'=>$staffs]);
+
+        return view('admin.staffs.index', ['staffs'=>$staffs, 'personallicenses'=>PersonalLicense::all()]);
     }
 
     // Shows the Create New Staffs Page
@@ -36,6 +38,10 @@ class StaffController extends Controller
             'status' => ['string', 'max:255'],
         ]);
         $staff->create($inputs);
+        // Do they have a Personal License?
+        $yesorno = new PersonalLicense(['yesorno'=>request('personallicense')]);
+        $staff->PersonalLicense()->save($yesorno);
+
         $request->session()->flash('message', 'Staff was Created... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('staffs.index');
@@ -64,6 +70,8 @@ class StaffController extends Controller
         ]);
 
         $staff->update($inputs);
+        // Do they have a Personal License?
+        $staff->PersonalLicense()->whereStaffId($staff->id)->update(['yesorno'=>request('personallicense')]);
         $request->session()->flash('message', 'Staff was Updated... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('staffs.index');

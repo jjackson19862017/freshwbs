@@ -92,42 +92,56 @@
                     </div>
                     <div class="form-group row">
                         <label for="personallicense" class="col-form-label col-sm-2">Personal License</label>
+                        <div class="col-sm-10">
                         <select class="form-control" name="personallicense" id="personallicense">
-                            @TODO Need to add relationships to these.
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            @if($staff->personallicense->yesorno=='Yes')
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            @else
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            @endif
                         </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="employmenttype" class="col-form-label col-sm-2">Employment Type</label>
+                        <div class="col-sm-10">
                         <select class="form-control" name="employmenttype" id="employmenttype">
                             <option value="Salary">Salary</option>
                             <option value="Hourly">Hourly</option>
                         </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="position" class="col-form-label col-sm-2">Position</label>
+                        <div class="col-sm-10">
                         <select class="form-control" name="position" id="position">
                             <option value="General Manager">General Manager</option>
                             <option value="Assisstant Manger">Assistant Manager</option>
                             <option value="Front of House">Front of House</option>
                             <option value="House Keeping">House Keeping</option>
                         </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="hotel" class="col-form-label col-sm-2">Hotel</label>
+                        <div class="col-sm-10">
                         <select class="form-control" name="hotel" id="hotel">
                             <option value="Shard">Shard</option>
                             <option value="The Mill">The Mill</option>
                         </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="status" class="col-form-label col-sm-2">Status</label>
+                        <div class="col-sm-10">
                         <select class="form-control" name="status" id="status">
                             <option value="Employed">Employed</option>
                             <option value="Furloughed">Furloughed</option>
                             <option value="Not Employed">Not Employed</option>
                         </select>
+                        </div>
                     </div>
 
                     <button type="submit"
