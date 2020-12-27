@@ -13,8 +13,8 @@
                 <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
                     <tr>
-                        <th>Bride</th>
-                        <th>Groom</th>
+
+                        <th>Couple</th>
                         <th>Telephone</th>
                         <th>Email</th>
                         <th>Action</th>
@@ -23,8 +23,14 @@
                     <tbody>
                     @foreach($customers as $customer)
                         <tr>
-                            <td>{{$customer->brideforename}} {{$customer->bridesurname}}</td>
-                            <td>{{$customer->groomforename}} {{$customer->groomsurname}}</td>
+                            <td>@if(auth()->user()->userHasRole('Admin'))
+                                    <a href="{{route('customers.edit', $customer)}}">{{$customer->brideforename}} {{$customer->bridesurname}}<br>
+                                        {{$customer->groomforename}} {{$customer->groomsurname}}</a>
+                                @else
+                                    {{$customer->brideforename}} {{$customer->bridesurname}}<br>
+                                    {{$customer->groomforename}} {{$customer->groomsurname}}
+                                @endif
+                                </td>
                             <td>{{$customer->telephone}}</td>
                             <td>{{$customer->email}}</td>
                             <td>

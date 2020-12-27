@@ -41,14 +41,14 @@ class CustomerController extends Controller
     }
 
     // Shows the customers Profile
-    public function show(Customer $customer){
-        return view('admin.customers.profile', ['customer'=>$customer]);
+    public function edit(Customer $customer){
+        return view('admin.customers.edit', ['customer'=>$customer]);
     }
 
     public function update(Customer $customer, Request $request): \Illuminate\Http\RedirectResponse
     {
         $inputs = request()->validate([
-            'brideforname' => ['required', 'string', 'max:255', 'alpha_dash'],
+            'brideforename' => ['required', 'string', 'max:255', 'alpha_dash'],
             'bridesurname' => ['required', 'string', 'max:255', 'alpha_dash'],
             'groomforename' => ['required', 'string', 'max:255', 'alpha_dash'],
             'groomsurname' => ['required', 'string', 'max:255', 'alpha_dash'],
@@ -63,7 +63,7 @@ class CustomerController extends Controller
         ]);
 
         $customer->update($inputs);
-        $request->session()->flash('message', 'customer was Created... ');
+        $request->session()->flash('message', 'Customer was Updated... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('customers.index');
     }

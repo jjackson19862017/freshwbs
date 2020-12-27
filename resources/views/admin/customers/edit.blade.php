@@ -1,23 +1,115 @@
-@@ -0,0 +1,22 @@
 <x-admin-master>
+
     @section('content')
-        <h1 class="h3 mb-4 text-gray-800">Edit customer: {{$customer->name}}</h1>
+        <h1>Update Customer</h1>
+
         <div class="row">
             <div class="col-sm-6">
-                <form action="{{route('customers.update', $customer->id)}}" method="post">
+                <form action="{{route('customers.update', $customer->id)}}" method="post" class="form-horizontal">
                     @csrf
                     @method('PUT')
-
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" value="{{$customer->name}}">
-                        @error('name')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+                    <div class="form-group row">
+                        <label for="brideforename" class="col-form-label col-sm-2">Brides Forename</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('brideforename') is-invalid @enderror" name="brideforename" id="brideforename" aria-describedby="helpId" placeholder="Enter Forename" value="{{$customer->brideforename}}">
+                            @error('brideforename')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="bridesurname" class="col-form-label col-sm-2">Brides Surname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('bridesurname') is-invalid @enderror" name="bridesurname" id="bridesurname" aria-describedby="helpId" placeholder="Enter Surname" value="{{$customer->bridesurname}}">
+                            @error('bridesurname')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="groomforename" class="col-form-label col-sm-2">Grooms Forename</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('groomforename') is-invalid @enderror" name="groomforename" id="groomforename" aria-describedby="helpId" placeholder="Enter Forename" value="{{$customer->groomforename}}">
+                            @error('groomforename')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="groomsurname" class="col-form-label col-sm-2">Grooms Surname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('groomsurname') is-invalid @enderror" name="groomsurname" id="groomsurname" aria-describedby="helpId" placeholder="Enter Surname" value="{{$customer->groomsurname}}">
+                            @error('groomsurname')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telephone" class="col-form-label col-sm-2">Telephone</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" id="telephone" aria-describedby="helpId" placeholder="Enter Telephone" value="{{$customer->telephone}}">
+                            @error('telephone')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-form-label col-sm-2">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="helpId" placeholder="Enter Email" value="{{$customer->email}}">
+                            @error('email')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address1" class="col-form-label col-sm-2">Address 1</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" id="address1" aria-describedby="helpId" placeholder="Enter Address 1" value="{{$customer->address1}}">
+                            @error('address1')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address2" class="col-form-label col-sm-2">Address 2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" id="address2" aria-describedby="helpId" placeholder="Enter Address 2" value="{{$customer->address2}}">
+                            @error('address2')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="townCity" class="col-form-label col-sm-2">Town / City</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('townCity') is-invalid @enderror" name="townCity" id="townCity" aria-describedby="helpId" placeholder="Enter Town/City" value="{{$customer->townCity}}">
+                            @error('townCity')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="county" class="col-form-label col-sm-2">County</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('county') is-invalid @enderror" name="county" id="county" aria-describedby="helpId" placeholder="Enter County" value="{{$customer->county}}">
+                            @error('county')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="postCode" class="col-form-label col-sm-2">Post Code</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('postCode') is-invalid @enderror" name="postCode" id="postCode" aria-describedby="helpId" placeholder="Enter Post-Code" value="{{$customer->postCode}}">
+                            @error('postCode')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
+                </form>
             </div>
-            </form>
         </div>
     @endsection
 </x-admin-master>
