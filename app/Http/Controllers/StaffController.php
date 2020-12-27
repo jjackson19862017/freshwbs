@@ -42,8 +42,8 @@ class StaffController extends Controller
     }
 
     // Shows the Staffs Profile
-    public function show(Staff $staff){
-        return view('admin.staffs.profile', ['staff'=>$staff]);
+    public function edit(Staff $staff){
+        return view('admin.staffs.edit', ['staff'=>$staff]);
     }
 
     public function update(Staff $staff, Request $request): \Illuminate\Http\RedirectResponse

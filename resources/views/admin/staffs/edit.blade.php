@@ -1,23 +1,145 @@
 @@ -0,0 +1,22 @@
 <x-admin-master>
+
     @section('content')
-        <h1 class="h3 mb-4 text-gray-800">Edit staff: {{$staff->name}}</h1>
+        <h1>Edit Staff Details</h1>
+
         <div class="row">
             <div class="col-sm-6">
-                <form action="{{route('staffs.update', $staff->id)}}" method="post">
+                <form action="{{route('staffs.update', $staff->id)}}" method="post" class="form-horizontal">
                     @csrf
                     @method('PUT')
-
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" value="{{$staff->name}}">
-                        @error('name')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+                    <div class="form-group row">
+                        <label for="forename" class="col-form-label col-sm-2">Forename</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('forename') is-invalid @enderror" name="forename" id="forename" aria-describedby="helpId" placeholder="Enter Forename" value="{{$staff->forename}}">
+                            @error('forename')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <div class="form-group row">
+                        <label for="surname" class="col-form-label col-sm-2">Surname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" id="surname" aria-describedby="helpId" placeholder="Enter Surname" value="{{$staff->surname}}">
+                            @error('surname')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telephone" class="col-form-label col-sm-2">Telephone</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" id="telephone" aria-describedby="helpId" placeholder="Enter Telephone" value="{{$staff->telephone}}">
+                            @error('telephone')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-form-label col-sm-2">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="helpId" placeholder="Enter Email" value="{{$staff->email}}">
+                            @error('email')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address1" class="col-form-label col-sm-2">Address 1</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" id="address1" aria-describedby="helpId" placeholder="Enter Address 1" value="{{$staff->address1}}">
+                            @error('address1')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address2" class="col-form-label col-sm-2">Address 2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" id="address2" aria-describedby="helpId" placeholder="Enter Address 2" value="{{$staff->address2}}">
+                            @error('address2')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="townCity" class="col-form-label col-sm-2">Town / City</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('townCity') is-invalid @enderror" name="townCity" id="townCity" aria-describedby="helpId" placeholder="Enter Town/City" value="{{$staff->townCity}}">
+                            @error('townCity')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="county" class="col-form-label col-sm-2">County</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('county') is-invalid @enderror" name="county" id="county" aria-describedby="helpId" placeholder="Enter County" value="{{$staff->county}}">
+                            @error('county')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="postCode" class="col-form-label col-sm-2">Post Code</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control @error('postCode') is-invalid @enderror" name="postCode" id="postCode" aria-describedby="helpId" placeholder="Enter Post-Code" value="{{$staff->postCode}}">
+                            @error('postCode')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="personallicense" class="col-form-label col-sm-2">Personal License</label>
+                        <select class="form-control" name="personallicense" id="personallicense">
+                            @TODO Need to add relationships to these.
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="employmenttype" class="col-form-label col-sm-2">Employment Type</label>
+                        <select class="form-control" name="employmenttype" id="employmenttype">
+                            <option value="Salary">Salary</option>
+                            <option value="Hourly">Hourly</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="position" class="col-form-label col-sm-2">Position</label>
+                        <select class="form-control" name="position" id="position">
+                            <option value="General Manager">General Manager</option>
+                            <option value="Assisstant Manger">Assistant Manager</option>
+                            <option value="Front of House">Front of House</option>
+                            <option value="House Keeping">House Keeping</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hotel" class="col-form-label col-sm-2">Hotel</label>
+                        <select class="form-control" name="hotel" id="hotel">
+                            <option value="Shard">Shard</option>
+                            <option value="The Mill">The Mill</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status" class="col-form-label col-sm-2">Status</label>
+                        <select class="form-control" name="status" id="status">
+                            <option value="Employed">Employed</option>
+                            <option value="Furloughed">Furloughed</option>
+                            <option value="Not Employed">Not Employed</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"
+                            @if (Session::has('message'))
+                            class="btn btn-success">{{Session::get('message')}}
+                        @else
+                            class="btn btn-primary">Update
+                        @endif
+                    </button>
+                </form>
             </div>
-            </form>
         </div>
     @endsection
 </x-admin-master>
+

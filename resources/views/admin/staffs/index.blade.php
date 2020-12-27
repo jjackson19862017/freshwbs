@@ -28,7 +28,7 @@
                     @foreach($staffs as $staff)
                         <tr>
                             <td>@if(auth()->user()->userHasRole('Admin'))
-                                    <a href="">{{$staff->forename}} {{$staff->surname}}</a>
+                                    <a href="{{route('staffs.edit', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
                                 @else
                                 {{$staff->forename}} {{$staff->surname}}
                                     @endif
