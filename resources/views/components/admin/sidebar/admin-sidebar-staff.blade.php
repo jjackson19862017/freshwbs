@@ -8,6 +8,7 @@
             <h6 class="collapse-header">Staff:</h6>
             <a class="collapse-item" href="{{route('staff.create')}}">Add Staff Member</a>
             <a class="collapse-item" href="{{route('staffs.index')}}">View All Staff Members</a>
+            <a class="collapse-item" href="{{route('position.index')}}">Staff Positions</a>
         </div>
     </div>
 </li>

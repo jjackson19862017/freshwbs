@@ -23,4 +23,14 @@ Route::get('/piprojects', [App\Http\Controllers\HomeController::class, 'piprojec
 Route::get('/applications', [App\Http\Controllers\HomeController::class, 'applications'])->name('applications');
 Route::get('/education', [App\Http\Controllers\HomeController::class, 'education'])->name('education');
 
+//Setup the User Roles and set the first user as admin
+Route::get('/setup', function(){
+    $user = User::find(1);
+    $admin = App\Models\Role::create(['name'=>'Admin','slug'=>'admin']);
+    $user->roles()->attach($admin);
+    $admin = App\Models\Role::create(['name'=>'Owner','slug'=>'owner']);
+    $admin = App\Models\Role::create(['name'=>'Manager','slug'=>'manager']);
+    $admin = App\Models\Role::create(['name'=>'Staff','slug'=>'staff']);
+    return view('admin.index');
+});
 

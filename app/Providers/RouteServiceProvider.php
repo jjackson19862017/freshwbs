@@ -56,6 +56,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapCustomerRoutes();
 
+        $this->mapPositionRoutes();
+
         //
     }
 
@@ -133,5 +135,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/customers.php'));
+    }
+
+    protected function mapPositionRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/positions.php'));
     }
 }

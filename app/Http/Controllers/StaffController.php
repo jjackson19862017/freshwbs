@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalLicense;
+use App\Models\Position;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 
@@ -51,7 +52,7 @@ class StaffController extends Controller
 
     // Shows the Staffs Profile
     public function edit(Staff $staff){
-        return view('admin.staffs.edit', ['staff'=>$staff]);
+        return view('admin.staffs.edit', ['staff'=>$staff], ['positions'=>Position::all()]);
     }
 
     public function update(Staff $staff, Request $request): \Illuminate\Http\RedirectResponse
