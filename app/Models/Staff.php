@@ -10,9 +10,4 @@ class Staff extends Model
     use HasFactory;
     // Allows Mass assignments.
     protected $guarded = [];
-
-    public function PersonalLicense(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne('App\Models\PersonalLicense');
-    }
 }

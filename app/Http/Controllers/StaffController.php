@@ -12,7 +12,10 @@ class StaffController extends Controller
     public function index(){
         $staffs = Staff::all(); // Returns all the information back from the Staff Table
 
-        return view('admin.staffs.index', ['staffs'=>$staffs, 'personallicenses'=>PersonalLicense::all()]);
+        $personalno = '<i class="fas fa-times"></i>';
+        $personalyes = '<i class="fas fa-check-circle"></i>';
+
+        return view('admin.staffs.index', ['staffs'=>$staffs, 'personalno'=>$personalno, 'personalyes'=>$personalyes]);
     }
 
     // Shows the Create New Staffs Page
@@ -33,14 +36,12 @@ class StaffController extends Controller
             'townCity' => ['string', 'max:255'],
             'county' => ['string', 'max:255'],
             'postCode' => ['string', 'max:255'],
+            'personallicense' => ['string', 'max:3'],
             'position' => ['string', 'max:255'],
             'hotel' => ['string', 'max:255'],
             'status' => ['string', 'max:255'],
         ]);
         $staff->create($inputs);
-        // Do they have a Personal License?
-        $yesorno = new PersonalLicense(['yesorno'=>request('personallicense')]);
-        $staff->PersonalLicense()->save($yesorno);
 
         $request->session()->flash('message', 'Staff was Created... ');
         $request->session()->flash('text-class', 'text-success');
@@ -64,6 +65,7 @@ class StaffController extends Controller
             'townCity' => ['string', 'max:255'],
             'county' => ['string', 'max:255'],
             'postCode' => ['string', 'max:255'],
+            'personallicense' => ['string', 'max:3'],
             'position' => ['string', 'max:255'],
             'hotel' => ['string', 'max:255'],
             'status' => ['string', 'max:255'],
@@ -71,7 +73,6 @@ class StaffController extends Controller
 
         $staff->update($inputs);
         // Do they have a Personal License?
-        $staff->PersonalLicense()->whereStaffId($staff->id)->update(['yesorno'=>request('personallicense')]);
         $request->session()->flash('message', 'Staff was Updated... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('staffs.index');

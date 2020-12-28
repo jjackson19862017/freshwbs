@@ -35,7 +35,12 @@
                             </td>
                             <td>{{$staff->telephone}}</td>
                             <td>{{$staff->email}}</td>
-                            <td>{{$staff->personallicense->yesorno}}</td>
+                            @if($staff->personallicense == 'no')
+                                <td class="text-danger">{!! $personalno !!}
+                                @else
+                                <td class="text-success">{!! $personalyes !!}
+                                @endif
+                                </td>
                             <td>{{$staff->employmenttype}}</td>
                             <td>{{$staff->position}}</td>
                             <td>{{$staff->hotel}}</td>

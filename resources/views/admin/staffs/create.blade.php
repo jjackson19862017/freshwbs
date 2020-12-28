@@ -106,7 +106,7 @@
                         <label for="position" class="col-form-label col-sm-2">Position</label>
                         <select class="form-control" name="position" id="position">
                             <option value="General Manager">General Manager</option>
-                            <option value="Assisstant Manger">Assistant Manager</option>
+                            <option value="Assistant Manger">Assistant Manager</option>
                             <option value="Front of House">Front of House</option>
                             <option value="House Keeping">House Keeping</option>
                         </select>
