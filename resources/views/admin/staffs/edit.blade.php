@@ -94,7 +94,7 @@
                         <label for="personallicense" class="col-form-label col-sm-2">Personal License</label>
                         <div class="col-sm-10">
                         <select class="form-control" name="personallicense" id="personallicense">
-                            @if($staff->personallicense->yesorno=='Yes')
+                            @if($staff->personallicense=='yes')
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
                             @else
