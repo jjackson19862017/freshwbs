@@ -88,4 +88,18 @@ class StaffController extends Controller
         $request->session()->flash('text-class', 'text-danger');
         return back();
     }
+
+    public function attach(Staff $staff): \Illuminate\Http\RedirectResponse
+    {
+        # Attach a role to a staff member
+        $staff->positions()->attach(request ('position'));
+        return back();
+    }
+
+    public function detach(Staff $staff): \Illuminate\Http\RedirectResponse
+    {
+        # Detach a role to a Staff Member
+        $staff->positions()->detach(request ('position'));
+        return back();
+    }
 }

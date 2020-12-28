@@ -29,6 +29,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>Name</th>
+                        <th>Slug</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -36,6 +37,7 @@
                     @foreach ($positions as $position)
                         <tr>
                             <td><a href="{{route('positions.edit', $position->id)}}">{{$position->name}}</a></td>
+                            <td>{{$position->slug}}</td>
                         <td>
                             <form action="{{route('position.destroy', $position->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
