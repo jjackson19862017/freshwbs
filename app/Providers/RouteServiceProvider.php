@@ -58,6 +58,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapPositionRoutes();
 
+        $this->mapWedEventsRoutes();
+
         //
     }
 
@@ -143,5 +145,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/positions.php'));
+    }
+
+    protected function mapWedEventsRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/wedevents.php'));
     }
 }

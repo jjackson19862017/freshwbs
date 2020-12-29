@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function(){
@@ -8,5 +10,4 @@ Route::middleware('auth')->group(function(){
     Route::get('/customers/{customer}/edit', [App\Http\Controllers\CustomerController::class, 'edit'])->name('customers.edit');
     Route::put('/customers/{customer}/update', [App\Http\Controllers\CustomerController::class, 'update'])->name('customers.update');
     Route::get('/customers/create', [App\Http\Controllers\CustomerController::class, 'create'])->name('customer.create');
-
 });

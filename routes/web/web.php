@@ -41,6 +41,7 @@ Route::get('/setup', function(){
     $position = App\Models\Position::create(['name'=>'Front of House', 'slug'=>'front-of-house']);
     $position = App\Models\Position::create(['name'=>'Housekeeper', 'slug'=>'housekeeper']);
     $position = App\Models\Position::create(['name'=>'Stock Taker', 'slug'=>'stock-taker']);
+    $position = App\Models\Position::create(['name'=>'Supervisor', 'slug'=>'supervisor']);
     return view('admin.index');
 });
 
