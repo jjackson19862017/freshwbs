@@ -26,7 +26,6 @@ class CreateStaffTable extends Migration
             $table->string('postCode')->nullable();
             $table->enum('personallicense',['Yes','No']);
             $table->enum('employmenttype',['Salary','Hourly']);
-            $table->string('position');
             $table->string('hotel');
             $table->string('status');
             $table->timestamps();

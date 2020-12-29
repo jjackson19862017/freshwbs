@@ -131,17 +131,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="position" class="col-form-label col-sm-2">Position</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="position" id="position">
-                                <option value="General Manager">General Manager</option>
-                                <option value="Assisstant Manger">Assistant Manager</option>
-                                <option value="Front of House">Front of House</option>
-                                <option value="House Keeping">House Keeping</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="hotel" class="col-form-label col-sm-2">Hotel</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="hotel" id="hotel">
@@ -180,56 +169,43 @@
                     @endif
                 </h6>
             </div>
+            <div class="col-sm-6 offset-3">
             <table class="table table-hover table-inverse">
                 <thead class="thead-dark">
                 <tr>
-                    <th>Options</th>
-                    <th>Id</th>
                     <th>Name</th>
-                    <th>Slug</th>
-                    <th>Attach</th>
-                    <th>Detach</th>
+                    <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($positions as $position)
                     <tr>
-                        <td>{{$position->id}}</td>
-                        <td class="@if ($staff->positions->contains($position))
-                            alert alert-success
-                            @else
-                            alert alert-danger
-                            @endif">
-                            {{$position->name}}</td>
                         <td>{{$position->name}}</td>
-                        <td>{{$position->slug}}</td>
-                        <td>
-                            <form action="{{route('staff.position.attach', $staff->id)}}" method="post">
-
-                                @method('PUT')
-                                @csrf
-                                <div class="form-group">
-                                    <input type="hidden" name="position" id="position" value="{{$position->id}}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Attach</button>
-                            </form>
-                        </td>
-
-                        <td>
-                            <form action="{{route('staff.position.detach', $staff->id)}}" method="post">
-                                @method('PUT')
-                                @csrf
-                                <div class="form-group">
-                                    <input type="hidden" name="position" id="position" value="{{$position->id}}">
-                                </div>
-                                <button type="submit" class="btn btn-danger">Detach</button>
-                            </form>
-                        </td>
+                        <td>@if(!$staff->positions->contains($position))
+                                <form action="{{route('staff.position.attach', $staff->id)}}" method="post">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="hidden" name="position" id="position" value="{{$position->id}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Assign Position</button>
+                                </form>
+                            @else
+                                <form action="{{route('staff.position.detach', $staff->id)}}" method="post">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="hidden" name="position" id="position" value="{{$position->id}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Unassign Position</button>
+                                </form>
+                            @endif</td>
                     </tr>
                 @endforeach
 
                 </tbody>
             </table>
+            </div>
         </div>
     @endsection
 </x-admin-master>

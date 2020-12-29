@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Role;
+use App\Models\Position;
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +34,13 @@ Route::get('/setup', function(){
     $admin = App\Models\Role::create(['name'=>'Owner','slug'=>'owner']);
     $admin = App\Models\Role::create(['name'=>'Manager','slug'=>'manager']);
     $admin = App\Models\Role::create(['name'=>'Staff','slug'=>'staff']);
+    $position = App\Models\Position::create(['name'=>'Genernal Manager', 'slug'=>'general-manager']);
+    $position = App\Models\Position::create(['name'=>'Assistant Manager', 'slug'=>'assistant-manager']);
+    $position = App\Models\Position::create(['name'=>'Restaurant Manager', 'slug'=>'restaurant-manager']);
+    $position = App\Models\Position::create(['name'=>'Head Housekeeper', 'slug'=>'head-housekeeper']);
+    $position = App\Models\Position::create(['name'=>'Front of House', 'slug'=>'front-of-house']);
+    $position = App\Models\Position::create(['name'=>'Housekeeper', 'slug'=>'housekeeper']);
+    $position = App\Models\Position::create(['name'=>'Stock Taker', 'slug'=>'stock-taker']);
     return view('admin.index');
 });
 

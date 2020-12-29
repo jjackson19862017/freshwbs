@@ -35,14 +35,16 @@
                             </td>
                             <td>{{$staff->telephone}}</td>
                             <td>{{$staff->email}}</td>
-                            @if($staff->personallicense == 'no')
-                                <td class="text-danger">{!! $personalno !!}
+                            @if($staff->personallicense == 'No')
+                                <td class="text-danger">{!! '<i class="fas fa-times"></i>' !!}
                                 @else
-                                <td class="text-success">{!! $personalyes !!}
+                                <td class="text-success">{!! '<i class="fas fa-check-circle"></i>' !!}
                                 @endif
                                 </td>
                             <td>{{$staff->employmenttype}}</td>
-                            <td>{{$staff->position}}</td>
+                            <td>@foreach ($staff->positions as $position)
+                                        {{$position->name}}
+                                @endforeach</td>
                             <td>{{$staff->hotel}}</td>
                             <td>{{$staff->status}}</td>
                             <td>

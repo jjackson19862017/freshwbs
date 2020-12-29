@@ -13,10 +13,9 @@ class StaffController extends Controller
     public function index(){
         $staffs = Staff::all(); // Returns all the information back from the Staff Table
 
-        $personalno = '<i class="fas fa-times"></i>';
-        $personalyes = '<i class="fas fa-check-circle"></i>';
 
-        return view('admin.staffs.index', ['staffs'=>$staffs, 'personalno'=>$personalno, 'personalyes'=>$personalyes]);
+
+        return view('admin.staffs.index', ['staffs'=>$staffs, 'positions'=>Position::all()]);
     }
 
     // Shows the Create New Staffs Page
