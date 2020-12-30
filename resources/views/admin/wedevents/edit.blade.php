@@ -1,113 +1,216 @@
 <x-admin-master>
 
     @section('content')
-        <h1>Update Customer</h1>
+        <h1>Edit {{$wedevent->customer->brideforename}} &amp {{$wedevent->customer->groomforename}}'s Event</h1>
 
         <div class="row">
             <div class="col-sm-6">
-                <form action="{{route('customers.update', $customer->id)}}" method="post" class="form-horizontal">
+                <form action="{{route('wedevents.update',$wedevent->id)}}" method="post" class="form-horizontal">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
-                        <label for="brideforename" class="col-form-label col-sm-2">Brides Forename</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('brideforename') is-invalid @enderror" name="brideforename" id="brideforename" aria-describedby="helpId" placeholder="Enter Forename" value="{{$customer->brideforename}}">
-                            @error('brideforename')
+                            <input type="hidden" class="form-control @error('subtotal') is-invalid @enderror"
+                                   name="customer_id" id="customer_id" aria-describedby="helpId" placeholder="Enter Subtotal" value="{{ $wedevent->customer_id }}">
+                            @error('subtotal')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="firstappointmentdate" class="col-form-label col-sm-2">First Appointment Date</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control @error('firstappointmentdate') is-invalid @enderror"
+                                   name="firstappointmentdate" id="firstappointmentdate" aria-describedby="helpId"
+                                   placeholder="Enter Appointment Date" value="{{ $wedevent->firstappointmentdate}}">
+                            @error('firstappointmentdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="bridesurname" class="col-form-label col-sm-2">Brides Surname</label>
+                        <label for="holdtilldate" class="col-form-label col-sm-2">Hold Till Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('bridesurname') is-invalid @enderror" name="bridesurname" id="bridesurname" aria-describedby="helpId" placeholder="Enter Surname" value="{{$customer->bridesurname}}">
-                            @error('bridesurname')
+                            <input type="date" class="form-control @error('holdtilldate') is-invalid @enderror"
+                                   name="holdtilldate" id="holdtilldate" aria-describedby="helpId"
+                                   placeholder="Enter Hold Till Date" value="{{ $wedevent->holdtilldate }}">
+                            @error('holdtilldate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="groomforename" class="col-form-label col-sm-2">Grooms Forename</label>
+                        <label for="contractissueddate" class="col-form-label col-sm-2">Contract Issued Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('groomforename') is-invalid @enderror" name="groomforename" id="groomforename" aria-describedby="helpId" placeholder="Enter Forename" value="{{$customer->groomforename}}">
-                            @error('groomforename')
+                            <input type="date" class="form-control @error('contractissueddate') is-invalid @enderror"
+                                   name="contractissueddate" id="contractissueddate" aria-describedby="helpId"
+                                   placeholder="Enter Contract Issued Date" value="{{ $wedevent->contractissueddate }}">
+                            @error('contractissueddate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="groomsurname" class="col-form-label col-sm-2">Grooms Surname</label>
+                        <label for="weddingdate" class="col-form-label col-sm-2">Wedding Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('groomsurname') is-invalid @enderror" name="groomsurname" id="groomsurname" aria-describedby="helpId" placeholder="Enter Surname" value="{{$customer->groomsurname}}">
-                            @error('groomsurname')
+                            <input type="date" class="form-control @error('weddingdate') is-invalid @enderror"
+                                   name="weddingdate" id="weddingdate" aria-describedby="helpId"
+                                   placeholder="Enter Wedding Date" value="{{ $wedevent->weddingdate }}">
+                            @error('weddingdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="telephone" class="col-form-label col-sm-2">Telephone</label>
+                        <label for="deposittakendate" class="col-form-label col-sm-2">Deposit Taken Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('telephone') is-invalid @enderror" name="telephone" id="telephone" aria-describedby="helpId" placeholder="Enter Telephone" value="{{$customer->telephone}}">
-                            @error('telephone')
+                            <input type="date" class="form-control @error('deposittakendate') is-invalid @enderror"
+                                   name="deposittakendate" id="deposittakendate" aria-describedby="helpId"
+                                   placeholder="Enter Deposit Taken Date" value="{{ $wedevent->deposittakendate }}">
+                            @error('deposittakendate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="email" class="col-form-label col-sm-2">Email</label>
+                        <label for="quarterpaymentdate" class="col-form-label col-sm-2">25% Payment Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="helpId" placeholder="Enter Email" value="{{$customer->email}}">
-                            @error('email')
+                            <input type="date" class="form-control @error('quarterpaymentdate') is-invalid @enderror"
+                                   name="quarterpaymentdate" id="quarterpaymentdate" aria-describedby="helpId"
+                                   placeholder="Enter 25% Payment Date" value="{{ $wedevent->quarterpaymentdate }}">
+                            @error('quarterpaymentdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address1" class="col-form-label col-sm-2">Address 1</label>
+                        <label for="finalweddingtalkdate" class="col-form-label col-sm-2">Final Talk Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('address1') is-invalid @enderror" name="address1" id="address1" aria-describedby="helpId" placeholder="Enter Address 1" value="{{$customer->address1}}">
-                            @error('address1')
+                            <input type="date" class="form-control @error('finalweddingtalkdate') is-invalid @enderror"
+                                   name="finalweddingtalkdate" id="finalweddingtalkdate" aria-describedby="helpId"
+                                   placeholder="Enter Final Talk Date" value="{{ $wedevent->finalweddingtalkdate }}">
+                            @error('finalweddingtalkdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address2" class="col-form-label col-sm-2">Address 2</label>
+                        <label for="finalpaymentdate" class="col-form-label col-sm-2">Final Payment Date</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('address2') is-invalid @enderror" name="address2" id="address2" aria-describedby="helpId" placeholder="Enter Address 2" value="{{$customer->address2}}">
-                            @error('address2')
+                            <input type="date" class="form-control @error('finalpaymentdate') is-invalid @enderror"
+                                   name="finalpaymentdate" id="finalpaymentdate" aria-describedby="helpId"
+                                   placeholder="Enter Final Payment Date" value="{{ $wedevent->finalpaymentdate }}">
+                            @error('finalpaymentdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="townCity" class="col-form-label col-sm-2">Town / City</label>
+                        <label for="onhold" class="col-form-label col-sm-2">On Hold</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('townCity') is-invalid @enderror" name="townCity" id="townCity" aria-describedby="helpId" placeholder="Enter Town/City" value="{{$customer->townCity}}">
-                            @error('townCity')
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="onhold" id="onhold1" value="Yes">
+                                <label class="form-check-label" for="onhold1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="onhold" id="onhold2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="onhold2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="contractreturned" class="col-form-label col-sm-2">Contract Returned</label>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="contractreturned" id="contractreturned1" value="Yes">
+                                <label class="form-check-label" for="contractreturned1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="contractreturned" id="contractreturned2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="contractreturned2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="agreementsigned" class="col-form-label col-sm-2">Agreement Signed</label>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="agreementsigned" id="agreementsigned1" value="Yes">
+                                <label class="form-check-label" for="agreementsigned1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="agreementsigned" id="agreementsigned2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="agreementsigned2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="deposittaken" class="col-form-label col-sm-2">Deposit Taken</label>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="deposittaken" id="deposittaken1" value="Yes">
+                                <label class="form-check-label" for="deposittaken1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="deposittaken" id="deposittaken2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="deposittaken2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="25paymenttaken" class="col-form-label col-sm-2">25% Payment Taken</label>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="25paymenttaken" id="25paymenttaken1" value="Yes">
+                                <label class="form-check-label" for="25paymenttaken1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="25paymenttaken" id="25paymenttaken2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="25paymenttaken2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="hadfinaltalk" class="col-form-label col-sm-2">Had Final Talk</label>
+                        <div class="col-sm-10">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="hadfinaltalk" id="hadfinaltalk1" value="Yes">
+                                <label class="form-check-label" for="hadfinaltalk1">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="hadfinaltalk" id="hadfinaltalk2" value="No"
+                                       checked="checked">
+                                <label class="form-check-label" for="hadfinaltalk2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cost" class="col-form-label col-sm-2">Cost</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control @error('cost') is-invalid @enderror" name="cost"
+                                   id="cost" aria-describedby="helpId" placeholder="Enter Cost" value="{{ $wedevent->cost }}">
+                            @error('cost')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="county" class="col-form-label col-sm-2">County</label>
+                        <label for="subtotal" class="col-form-label col-sm-2">Subtotal</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control @error('county') is-invalid @enderror" name="county" id="county" aria-describedby="helpId" placeholder="Enter County" value="{{$customer->county}}">
-                            @error('county')
+                            <input type="number" class="form-control @error('subtotal') is-invalid @enderror"
+                                   name="subtotal" id="subtotal" aria-describedby="helpId" placeholder="Enter Subtotal" value="{{ $wedevent->subtotal }}">
+                            @error('subtotal')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="postCode" class="col-form-label col-sm-2">Post Code</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control @error('postCode') is-invalid @enderror" name="postCode" id="postCode" aria-describedby="helpId" placeholder="Enter Post-Code" value="{{$customer->postCode}}">
-                            @error('postCode')
-                            <div class="invalid-feedback">{{$message}}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update Event</button>
                 </form>
             </div>
         </div>

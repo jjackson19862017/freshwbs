@@ -74,12 +74,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="25paymentdate" class="col-form-label col-sm-2">25% Payment Date</label>
+                        <label for="quarterpaymentdate" class="col-form-label col-sm-2">25% Payment Date</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control @error('25paymentdate') is-invalid @enderror"
-                                   name="25paymentdate" id="25paymentdate" aria-describedby="helpId"
-                                   placeholder="Enter 25% Payment Date" value="{{ old('25paymentdate') }}">
-                            @error('25paymentdate')
+                            <input type="date" class="form-control @error('quarterpaymentdate') is-invalid @enderror"
+                                   name="quarterpaymentdate" id="quarterpaymentdate" aria-describedby="helpId"
+                                   placeholder="Enter 25% Payment Date" value="{{ old('quarterpaymentdate') }}">
+                            @error('quarterpaymentdate')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>

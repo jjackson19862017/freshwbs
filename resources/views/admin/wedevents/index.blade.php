@@ -14,8 +14,7 @@
                     <thead class="thead-dark">
                     <tr>
 
-                        <th>Id</th>
-                        <th>Couple ID</th>
+                        <th>Couple</th>
                         <th>Wedding Date</th>
                         <th>Action</th>
                     </tr>
@@ -23,8 +22,16 @@
                     <tbody>
                         <tr>
                             @foreach($wedevents as $wedevent)
-                            <td>{{$wedevent->id}}</td>
-                            <td>{{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}</td>
+                                <td>
+                                    @if(auth()->user()->userHasRole('Admin'))
+                                        <a href="{{route('wedevents.edit', $wedevent)}}">
+                                            {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                        </a>
+                                @else
+                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+
+                                @endif
+                                </td>
                             <td>{{$wedevent->weddingdate}}</td>
                             <td>
                                 <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post" enctype="multipart/form-data">

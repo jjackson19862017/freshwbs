@@ -31,7 +31,7 @@ class WedEventsController extends Controller
             'contractissueddate' => ['date','after:tomorrow'],
             'weddingdate' => ['date','after:tomorrow'],
             'deposittakendate' => ['date','after:tomorrow'],
-            '25paymentdate' => ['date','after:tomorrow'],
+            'quarterpaymentdate' => ['date','after:tomorrow'],
             'finalweddingtalkdate' => ['date','after:tomorrow'],
             'finalpaymentdate' => ['date','after:tomorrow'],
             'onhold' => ['string', 'max:3'],
@@ -52,11 +52,11 @@ class WedEventsController extends Controller
     }
 
     // Shows the wedevents Profile
-    public function edit(wedevent $wedevent){
-        return view('admin.wedevents.edit', ['wedevent'=>$wedevent]);
+    public function edit(WedEvents $wedevent){
+        return view('admin.wedevents.edit', ['wedevent'=>$wedevent, 'customers'=>Customer::all()]);
     }
 
-    public function update(wedevent $wedevent, Request $request): RedirectResponse
+    public function update(WedEvents $wedevent, Request $request): RedirectResponse
     {
         $inputs = request()->validate([
             'customer_id' => ['required','numeric'],
@@ -65,7 +65,7 @@ class WedEventsController extends Controller
             'contractissueddate' => ['date','after:tomorrow'],
             'weddingdate' => ['date','after:tomorrow'],
             'deposittakendate' => ['date','after:tomorrow'],
-            '25paymentdate' => ['date','after:tomorrow'],
+            'quarterpaymentdate' => ['date','after:tomorrow'],
             'finalweddingtalkdate' => ['date','after:tomorrow'],
             'finalpaymentdate' => ['date','after:tomorrow'],
             'onhold' => ['string', 'max:3'],
@@ -77,7 +77,6 @@ class WedEventsController extends Controller
             'cost' => ['numeric'],
             'subtotal' => ['numeric'],
         ]);
-
         $wedevent->update($inputs);
         $request->session()->flash('message', 'Event was Updated... ');
         $request->session()->flash('text-class', 'text-success');
