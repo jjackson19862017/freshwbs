@@ -163,16 +163,16 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="25paymenttaken" class="col-form-label col-sm-2">25% Payment Taken</label>
+                        <label for="quarterpaymenttaken" class="col-form-label col-sm-2">25% Payment Taken</label>
                         <div class="col-sm-10">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="25paymenttaken" id="25paymenttaken1" value="Yes">
-                                <label class="form-check-label" for="25paymenttaken1">Yes</label>
+                                <input class="form-check-input" type="radio" name="quarterpaymenttaken" id="quarterpaymenttaken1" value="Yes">
+                                <label class="form-check-label" for="quarterpaymenttaken1">Yes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="25paymenttaken" id="25paymenttaken2" value="No"
+                                <input class="form-check-input" type="radio" name="quarterpaymenttaken" id="quarterpaymenttaken2" value="No"
                                        checked="checked">
-                                <label class="form-check-label" for="25paymenttaken2">No</label>
+                                <label class="form-check-label" for="quarterpaymenttaken2">No</label>
                             </div>
                         </div>
                     </div>

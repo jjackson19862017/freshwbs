@@ -15,7 +15,8 @@
                     <tr>
 
                         <th>Couple</th>
-                        <th>Wedding Date</th>
+                        <th>Dates</th>
+                        <th>Details</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -25,14 +26,33 @@
                                 <td>
                                     @if(auth()->user()->userHasRole('Admin'))
                                         <a href="{{route('wedevents.edit', $wedevent)}}">
-                                            {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                            {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
                                         </a>
                                 @else
-                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
-
+                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
                                 @endif
                                 </td>
-                            <td>{{$wedevent->weddingdate}}</td>
+                            <td>
+                                1st Appointment: {{$wedevent->firstappointmentdate}} <br>
+                                Hold Till: {{$wedevent->holdtilldate}} <br>
+                                Contract Issued: {{$wedevent->contractissueddate}} <br>
+                                Wedding Date: {{$wedevent->weddingdate}} <br>
+                                Deposit Taken: {{$wedevent->deposittakendate}} <br>
+                                25% Payment: {{$wedevent->quarterpaymentdate}} <br>
+                                Final Wedding Talk: {{$wedevent->finalweddingtalkdate}} <br>
+                                Final Payment: {{$wedevent->finalpaymentdate}} <br>
+                            </td>
+                            <td>
+                                On Hold: {{$wedevent->onhold}}<br>
+                                Contract Returned: {{$wedevent->contractreturned}}<br>
+                                Agreement Signed: {{$wedevent->agreementsigned}}<br>
+                                Deposit Taken: {{$wedevent->deposittaken}}<br>
+                                25% Payment Taken: {{$wedevent->quarterpaymenttaken}}<br>
+                                Had Final Talk: {{$wedevent->hadfinaltalk}}<br>
+                                Cost: £{{$wedevent->cost}}<br>
+                                Subtotal: £{{$wedevent->subtotal}}<br>
+
+                            </td>
                             <td>
                                 <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
