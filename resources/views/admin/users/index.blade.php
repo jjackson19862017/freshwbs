@@ -53,15 +53,22 @@
         </table>
     </div>
     <div class="col-sm-3 offset-1">
-        @if($count > 0)
-        <h4>There are currently <br>{{$count}} members of staff;</h4>
-        <ul>
-            <li>@if($admins == 0) No Admins @elseif($admins == 1){{$admins}} Admin @else {{$admins}}  Admins @endif</li>
-            <li>@if($owners == 0) No Owners @elseif($owners == 1){{$owners}} Owner @else {{$owners}} Owners @endif</li>
-            <li>@if($managers == 0) No Mangers @elseif($managers == 1){{$managers}} Manager @else {{$managers}}  Managers @endif</li>
-            <li>@if($staffs == 0) No Members of Staff @elseif($staffs == 1){{$staffs}} Staff Member @else {{$staffs}} Staff Members @endif</li>
-        </ul>
-        @endif
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Users
+            </div>
+            <div class="card-body">
+                @if($count > 0)
+                <h5 class="card-title">There are currently {{$count}} users.</h5>
+                <p class="card-text">@if($admins == 0) No Admins @elseif($admins == 1){{$admins}} Admin @else {{$admins}}  Admins @endif <br>
+                @if($owners == 0) No Owners @elseif($owners == 1){{$owners}} Owner @else {{$owners}} Owners @endif <br>
+                @if($managers == 0) No Mangers @elseif($managers == 1){{$managers}} Manager @else {{$managers}}  Managers @endif <br>
+                @if($staffs == 0) No Members of Staff @elseif($staffs == 1){{$staffs}} Staff Member @else {{$staffs}} Staff Members @endif</p>
+                @else
+                    <h5 class="card-title">There are currently no users.</h5>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
     @endsection

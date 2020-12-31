@@ -1,7 +1,7 @@
 <x-admin-master>
     @section('content')
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
                 {{Session::get('text-class')}}
                 @endif">
@@ -10,13 +10,13 @@
                     @endif
                 </h6>
 
-                <table class="table table-hover table-inverse">
+                <table class="table table-hover table-inverse ">
                     <thead class="thead-dark">
                     <tr>
-
                         <th>Couple</th>
                         <th>Telephone</th>
                         <th>Email</th>
+                        <th>Booked Event?</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -33,6 +33,16 @@
                                 </td>
                             <td>{{$customer->telephone}}</td>
                             <td>{{$customer->email}}</td>
+                            <td>
+                                @foreach($booked as $b)
+                                @if($b->customer->id == $customer->id)
+                                    Yes
+                                @else
+                                    No
+                                @endif
+                                @endforeach
+                            </td>
+
                             <td>
                                 <form action="{{route('customer.destroy', $customer->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf

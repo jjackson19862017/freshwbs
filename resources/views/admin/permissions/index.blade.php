@@ -3,28 +3,36 @@
         <h1 class="h3 mb-4 text-gray-800">Permissions</h1>
 
         <div class="row">
-            <div class="col-sm-3">
-                <form action="{{route('permission.store')}}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Name of Permission">
-                        @error('name')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        Add New Permission
                     </div>
+                    <div class="card-body">
+                        <form action="{{route('permission.store')}}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Name of Permission">
+                                @error('name')
+                                <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
+                            </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-7 offset-1">
                         <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
                         {{Session::get('text-class')}}@endif">
                             @if (Session::has('message'))
                                 {{Session::get('message')}}
                             @endif
                         </h6>
-                <table class="table table-hover table-inverse table-responsive">
+                <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
                                 <tr>
                                     <th>Name</th>

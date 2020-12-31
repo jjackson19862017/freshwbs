@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\WedEvents;
 use Illuminate\Http\Request;
+
 
 class CustomerController extends Controller
 {
     // Shows the All the customer Members
     public function index(){
         $customers = Customer::all(); // Returns all the information back from the customer Table
-        return view('admin.customers.index', ['customers'=>$customers]);
+        $wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $booked = Wedevents::has('customer')->get();
+        return view('admin.customers.index', ['customers'=>$customers, 'wedevents'=>$wedevents, 'booked'=>$booked]);
     }
 
     // Shows the Create New customers Page

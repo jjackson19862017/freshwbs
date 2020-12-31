@@ -2,30 +2,35 @@
     @section('content')
         <div class="row">
             <div class="col-sm-4">
-                <form action="{{route('position.store')}}" method="post">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Name of position">
-                        @error('name')
-                        <div class="invalid-feedback">{{$message}}</div>
-                        @enderror
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        Add New Position
                     </div>
+                    <div class="card-body">
+                        <form action="{{route('position.store')}}" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Name of position">
+                                @error('name')
+                                <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <h6 class="m-0 font-weight-bold text-success">
+                                @if (Session::has('message'))
+                                    {{Session::get('message')}}
+                                @endif
+                            </h6>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <hr>
-                    <h6 class="m-0 font-weight-bold text-success">
-                        @if (Session::has('message'))
-                            {{Session::get('message')}}
-                        @endif
-                    </h6>
+                            <button type="submit" class="btn btn-primary float-right">Submit</button>
 
+                        </form>
+                    </div>
+                </div>
 
-
-                </form>
             </div>
             <div class="col-sm-7 offset-1">
-                <table class="table table-hover table-inverse table-responsive">
+                <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
                     <tr>
                         <th>Name</th>

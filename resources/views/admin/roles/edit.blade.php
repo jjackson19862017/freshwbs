@@ -2,9 +2,13 @@
 <x-admin-master>
     @section('content')
         <h1 class="h3 mb-4 text-gray-800">Edit Role: {{$role->name}}</h1>
-
         <div class="row">
             <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                Edit Role ...
+            </div>
+            <div class="card-body">
                 <form action="{{route('roles.update', $role->id)}}" method="post">
                     @csrf
                     @method('PUT')
@@ -17,9 +21,13 @@
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary float-right">Update</button>
             </div>
             </form>
+            </div>
+        </div>
+
+
         </div>
 
         @if (!$permissions->isEmpty())

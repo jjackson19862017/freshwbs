@@ -1,7 +1,7 @@
 <x-admin-master>
     @section('content')
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
                 {{Session::get('text-class')}}
                 @endif">
