@@ -15,23 +15,46 @@
                     <tr>
 
                         <th>Couple</th>
+                        <th>Status</th>
                         <th>Dates</th>
                         <th>Details</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            @foreach($wedevents as $wedevent)
-                                <td>
-                                    @if(auth()->user()->userHasRole('Admin'))
-                                        <a href="{{route('wedevents.edit', $wedevent)}}">
-                                            {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
-                                        </a>
+                    <tr>
+                        @foreach($wedevents as $wedevent)
+                            <td>
+                                @if(auth()->user()->userHasRole('Admin'))
+                                    <a href="{{route('wedevents.edit', $wedevent)}}">
+                                        {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
+                                        &amp
+                                        <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                    </a>
                                 @else
-                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp
+                                    <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
                                 @endif
-                                </td>
+                            </td>
+                            <td>
+                                @if($wedevent->hadfinaltalk == "Yes")
+                                    X Amount of days till the wedding.
+                                    @elseif($wedevent->quarterpaymenttaken == "Yes")
+                                        X Amount of days till the Final Talk
+                                        @elseif($wedevent->deposittaken == "Yes")
+                                            X Amount of days till 25% Payment Date
+                                            @elseif($wedevent->agreementsigned == "Yes")
+                                                Agreement Signed
+                                                @elseif($wedevent->contractsigned == "Yes")
+                                                    Contract Signed
+                                                    @elseif($wedevent->onhold == "Yes")
+                                                        Have they signed the contract?
+                                                    @else
+                                    Check Hold
+                                                    @endif
+
+
+                            </td>
                             <td>
                                 1st Appointment: {{$wedevent->firstappointmentdate}} <br>
                                 Hold Till: {{$wedevent->holdtilldate}} <br>
@@ -54,15 +77,18 @@
 
                             </td>
                             <td>
-                                <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post" enctype="multipart/form-data">
+                                <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post"
+                                      enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-user-times"></i> Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                            class="fas fa-user-times"></i> Delete
+                                    </button>
                                 </form>
 
                             </td>
-                                @endforeach
-                        </tr>
+                        @endforeach
+                    </tr>
                     </tbody>
                 </table>
             </div>

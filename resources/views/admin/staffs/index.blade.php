@@ -70,7 +70,7 @@
                             Legend
                         </div>
                         <div class="card-body">
-                            <table class="table table-hover table-inverse table-sm">
+                            <table class="table table-hover table-inverse table-sm ">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th>Position</th>

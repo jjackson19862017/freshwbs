@@ -2,7 +2,6 @@
 
     @section('content')
         <h1>Edit Event</h1>
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -17,9 +16,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group row">
                                         <div class="col-sm-9">
-                                            <input type="hidden" class="form-control @error('subtotal') is-invalid @enderror"
+                                            <input type="hidden" class="form-control @error('customer_id') is-invalid @enderror"
                                                    name="customer_id" id="customer_id" aria-describedby="helpId" placeholder="Enter Subtotal" value="{{ $wedevent->customer_id }}">
-                                            @error('subtotal')
+                                            @error('customer_id')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
                                         </div>
@@ -118,12 +117,12 @@
                                         <label for="onhold" class="col-form-label col-sm-4">On Hold</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="onhold" id="onhold1" value="Yes">
+                                                <input class="form-check-input" type="radio" name="onhold" id="onhold1" value="Yes" @if($wedevent->onhold == "Yes")checked="checked"@endif>
                                                 <label class="form-check-label" for="onhold1">Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="onhold" id="onhold2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->onhold == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="onhold2">No</label>
                                             </div>
                                         </div>
@@ -132,12 +131,12 @@
                                         <label for="contractreturned" class="col-form-label col-sm-4">Contract Returned</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="contractreturned" id="contractreturned1" value="Yes">
-                                                <label class="form-check-label" for="contractreturned1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="contractreturned" id="contractreturned1" value="Yes" @if($wedevent->contractreturned == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="contractreturned1" >Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="contractreturned" id="contractreturned2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->contractreturned == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="contractreturned2">No</label>
                                             </div>
                                         </div>
@@ -146,12 +145,12 @@
                                         <label for="agreementsigned" class="col-form-label col-sm-4">Agreement Signed</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="agreementsigned" id="agreementsigned1" value="Yes">
-                                                <label class="form-check-label" for="agreementsigned1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="agreementsigned" id="agreementsigned1" value="Yes" @if($wedevent->agreementsigned == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="agreementsigned1" >Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="agreementsigned" id="agreementsigned2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->agreementsigned == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="agreementsigned2">No</label>
                                             </div>
                                         </div>
@@ -160,12 +159,12 @@
                                         <label for="deposittaken" class="col-form-label col-sm-4">Deposit Taken</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="deposittaken" id="deposittaken1" value="Yes">
-                                                <label class="form-check-label" for="deposittaken1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="deposittaken" id="deposittaken1" value="Yes" @if($wedevent->deposittaken == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="deposittaken1" >Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="deposittaken" id="deposittaken2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->deposittaken == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="deposittaken2">No</label>
                                             </div>
                                         </div>
@@ -174,12 +173,12 @@
                                         <label for="quarterpaymenttaken" class="col-form-label col-sm-4">25% Payment Taken</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="quarterpaymenttaken" id="quarterpaymenttaken1" value="Yes">
-                                                <label class="form-check-label" for="quarterpaymenttaken1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="quarterpaymenttaken" id="quarterpaymenttaken1" value="Yes" @if($wedevent->quarterpaymenttaken == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="quarterpaymenttaken1" >Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="quarterpaymenttaken" id="quarterpaymenttaken2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->quarterpaymenttaken == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="quarterpaymenttaken2">No</label>
                                             </div>
                                         </div>
@@ -188,12 +187,12 @@
                                         <label for="hadfinaltalk" class="col-form-label col-sm-4">Had Final Talk</label>
                                         <div class="col-sm-8">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="hadfinaltalk" id="hadfinaltalk1" value="Yes">
-                                                <label class="form-check-label" for="hadfinaltalk1">Yes</label>
+                                                <input class="form-check-input" type="radio" name="hadfinaltalk" id="hadfinaltalk1" value="Yes" @if($wedevent->hadfinaltalk == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="hadfinaltalk1" >Yes</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="hadfinaltalk" id="hadfinaltalk2" value="No"
-                                                       checked="checked">
+                                                       @if($wedevent->hadfinaltalk == "No")checked="checked"@endif>
                                                 <label class="form-check-label" for="hadfinaltalk2">No</label>
                                             </div>
                                         </div>

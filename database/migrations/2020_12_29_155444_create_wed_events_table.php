@@ -28,7 +28,7 @@ class CreateWedEventsTable extends Migration
             $table->enum('contractreturned',['Yes','No'])->default('No');
             $table->enum('agreementsigned',['Yes','No'])->default('No');
             $table->enum('deposittaken',['Yes','No'])->default('No');
-            $table->enum('25paymenttaken',['Yes','No'])->default('No');
+            $table->enum('quarterpaymenttaken',['Yes','No'])->default('No');
             $table->enum('hadfinaltalk',['Yes','No'])->default('No');
             $table->decimal('cost', $precision = 8, $scale = 2)->nullable();
             $table->decimal('subtotal', $precision = 8, $scale = 2)->nullable();
