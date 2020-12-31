@@ -10,7 +10,7 @@
             @endif
         </h6>
 
-        <table class="table table-hover table-inverse table-responsive">
+        <table class="table table-hover table-inverse">
             <thead class="thead-dark">
             <tr>
                 <th>Role</th>

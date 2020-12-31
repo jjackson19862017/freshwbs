@@ -16,6 +16,13 @@
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="icon">Icon</label>
+                                <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon" id="icon" aria-describedby="helpId" placeholder="Icon String">
+                                @error('name')
+                                <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
+                            </div>
                             <h6 class="m-0 font-weight-bold text-success">
                                 @if (Session::has('message'))
                                     {{Session::get('message')}}
@@ -35,6 +42,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Slug</th>
+                        <th>Icon</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -43,6 +51,7 @@
                         <tr>
                             <td><a href="{{route('positions.edit', $position->id)}}">{{$position->name}}</a></td>
                             <td>{{$position->slug}}</td>
+                            <td class="h3">{!!$position->icon!!}</td>
                         <td>
                             <form action="{{route('position.destroy', $position->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf

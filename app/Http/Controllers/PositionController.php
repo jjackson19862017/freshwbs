@@ -24,7 +24,8 @@ class PositionController extends Controller
 
         position::create([
             'name'=> Str::ucfirst(request('name')),
-            'slug'=> Str::of(Str::lower(request('name')))->slug('-')
+            'slug'=> Str::of(Str::lower(request('name')))->slug('-'),
+            'icon'=> request('icon')
         ]);
 
         $request->session()->flash('message', 'Position was created...');
@@ -44,6 +45,8 @@ class PositionController extends Controller
     {
         $position->name = Str::ucfirst(request('name'));
         $position->slug = Str::of(request('name'))->slug('-');
+        $position->icon = request('icon');
+
 
         if($position->isDirty('name')){ // info If something has changed in the form.
             $request->session()->flash('message', 'position: ' . $position->name . ' was Updated...');

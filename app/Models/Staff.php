@@ -17,4 +17,13 @@ class Staff extends Model
         return $this->belongsToMany('App\Models\Position');
     }
 
+    public function getPersonallicenseAttribute($value)
+    {
+        if($value == "Yes") {
+            $value = "check";
+        } else {
+            $value = "times";
+        }
+        return $value;
+    }
 }

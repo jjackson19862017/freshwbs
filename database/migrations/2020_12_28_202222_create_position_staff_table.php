@@ -17,6 +17,7 @@ class CreatePositionStaffTable extends Migration
             $table->id();
             $table->integer('staff_id')->unsigned()->nullable()->index();
             $table->integer('position_id')->unsigned()->nullable()->index();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

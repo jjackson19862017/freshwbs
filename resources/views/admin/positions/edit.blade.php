@@ -1,7 +1,7 @@
 @@ -0,0 +1,21 @@
 <x-admin-master>
     @section('content')
-        <h1 class="h3 mb-4 text-gray-800">Edit Position: {{$position->name}}</h1>
+        <h1 class="h3 mb-4 text-gray-800">Edit Position: {{$position->name}} {!! $position->icon !!}</h1>
 
         <div class="row">
             <div class="col-sm-6">
@@ -18,6 +18,14 @@
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                        id="name" aria-describedby="helpId" value="{{$position->name}}">
+                                @error('name')
+                                <div class="invalid-feedback">{{$message}}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="icon">Icon</label>
+                                <input type="text" class="form-control @error('icon') is-invalid @enderror" name="icon"
+                                       id="icon" aria-describedby="helpId" value="{{$position->icon}}">
                                 @error('name')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
