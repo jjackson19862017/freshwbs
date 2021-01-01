@@ -37,23 +37,31 @@
                                 @endif
                             </td>
                             <td>
-                                @if($wedevent->hadfinaltalk == "Yes")
-                                    X Amount of days till the wedding.
-                                    @elseif($wedevent->quarterpaymenttaken == "Yes")
-                                        X Amount of days till the Final Talk
-                                        @elseif($wedevent->deposittaken == "Yes")
-                                            X Amount of days till 25% Payment Date
-                                            @elseif($wedevent->agreementsigned == "Yes")
-                                                Agreement Signed
-                                                @elseif($wedevent->contractsigned == "Yes")
-                                                    Contract Signed
-                                                    @elseif($wedevent->onhold == "Yes")
-                                                        Have they signed the contract?
-                                                    @else
+                                @if($wedevent->onhold== "No")
                                     Check Hold
+                                    @else
+                                    @if($wedevent->contractreturned == "No")
+                                        Have they signed the contract?
+                                    @else
+                                        @if($wedevent->agreementsigned == "No")
+                                            Have they signed the agreement?
+                                        @else
+                                            @if($wedevent->deposittaken =="No")
+                                                Have they paid their deposit?
+                                            @else
+                                                @if($wedevent->quarterpaymenttaken == "No")
+                                                    Have they paid there 25% costs?
+                                                @else
+                                                    @if($wedevent->hadfinaltalk == "No")
+                                                        Have they had there final talk?
+                                                    @else
+                                                        No Tasks
                                                     @endif
-
-
+                                                @endif
+                                            @endif
+                                        @endif
+                                    @endif
+                                @endif
                             </td>
                             <td>
                                 1st Appointment: {{$wedevent->firstappointmentdate}} <br>
