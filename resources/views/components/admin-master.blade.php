@@ -35,12 +35,10 @@
         <!-- Main Content -->
         <div id="content">
 
-            <!-- Topbar -->
-            <x-admin.top-nav.admin-top-nav></x-admin.top-nav.admin-top-nav>
-            <!-- End of Topbar -->
+
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid mt-3">
 
                 @yield('content')
 
