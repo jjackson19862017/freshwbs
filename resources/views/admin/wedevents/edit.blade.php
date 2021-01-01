@@ -218,6 +218,20 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="completed" class="col-form-label col-sm-4">Completed</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="completed" id="completed1" value="Yes" @if($wedevent->completed == "Yes")checked="checked"@endif>
+                                                <label class="form-check-label" for="completed1" >Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="completed" id="completed2" value="No"
+                                                       @if($wedevent->completed == "No")checked="checked"@endif>
+                                                <label class="form-check-label" for="completed2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <button type="submit" class="btn btn-primary float-right">Update Event</button>
                         </form>
                     </div>
