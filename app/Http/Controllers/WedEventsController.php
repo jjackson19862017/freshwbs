@@ -44,6 +44,8 @@ class WedEventsController extends Controller
             'hadfinaltalk' => ['string', 'max:3'],
             'cost' => ['numeric'],
             'subtotal' => ['numeric'],
+            'completed' => ['string', 'max:3'],
+
         ]);
         //dd($inputs);
 
@@ -61,7 +63,6 @@ class WedEventsController extends Controller
 
     // Shows the Users Profile
     public function show(WedEvents $wedevent){
-
         return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
     }
 
@@ -85,6 +86,8 @@ class WedEventsController extends Controller
             'hadfinaltalk' => ['string', 'max:3'],
             'cost' => ['numeric'],
             'subtotal' => ['numeric'],
+            'completed' => ['string', 'max:3'],
+
         ]);
         $wedevent->update($inputs);
         $request->session()->flash('message', 'Event was Updated... ');
@@ -97,5 +100,82 @@ class WedEventsController extends Controller
         $request->session()->flash('message', 'Event was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
         return back();
+    }
+
+    public function updateOnHold(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->onhold == "No"){
+            $wedevent->onhold = "Yes";
+        } else {
+            $wedevent->onhold = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateContractReturned(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->contractreturned == "No"){
+            $wedevent->contractreturned = "Yes";
+        } else {
+            $wedevent->contractreturned = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateAgreementSigned(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->agreementsigned == "No"){
+            $wedevent->agreementsigned = "Yes";
+        } else {
+            $wedevent->agreementsigned = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateDepositTaken(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->deposittaken == "No"){
+            $wedevent->deposittaken = "Yes";
+        } else {
+            $wedevent->deposittaken = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateQuarterPaymentTaken(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->quarterpaymenttaken == "No"){
+            $wedevent->quarterpaymenttaken = "Yes";
+        } else {
+            $wedevent->quarterpaymenttaken = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateHadFinalTalk(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->hadfinaltalk == "No"){
+            $wedevent->hadfinaltalk = "Yes";
+        } else {
+            $wedevent->hadfinaltalk = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    public function updateComplete(Request $request, WedEvents $wedevent){
+        $wedevent = WedEvents::find($wedevent)->first();
+        if($wedevent->completed == "No"){
+            $wedevent->completed = "Yes";
+        } else {
+            $wedevent->completed = "No";
+        }
+        $wedevent->save();
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
     }
 }

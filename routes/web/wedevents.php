@@ -12,4 +12,12 @@ Route::middleware('auth')->group(function(){
     Route::get('/wedevents/create', [App\Http\Controllers\WedEventsController::class, 'create'])->name('wedevent.create');
     Route::get('/wedevents/{wedevent}/profile', [App\Http\Controllers\WedEventsController::class, 'show'])->name('wedevent.profile.show');
 
+    Route::get('/wedevents/update/{wedevent}/OnHold', [App\Http\Controllers\WedEventsController::class, 'updateOnHold'])->name('wedevent.OnHold');
+    Route::get('/wedevents/update/{wedevent}/ContractReturned', [App\Http\Controllers\WedEventsController::class, 'updateContractReturned'])->name('wedevent.ContractReturned');
+    Route::get('/wedevents/update/{wedevent}/AgreementSigned', [App\Http\Controllers\WedEventsController::class, 'updateAgreementSigned'])->name('wedevent.AgreementSigned');
+    Route::get('/wedevents/update/{wedevent}/DepositTaken', [App\Http\Controllers\WedEventsController::class, 'updateDepositTaken'])->name('wedevent.DepositTaken');
+    Route::get('/wedevents/update/{wedevent}/QuarterPaymentTaken', [App\Http\Controllers\WedEventsController::class, 'updateQuarterPaymentTaken'])->name('wedevent.QuarterPaymentTaken');
+    Route::get('/wedevents/update/{wedevent}/HadFinalTalk', [App\Http\Controllers\WedEventsController::class, 'updateHadFinalTalk'])->name('wedevent.HadFinalTalk');
+    Route::get('/wedevents/update/{wedevent}/Complete', [App\Http\Controllers\WedEventsController::class, 'updateComplete'])->name('wedevent.Complete');
+
 });
