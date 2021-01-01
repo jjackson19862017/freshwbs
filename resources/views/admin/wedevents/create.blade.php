@@ -19,9 +19,12 @@
                                         <div class="col-sm-9">
                                             <select class="form-control" name="customer_id" id="customer_id">
                                                 @foreach($customers as $customer)
+                                                    @if(!isset($customer->wedevent))
                                                     <option
                                                         value="{{$customer->id}}">{{$customer->brideforename}} {{$customer->bridesurname}}
-                                                        &amp {{$customer->groomforename}} {{$customer->groomsurname}}</option>
+                                                        &amp {{$customer->groomforename}} {{$customer->groomsurname}}
+                                                    </option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>

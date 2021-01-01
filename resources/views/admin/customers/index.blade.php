@@ -36,10 +36,11 @@
                             <td>
                                 @foreach($booked as $b)
                                 @if($b->customer->id == $customer->id)
-                                    Yes
-                                @else
-                                    No
-                                @endif
+                                        <a name="" id="" class="btn btn-success" href="{{route('wedevent.profile.show', $b)}}" role="button">Goto Event</a>
+                                    @else
+                                        <a name="" id="" class="btn btn-primary" href="{{route('wedevent.create')}}" role="button">Create Event</a>
+
+                                    @endif
                                 @endforeach
                             </td>
 
