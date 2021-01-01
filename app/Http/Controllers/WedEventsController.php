@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\WedEvents;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WedEventsController extends Controller
 {
@@ -51,9 +53,16 @@ class WedEventsController extends Controller
         return redirect()->route('wedevents.index');
     }
 
-    // Shows the wedevents Profile
+    // Shows the wedevents Edit Page
     public function edit(WedEvents $wedevent){
-        return view('admin.wedevents.edit', ['wedevent'=>$wedevent, 'customers'=>Customer::all()]);
+
+        return view('admin.wedevents.edit', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+    }
+
+    // Shows the Users Profile
+    public function show(WedEvents $wedevent){
+
+        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse
@@ -80,7 +89,7 @@ class WedEventsController extends Controller
         $wedevent->update($inputs);
         $request->session()->flash('message', 'Event was Updated... ');
         $request->session()->flash('text-class', 'text-success');
-        return redirect()->route('wedevents.index');
+        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
     }
 
     public function destroy(Request $request, WedEvents $wedevent){

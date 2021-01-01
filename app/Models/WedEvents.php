@@ -19,5 +19,37 @@ class WedEvents extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function getholdtilldateAttribute($date)
+    {
+            return Carbon::parse($date);
+    }
+    public function getfirstappointmentdateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getcontractissueddateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getweddingdateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getdeposittakendateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getquarterpaymentdateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getfinalweddingtalkdateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
+    public function getfinalpaymentdateAttribute($date)
+    {
+        return Carbon::parse($date);
+    }
 
 }

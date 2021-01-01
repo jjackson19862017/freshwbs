@@ -28,7 +28,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('firstappointmentdate') is-invalid @enderror"
                                                    name="firstappointmentdate" id="firstappointmentdate" aria-describedby="helpId"
-                                                   placeholder="Enter Appointment Date" value="{{ $wedevent->firstappointmentdate}}">
+                                                   placeholder="Enter Appointment Date" value="{{ $wedevent->firstappointmentdate->toDateString()}}">
                                             @error('firstappointmentdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -39,7 +39,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('holdtilldate') is-invalid @enderror"
                                                    name="holdtilldate" id="holdtilldate" aria-describedby="helpId"
-                                                   placeholder="Enter Hold Till Date" value="{{ $wedevent->holdtilldate }}">
+                                                   placeholder="Enter Hold Till Date" value="{{ $wedevent->holdtilldate->toDateString() }}">
                                             @error('holdtilldate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -50,7 +50,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('contractissueddate') is-invalid @enderror"
                                                    name="contractissueddate" id="contractissueddate" aria-describedby="helpId"
-                                                   placeholder="Enter Contract Issued Date" value="{{ $wedevent->contractissueddate }}">
+                                                   placeholder="Enter Contract Issued Date" value="{{ $wedevent->contractissueddate->toDateString() }}">
                                             @error('contractissueddate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -61,7 +61,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('weddingdate') is-invalid @enderror"
                                                    name="weddingdate" id="weddingdate" aria-describedby="helpId"
-                                                   placeholder="Enter Wedding Date" value="{{ $wedevent->weddingdate }}">
+                                                   placeholder="Enter Wedding Date" value="{{ $wedevent->weddingdate->toDateString() }}">
                                             @error('weddingdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -72,7 +72,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('deposittakendate') is-invalid @enderror"
                                                    name="deposittakendate" id="deposittakendate" aria-describedby="helpId"
-                                                   placeholder="Enter Deposit Taken Date" value="{{ $wedevent->deposittakendate }}">
+                                                   placeholder="Enter Deposit Taken Date" value="{{ $wedevent->deposittakendate->toDateString() }}">
                                             @error('deposittakendate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -83,7 +83,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('quarterpaymentdate') is-invalid @enderror"
                                                    name="quarterpaymentdate" id="quarterpaymentdate" aria-describedby="helpId"
-                                                   placeholder="Enter 25% Payment Date" value="{{ $wedevent->quarterpaymentdate }}">
+                                                   placeholder="Enter 25% Payment Date" value="{{ $wedevent->quarterpaymentdate->toDateString() }}">
                                             @error('quarterpaymentdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -94,7 +94,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('finalweddingtalkdate') is-invalid @enderror"
                                                    name="finalweddingtalkdate" id="finalweddingtalkdate" aria-describedby="helpId"
-                                                   placeholder="Enter Final Talk Date" value="{{ $wedevent->finalweddingtalkdate }}">
+                                                   placeholder="Enter Final Talk Date" value="{{ $wedevent->finalweddingtalkdate->toDateString() }}">
                                             @error('finalweddingtalkdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
@@ -105,7 +105,7 @@
                                         <div class="col-sm-9">
                                             <input type="date" class="form-control @error('finalpaymentdate') is-invalid @enderror"
                                                    name="finalpaymentdate" id="finalpaymentdate" aria-describedby="helpId"
-                                                   placeholder="Enter Final Payment Date" value="{{ $wedevent->finalpaymentdate }}">
+                                                   placeholder="Enter Final Payment Date" value="{{ $wedevent->finalpaymentdate->toDateString() }}">
                                             @error('finalpaymentdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror

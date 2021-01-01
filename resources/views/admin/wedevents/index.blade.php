@@ -26,7 +26,7 @@
                         @foreach($wedevents as $wedevent)
                             <td>
                                 @if(auth()->user()->userHasRole('Admin'))
-                                    <a href="{{route('wedevents.edit', $wedevent)}}">
+                                    <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
                                         &amp
                                         <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}

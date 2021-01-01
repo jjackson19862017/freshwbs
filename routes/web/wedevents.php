@@ -10,4 +10,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/wedevents/{wedevent}/edit', [App\Http\Controllers\WedEventsController::class, 'edit'])->name('wedevents.edit');
     Route::put('/wedevents/{wedevent}/update', [App\Http\Controllers\WedEventsController::class, 'update'])->name('wedevents.update');
     Route::get('/wedevents/create', [App\Http\Controllers\WedEventsController::class, 'create'])->name('wedevent.create');
+    Route::get('/wedevents/{wedevent}/profile', [App\Http\Controllers\WedEventsController::class, 'show'])->name('wedevent.profile.show');
+
 });
