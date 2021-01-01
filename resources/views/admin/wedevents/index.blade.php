@@ -16,8 +16,6 @@
 
                         <th>Couple</th>
                         <th>Status</th>
-                        <th>Dates</th>
-                        <th>Details</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -29,11 +27,15 @@
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
                                         &amp
-                                        <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                         {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                        <hr>
+                                        Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                     </a>
                                 @else
                                     {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp
-                                    <br> {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                     {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                    <hr>
+                                    Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                 @endif
                             </td>
                             <td>
@@ -62,26 +64,69 @@
                                         @endif
                                     @endif
                                 @endif
-                            </td>
-                            <td>
-                                1st Appointment: {{$wedevent->firstappointmentdate}} <br>
-                                Hold Till: {{$wedevent->holdtilldate}} <br>
-                                Contract Issued: {{$wedevent->contractissueddate}} <br>
-                                Wedding Date: {{$wedevent->weddingdate}} <br>
-                                Deposit Taken: {{$wedevent->deposittakendate}} <br>
-                                25% Payment: {{$wedevent->quarterpaymentdate}} <br>
-                                Final Wedding Talk: {{$wedevent->finalweddingtalkdate}} <br>
-                                Final Payment: {{$wedevent->finalpaymentdate}} <br>
-                            </td>
-                            <td>
-                                On Hold: {{$wedevent->onhold}}<br>
-                                Contract Returned: {{$wedevent->contractreturned}}<br>
-                                Agreement Signed: {{$wedevent->agreementsigned}}<br>
-                                Deposit Taken: {{$wedevent->deposittaken}}<br>
-                                25% Payment Taken: {{$wedevent->quarterpaymenttaken}}<br>
-                                Had Final Talk: {{$wedevent->hadfinaltalk}}<br>
-                                Cost: £{{$wedevent->cost}}<br>
-                                Subtotal: £{{$wedevent->subtotal}}<br>
+                            <hr>
+                                <!-- On Hold Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
+                                   @if($wedevent->onhold == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >On Hold</a>
+
+                                <!-- Contract Returned Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.ContractReturned',$wedevent)}}"
+                                   @if($wedevent->contractreturned == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >Contract</a>
+
+                                <!-- Agreement Signed Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.AgreementSigned',$wedevent)}}"
+                                   @if($wedevent->agreementsigned == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >Agreement</a>
+
+                                <!-- Deposit Taken Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.DepositTaken',$wedevent)}}"
+                                   @if($wedevent->deposittaken == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >Deposit</a>
+
+                                <!-- 25% Payment Taken Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.QuarterPaymentTaken',$wedevent)}}"
+                                   @if($wedevent->quarterpaymenttaken == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >25% Payment</a>
+
+                                <!-- Had Final Talk Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.HadFinalTalk',$wedevent)}}"
+                                   @if($wedevent->hadfinaltalk == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >Final Talk</a>
+
+                                <!-- On Hold Button Yes / No -->
+                                <a type="button" href="{{route('wedevent.Complete',$wedevent)}}"
+                                   @if($wedevent->completed == "No")
+                                   class="btn btn-sm btn-danger  mb-1"
+                                   @else
+                                   class="btn btn-sm btn-success  mb-1"
+                                    @endif
+                                >Completed</a>
 
                             </td>
                             <td>

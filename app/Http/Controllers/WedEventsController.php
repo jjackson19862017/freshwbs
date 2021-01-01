@@ -110,7 +110,7 @@ class WedEventsController extends Controller
             $wedevent->onhold = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateContractReturned(Request $request, WedEvents $wedevent){
@@ -121,7 +121,7 @@ class WedEventsController extends Controller
             $wedevent->contractreturned = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateAgreementSigned(Request $request, WedEvents $wedevent){
@@ -132,7 +132,7 @@ class WedEventsController extends Controller
             $wedevent->agreementsigned = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateDepositTaken(Request $request, WedEvents $wedevent){
@@ -143,7 +143,7 @@ class WedEventsController extends Controller
             $wedevent->deposittaken = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateQuarterPaymentTaken(Request $request, WedEvents $wedevent){
@@ -154,7 +154,7 @@ class WedEventsController extends Controller
             $wedevent->quarterpaymenttaken = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateHadFinalTalk(Request $request, WedEvents $wedevent){
@@ -165,7 +165,7 @@ class WedEventsController extends Controller
             $wedevent->hadfinaltalk = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 
     public function updateComplete(Request $request, WedEvents $wedevent){
@@ -176,6 +176,6 @@ class WedEventsController extends Controller
             $wedevent->completed = "No";
         }
         $wedevent->save();
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return back();
     }
 }

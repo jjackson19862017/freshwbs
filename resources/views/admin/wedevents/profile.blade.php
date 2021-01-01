@@ -116,14 +116,14 @@
                                     Final Payment: <br>
                                 </td>
                                 <td>
-                                    {{$wedevent->firstappointmentdate->format('d-m-Y')}}<br>
-                                    {{$wedevent->holdtilldate->format('d-m-Y')}} <br>
-                                    {{$wedevent->contractissueddate->format('d-m-Y')}} <br>
-                                    {{$wedevent->weddingdate->format('d-m-Y')}} <br>
-                                    {{$wedevent->deposittakendate->format('d-m-Y')}} <br>
-                                    {{$wedevent->quarterpaymentdate->format('d-m-Y')}} <br>
-                                    {{$wedevent->finalweddingtalkdate->format('d-m-Y')}} <br>
-                                    {{$wedevent->finalpaymentdate->format('d-m-Y')}} <br>
+                                    {{$wedevent->firstappointmentdate->format('D d M Y')}}<br>
+                                    {{$wedevent->holdtilldate->format('D d M Y')}} <br>
+                                    {{$wedevent->contractissueddate->format('D d M Y')}} <br>
+                                    {{$wedevent->weddingdate->format('D d M Y')}} <br>
+                                    {{$wedevent->deposittakendate->format('D d M Y')}} <br>
+                                    {{$wedevent->quarterpaymentdate->format('D d M Y')}} <br>
+                                    {{$wedevent->finalweddingtalkdate->format('D d M Y')}} <br>
+                                    {{$wedevent->finalpaymentdate->format('D d M Y')}} <br>
                                 </td>
                                 <td class="text-center">
                                     {{$wedevent->firstappointmentdate->diffInDays()}} Days<br>
