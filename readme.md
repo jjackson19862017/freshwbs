@@ -172,3 +172,20 @@ I have separated the routes over multiple files and updated the RouteServiceProv
 
 I commented my code as I tend to code ahead and get caught up in the moment and forget to comment my code.
 
+## Costing
+
+Ideas on how to achieve a costing section.
+
+Cost -> Thats the Cost of the Event
+Deposit -> Set Cost
+25% Payment ->
+Subtotal -> Payment totals the Cost
+
+Credit Card Details ???
+
+Many to Many Relationship
+
+Many Events to Many Transactions
+
+Date of Payment
+Type of Payment -> Deposit, 25% payment etc

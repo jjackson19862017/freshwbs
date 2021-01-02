@@ -35,15 +35,12 @@
                                 <!-- If your admin, then you can have access to the Events Page else you cannot access it -->
                                 @if(auth()->user()->userHasRole('Admin'))
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
-                                        {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
-                                        &amp
-                                        {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                        {{$wedevent->customer->couple}}
                                         <hr>
                                         Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                     </a>
                                 @else
-                                    {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp
-                                    {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                    {{$customer->couple}}
                                     <hr>
                                     Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                 @endif

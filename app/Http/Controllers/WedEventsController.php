@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cards;
 use App\Models\Customer;
 use App\Models\WedEvents;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ class WedEventsController extends Controller
     // Shows the All the wedevent Members
     public function index(){
         $wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+
         return view('admin.wedevents.index', ['wedevents'=>$wedevents, 'customer'=>Customer::all()]);
     }
 
@@ -63,7 +65,8 @@ class WedEventsController extends Controller
 
     // Shows the Users Profile
     public function show(WedEvents $wedevent){
-        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        $hasCardDetails = Cards::has('customer')->first();
+        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all(),'card'=>$hasCardDetails]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse

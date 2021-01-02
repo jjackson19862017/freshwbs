@@ -34,11 +34,9 @@
                         <tr >
                             <!-- Couple Column, If your an admin you can update the details of the couples else you cannot -->
                             <td>@if(auth()->user()->userHasRole('Admin'))
-                                    <a href="{{route('customers.edit', $customer)}}">{{$customer->brideforename}} {{$customer->bridesurname}} &
-                                        {{$customer->groomforename}} {{$customer->groomsurname}}</a>
+                                    <a href="{{route('customers.edit', $customer)}}">{{$customer->couple}}</a>
                                 @else
-                                    {{$customer->brideforename}} {{$customer->bridesurname}} &
-                                    {{$customer->groomforename}} {{$customer->groomsurname}}
+                                    {{$customer->couple}}
                                 @endif
                                 </td>
                             <td>{{$customer->telephone}}</td>

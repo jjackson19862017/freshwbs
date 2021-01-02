@@ -17,4 +17,25 @@ class Customer extends Model
         // Creates a One to One relationship with Customer <-> WedEvents
         return $this->hasOne(WedEvents::class);
     }
+
+    public function card(): HasOne
+    {
+        // Creates a One to One relationship with Customer <-> Cards
+        return $this->hasOne(Cards::class);
+    }
+
+    public function getCoupleAttribute()
+    {
+        return $this->brideforename . ' ' . $this->bridesurname . ' & ' . $this->groomforename . ' ' . $this->groomsurname;
+    }
+
+    public function getBrideAttribute()
+    {
+        return $this->brideforename . ' ' . $this->bridesurname;
+    }
+
+    public function getGroomAttribute()
+    {
+        return $this->groomforename . ' ' . $this->groomsurname;
+    }
 }

@@ -3,8 +3,7 @@
     <!-- Top Row Content -->
         <div class="row">
             <div class="col-sm-12">
-                <h1>Event Page for {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp
-                    {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}} </h1>
+                <h1>Event Page for {{$wedevent->customer->couple}} </h1>
                 <h4>Status: @if($wedevent->onhold== "No")
                         Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
                     @else
@@ -213,9 +212,17 @@
             <div class="col mb-6">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
-                        Payment Info
+                        Payment Info @if(!isset($card))<span class="float-right">
+                            <a name="add" id="add"
+                               class="btn btn-warning btn-sm"
+                               href="{{route('card.create',[$wedevent->customer, $wedevent])}}"
+                               role="button">Add Card Details</a>
+                                </span>@endif
+
+
                     </div>
                     <div class="card-body">
+                        <div class="row"><div class="col-sm-6">
                         <table class="table table-hover table-inverse">
                             <thead class="thead-dark">
                             <tr>
@@ -234,12 +241,42 @@
                                 <td>
                                     £{{$wedevent->cost}}<br>
                                     £{{$wedevent->subtotal}}<br>
-
                                 </td>
 
                             </tr>
                             </tbody>
-                        </table>
+                        </table></div>
+                        <!-- If the Customer has a Card Details -->
+                        @if(isset($card))
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        Card Details <span class="float-right">
+                                        <form action="{{route('card.destroy', $card->id)}}" method="post"
+                                              enctype="multipart/form-data">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="fas fa-credit-card"></i> Delete
+                                            </button>
+                                        </form>
+                                        </span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Name: {{$card->name}} <br>
+                                            Type: {{$card->type}} <br>
+                                            Number: {{$card->number}} <br>
+                                            Exp: {{$card->exp}} <br>
+                                            CVC: {{$card->cvc}}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        @endif
+                        </div>
                     </div>
                 </div>
             </div>

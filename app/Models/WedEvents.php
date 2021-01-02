@@ -17,7 +17,6 @@ class WedEvents extends Model
     public function customer(): BelongsTo
     {
         // Creates a One to One relationship with Customer <-> Wed Event
-
         return $this->belongsTo(Customer::class);
     }
 
