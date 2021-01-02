@@ -1,9 +1,9 @@
 <x-home-master>
     @section('content')
-        <section class="resume-section" id="about">
+        <!-- Information about Education -->
+            <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <h1 class="mb-3">My Education &amp Knowledge</h1>
-
                 <div class="card text-center">
                     <div class="card-header">
                         UDEMY
@@ -18,9 +18,7 @@
                         </ul>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Code Institute
@@ -33,9 +31,7 @@
                         </ul>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Milton Keynes College
@@ -48,9 +44,7 @@
                         </ul>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Open University
@@ -63,9 +57,7 @@
                         </ul>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Blackpool Sixth Form
@@ -82,9 +74,7 @@
                         </ul>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Montgomery Secondary School
@@ -103,12 +93,8 @@
                         </ul>
                     </div>
                 </div>
-
-
             </div>
         </section>
         <hr class="m-0" />
-
-
     @endsection
 </x-home-master>

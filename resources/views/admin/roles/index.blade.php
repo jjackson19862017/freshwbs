@@ -1,6 +1,24 @@
 <x-admin-master>
     @section('content')
+        <!-- Top Row -->
+            <div class="row">
+                <div class="col-sm-7">
+                    <h1>Roles</h1>
+                </div>
+                <div class="col-sm-5">
+                    <h3 class="font-weight-bold @if (Session::has('text-class'))
+                    {{Session::get('text-class')}}
+                    @endif">
+                        @if (Session::has('message'))
+                            {{Session::get('message')}}
+                        @endif
+                    </h3>
+                </div>
+            </div>
+            <!-- / Top Row -->
+            <!-- Content Row -->
         <div class="row">
+            <!-- Add Role Area -->
             <div class="col-sm-4">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
@@ -22,6 +40,8 @@
                 </div>
 
             </div>
+            <!-- / Add Role Area -->
+            <!-- View Role Area -->
             <div class="col-sm-7 offset-1">
                 <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
@@ -44,18 +64,14 @@
                             </form>
                         </td>
                         </tr>
-
                     @endforeach
                     </tbody>
                 </table>
-                <h6 class="m-0 font-weight-bold text-danger">
-                    @if (Session::has('message'))
-                        {{Session::get('message')}}
-                    @endif
-                </h6>
             </div>
-    @endsection
-
+            <!-- / View Role Area -->
+        </div>
+            <!-- / Content Row -->
+        @endsection
 
 
 </x-admin-master>

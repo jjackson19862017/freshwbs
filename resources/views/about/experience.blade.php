@@ -1,6 +1,7 @@
 <x-home-master>
     @section('content')
-        <section class="resume-section" id="about">
+        <!-- Information about my Work Experience -->
+            <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <h1 class="mb-3">Work Experience</h1>
 
@@ -16,9 +17,7 @@
                         Started: April 2018 - Present
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Shard Riverside Inn
@@ -31,9 +30,7 @@
                         Started: October 2017 - March 2018
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         The Mill At Conder Green
@@ -46,12 +43,8 @@
                         Started: March 2017 - September 2017
                     </div>
                 </div>
-
-
             </div>
         </section>
         <hr class="m-0" />
-
-
     @endsection
 </x-home-master>

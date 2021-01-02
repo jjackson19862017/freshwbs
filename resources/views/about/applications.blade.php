@@ -1,9 +1,9 @@
 <x-home-master>
     @section('content')
-        <section class="resume-section" id="about">
+        <!-- Information about the Applications I have built -->
+            <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <h1 class="mb-3">My Applications</h1>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Wedding Booking System
@@ -16,9 +16,7 @@
                         Currently in development
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Wedding & Revenue Tracker
@@ -31,9 +29,7 @@
                         Completed project in one week
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Weekly Food Order
@@ -46,9 +42,7 @@
                         Completed in 2010, One month for the prototype, another month for improvements
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="card text-center">
                     <div class="card-header">
                         Recipe & Budget Database
@@ -61,12 +55,8 @@
                         Completed project in one week
                     </div>
                 </div>
-
-
             </div>
         </section>
         <hr class="m-0" />
-
-
     @endsection
 </x-home-master>

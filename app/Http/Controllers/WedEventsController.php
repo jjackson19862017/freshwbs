@@ -96,6 +96,7 @@ class WedEventsController extends Controller
     }
 
     public function destroy(Request $request, WedEvents $wedevent){
+        // Delete Event
         $wedevent->delete();
         $request->session()->flash('message', 'Event was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
@@ -103,6 +104,7 @@ class WedEventsController extends Controller
     }
 
     public function updateOnHold(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->onhold == "No"){
             $wedevent->onhold = "Yes";
@@ -114,6 +116,7 @@ class WedEventsController extends Controller
     }
 
     public function updateContractReturned(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->contractreturned == "No"){
             $wedevent->contractreturned = "Yes";
@@ -125,6 +128,7 @@ class WedEventsController extends Controller
     }
 
     public function updateAgreementSigned(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->agreementsigned == "No"){
             $wedevent->agreementsigned = "Yes";
@@ -136,6 +140,7 @@ class WedEventsController extends Controller
     }
 
     public function updateDepositTaken(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->deposittaken == "No"){
             $wedevent->deposittaken = "Yes";
@@ -147,6 +152,7 @@ class WedEventsController extends Controller
     }
 
     public function updateQuarterPaymentTaken(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->quarterpaymenttaken == "No"){
             $wedevent->quarterpaymenttaken = "Yes";
@@ -158,6 +164,7 @@ class WedEventsController extends Controller
     }
 
     public function updateHadFinalTalk(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->hadfinaltalk == "No"){
             $wedevent->hadfinaltalk = "Yes";
@@ -169,6 +176,7 @@ class WedEventsController extends Controller
     }
 
     public function updateComplete(Request $request, WedEvents $wedevent){
+        // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
         if($wedevent->completed == "No"){
             $wedevent->completed = "Yes";

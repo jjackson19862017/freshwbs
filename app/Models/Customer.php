@@ -14,6 +14,7 @@ class Customer extends Model
 
     public function wedevent(): HasOne
     {
+        // Creates a One to One relationship with Customer <-> WedEvents
         return $this->hasOne(WedEvents::class);
     }
 }

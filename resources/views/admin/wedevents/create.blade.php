@@ -1,7 +1,23 @@
 <x-admin-master>
 
     @section('content')
-        <h1>Add New Event</h1>
+        <!-- Top Row -->
+            <div class="row">
+                <div class="col-sm-7">
+                    <h1>Add New Event</h1>
+                </div>
+                <div class="col-sm-5">
+                    <h3 class="font-weight-bold @if (Session::has('text-class'))
+                    {{Session::get('text-class')}}
+                    @endif">
+                        @if (Session::has('message'))
+                            {{Session::get('message')}}
+                        @endif
+                    </h3>
+                </div>
+            </div>
+            <!-- / Top Row -->
+            <!-- Add Event Row -->
 
         <div class="row">
             <div class="col-sm-12">
@@ -13,10 +29,11 @@
                         <form action="{{route('wedevent.store')}}" method="post" class="form-horizontal">
                             @csrf
                             <div class="row">
+                                <!-- Left Half Area -->
                                 <div class="col-sm-6">
                                     <div class="form-group row">
-                                        <label for="customer_id" class="col-form-label col-sm-3">Customer ID</label>
-                                        <div class="col-sm-9">
+                                        <label for="customer_id" class="col-form-label col-sm-4">Customer ID</label>
+                                        <div class="col-sm-8">
                                             <select class="form-control" name="customer_id" id="customer_id">
                                                 @foreach($customers as $customer)
                                                     @if(!isset($customer->wedevent))
@@ -31,9 +48,9 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="firstappointmentdate" class="col-form-label col-sm-3">First
+                                        <label for="firstappointmentdate" class="col-form-label col-sm-4">First
                                             Appointment Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('firstappointmentdate') is-invalid @enderror"
                                                    name="firstappointmentdate" id="firstappointmentdate"
@@ -46,8 +63,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="holdtilldate" class="col-form-label col-sm-3">Hold Till Date</label>
-                                        <div class="col-sm-9">
+                                        <label for="holdtilldate" class="col-form-label col-sm-4">Hold Till Date</label>
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('holdtilldate') is-invalid @enderror"
                                                    name="holdtilldate" id="holdtilldate" aria-describedby="helpId"
@@ -58,9 +75,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="contractissueddate" class="col-form-label col-sm-3">Contract Issued
+                                        <label for="contractissueddate" class="col-form-label col-sm-4">Contract Issued
                                             Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('contractissueddate') is-invalid @enderror"
                                                    name="contractissueddate" id="contractissueddate"
@@ -73,8 +90,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="weddingdate" class="col-form-label col-sm-3">Wedding Date</label>
-                                        <div class="col-sm-9">
+                                        <label for="weddingdate" class="col-form-label col-sm-4">Wedding Date</label>
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('weddingdate') is-invalid @enderror"
                                                    name="weddingdate" id="weddingdate" aria-describedby="helpId"
@@ -85,9 +102,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="deposittakendate" class="col-form-label col-sm-3">Deposit Taken
+                                        <label for="deposittakendate" class="col-form-label col-sm-4">Deposit Taken
                                             Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('deposittakendate') is-invalid @enderror"
                                                    name="deposittakendate" id="deposittakendate"
@@ -100,9 +117,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="quarterpaymentdate" class="col-form-label col-sm-3">25% Payment
+                                        <label for="quarterpaymentdate" class="col-form-label col-sm-4">25% Payment
                                             Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('quarterpaymentdate') is-invalid @enderror"
                                                    name="quarterpaymentdate" id="quarterpaymentdate"
@@ -115,9 +132,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="finalweddingtalkdate" class="col-form-label col-sm-3">Final Talk
+                                        <label for="finalweddingtalkdate" class="col-form-label col-sm-4">Final Talk
                                             Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('finalweddingtalkdate') is-invalid @enderror"
                                                    name="finalweddingtalkdate" id="finalweddingtalkdate"
@@ -130,9 +147,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="finalpaymentdate" class="col-form-label col-sm-3">Final Payment
+                                        <label for="finalpaymentdate" class="col-form-label col-sm-4">Final Payment
                                             Date</label>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-8">
                                             <input type="date"
                                                    class="form-control @error('finalpaymentdate') is-invalid @enderror"
                                                    name="finalpaymentdate" id="finalpaymentdate"
@@ -145,10 +162,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- / Left Half Area -->
+                                <!-- Right Half Area -->
                                 <div class="col-sm-6">
                                     <div class="form-group row">
-                                        <label for="onhold" class="col-form-label col-sm-3 offset-1">On Hold</label>
-                                        <div class="col-sm-8">
+                                        <label for="onhold" class="col-form-label col-sm-4 offset-1">On Hold</label>
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="onhold" id="onhold1"
                                                        value="Yes">
@@ -163,9 +182,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="contractreturned" class="col-form-label col-sm-3 offset-1">Contract
+                                        <label for="contractreturned" class="col-form-label col-sm-4 offset-1">Contract
                                             Returned</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="contractreturned"
                                                        id="contractreturned1" value="Yes">
@@ -180,9 +199,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="agreementsigned" class="col-form-label col-sm-3 offset-1">Agreement
+                                        <label for="agreementsigned" class="col-form-label col-sm-4 offset-1">Agreement
                                             Signed</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="agreementsigned"
                                                        id="agreementsigned1" value="Yes">
@@ -197,8 +216,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="deposittaken" class="col-form-label col-sm-3  offset-1">Deposit Taken</label>
-                                        <div class="col-sm-8">
+                                        <label for="deposittaken" class="col-form-label col-sm-4  offset-1">Deposit Taken</label>
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="deposittaken"
                                                        id="deposittaken1" value="Yes">
@@ -213,9 +232,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="quarterpaymenttaken" class="col-form-label col-sm-3 offset-1">25% Payment
+                                        <label for="quarterpaymenttaken" class="col-form-label col-sm-4 offset-1">25% Payment
                                             Taken</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="quarterpaymenttaken"
                                                        id="quarterpaymenttaken1" value="Yes">
@@ -230,8 +249,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="hadfinaltalk" class="col-form-label col-sm-3 offset-1">Had Final Talk</label>
-                                        <div class="col-sm-8">
+                                        <label for="hadfinaltalk" class="col-form-label col-sm-4 offset-1">Had Final Talk</label>
+                                        <div class="col-sm-7">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="hadfinaltalk"
                                                        id="hadfinaltalk1" value="Yes">
@@ -247,8 +266,8 @@
                                     </div>
                                     <hr>
                                     <div class="form-group row">
-                                        <label for="cost" class="col-form-label col-sm-3 offset-1">Cost</label>
-                                        <div class="col-sm-8">
+                                        <label for="cost" class="col-form-label col-sm-4 offset-1">Cost</label>
+                                        <div class="col-sm-7">
                                             <input type="number"
                                                    class="form-control @error('cost') is-invalid @enderror"
                                                    name="cost"
@@ -260,8 +279,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="subtotal" class="col-form-label col-sm-3 offset-1">Subtotal</label>
-                                        <div class="col-sm-8">
+                                        <label for="subtotal" class="col-form-label col-sm-4 offset-1">Subtotal</label>
+                                        <div class="col-sm-7">
                                             <input type="number"
                                                    class="form-control @error('subtotal') is-invalid @enderror"
                                                    name="subtotal" id="subtotal" aria-describedby="helpId"
@@ -271,7 +290,9 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <hr>
                                     <button type="submit" class="btn btn-primary float-right">Create Event</button>
+                                    <!-- / Right Half Area -->
                         </form>
                     </div>
                 </div>

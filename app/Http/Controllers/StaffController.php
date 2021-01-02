@@ -12,9 +12,6 @@ class StaffController extends Controller
     // Shows the All the Staff Members
     public function index(){
         $staffs = Staff::all(); // Returns all the information back from the Staff Table
-
-
-
         return view('admin.staffs.index', ['staffs'=>$staffs, 'positions'=>Position::all()]);
     }
 
@@ -82,6 +79,7 @@ class StaffController extends Controller
 
     public function destroy(Request $request, Staff $staff): \Illuminate\Http\RedirectResponse
     {
+        // Delete Staff
         $staff->delete();
         $request->session()->flash('message', 'Staff Member was Deleted...');
         $request->session()->flash('text-class', 'text-danger');

@@ -17,12 +17,12 @@ class AdminsController extends Controller
         $wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
         $users = User::all(); // Returns all the information back from the Users Table
         $staff = Staff::all(); // Returns all the information back from the Staff Table
-        $booked = Wedevents::has('customer')->get();
-        $count_customer = count($customers);
-        $count_wedevent = count($wedevents);
-        $count_user = count($users);
-        $count_staff = count($staff);
-        $event_complete = DB::table('wed_events')->where('completed', 'Yes')->count();
+        $booked = Wedevents::has('customer')->get(); // Asks the Wedevents Table to see if customers have booked an event
+        $count_customer = count($customers); // Counts all Customers in the table.
+        $count_wedevent = count($wedevents); // Counts all Events in the table.
+        $count_user = count($users); // Counts all Users in the table.
+        $count_staff = count($staff); // Counts all Staff in the table.
+        $event_complete = DB::table('wed_events')->where('completed', 'Yes')->count(); // Counts all Completed Events in the Events table.
 
         $unbooked = $count_customer - $count_wedevent;
 

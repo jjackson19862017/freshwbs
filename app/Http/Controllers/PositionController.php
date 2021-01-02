@@ -12,7 +12,7 @@ class PositionController extends Controller
     //
     public function index()
     {
-        $positions = position::all();
+        $positions = position::all(); // Returns all the data from the Position Table
         return view('admin.positions.index', ['positions'=>$positions]);
     }
 
@@ -22,6 +22,7 @@ class PositionController extends Controller
             'name'=> ['required']
         ]);
 
+        // Takes the name input and creates the slug input all in lowercase and changes the spaces for -'s
         position::create([
             'name'=> Str::ucfirst(request('name')),
             'slug'=> Str::of(Str::lower(request('name')))->slug('-'),
@@ -43,11 +44,12 @@ class PositionController extends Controller
 
     public function update(Request $request, position $position)
     {
+        // Takes the name input and creates the slug input all in lowercase and changes the spaces for -'s
         $position->name = Str::ucfirst(request('name'));
         $position->slug = Str::of(request('name'))->slug('-');
         $position->icon = request('icon');
 
-
+        // If the name input has been changed then the name will be updated else do nothing.
         if($position->isDirty('name')){ // info If something has changed in the form.
             $request->session()->flash('message', 'position: ' . $position->name . ' was Updated...');
             $position->save();
@@ -72,6 +74,7 @@ class PositionController extends Controller
     }
 
     public function destroy(Request $request, position $position){
+        // Delete Position
         $position->delete();
         $request->session()->flash('message', 'position was Deleted...');
         return back();

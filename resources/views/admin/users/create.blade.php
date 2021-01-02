@@ -1,7 +1,23 @@
 <x-admin-master>
 
 @section('content')
-<h1>Add New User</h1>
+    <!-- Top Row -->
+        <div class="row">
+            <div class="col-sm-7">
+                <h1>Add New User</h1>
+            </div>
+            <div class="col-sm-5">
+                <h3 class="font-weight-bold @if (Session::has('text-class'))
+                {{Session::get('text-class')}}
+                @endif">
+                    @if (Session::has('message'))
+                        {{Session::get('message')}}
+                    @endif
+                </h3>
+            </div>
+        </div>
+        <!-- / Top Row -->
+        <!-- Add Users Row -->
 
         <div class="row">
             <div class="col-sm-6">
@@ -59,12 +75,12 @@
                                     @enderror
                                 </div>
                             </div>
-
+<hr>
                             <button type="submit"
                                     @if (Session::has('message'))
                                     class="btn btn-success float-right">{{Session::get('message')}}
                                 @else
-                                    class="btn btn-primary float-right">Create
+                                    class="btn btn-primary float-right">Create User
                                 @endif
                             </button>
                         </form>
@@ -73,5 +89,7 @@
 
             </div>
         </div>
-@endsection
+        <!-- / Add Users Row -->
+
+    @endsection
 </x-admin-master>

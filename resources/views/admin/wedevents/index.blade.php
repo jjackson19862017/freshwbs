@@ -1,15 +1,24 @@
 <x-admin-master>
-    @section('content')
+@section('content')
+    <!-- Top Row -->
         <div class="row">
-            <div class="col-sm-12">
-                <h6 class="m-0 font-weight-bold @if (Session::has('text-class'))
+            <div class="col-sm-7">
+                <h1>Events</h1>
+            </div>
+            <div class="col-sm-5">
+                <h3 class="font-weight-bold @if (Session::has('text-class'))
                 {{Session::get('text-class')}}
                 @endif">
                     @if (Session::has('message'))
                         {{Session::get('message')}}
                     @endif
-                </h6>
-
+                </h3>
+            </div>
+        </div>
+        <!-- / Top Row -->
+        <!-- Content Row -->
+        <div class="row">
+            <div class="col-sm-12">
                 <table class="table table-hover table-inverse">
                     <thead class="thead-dark">
                     <tr>
@@ -23,25 +32,27 @@
                     <tr>
                         @foreach($wedevents as $wedevent)
                             <td>
+                                <!-- If your admin, then you can have access to the Events Page else you cannot access it -->
                                 @if(auth()->user()->userHasRole('Admin'))
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
                                         &amp
-                                         {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                        {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
                                         <hr>
                                         Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                     </a>
                                 @else
                                     {{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}} &amp
-                                     {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
+                                    {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}
                                     <hr>
                                     Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                 @endif
                             </td>
                             <td>
+                                <!-- If Statements that reflect the progess of the Event -->
                                 @if($wedevent->onhold== "No")
                                     Check Hold
-                                    @else
+                                @else
                                     @if($wedevent->contractreturned == "No")
                                         Have they signed the contract?
                                     @else
@@ -64,7 +75,7 @@
                                         @endif
                                     @endif
                                 @endif
-                            <hr>
+                                <hr>
                                 <!-- On Hold Button Yes / No -->
                                 <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
                                    @if($wedevent->onhold == "No")

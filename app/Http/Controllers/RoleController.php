@@ -12,7 +12,7 @@ class RoleController extends Controller
     //
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::all(); // Returns all the data from the Roles Table
         return view('admin.roles.index', ['roles'=>$roles]);
     }
 
@@ -22,6 +22,7 @@ class RoleController extends Controller
             'name'=> ['required']
         ]);
 
+        // Takes the name input and creates the slug input all in lowercase and changes the spaces for -'s
         Role::create([
             'name'=> Str::ucfirst(request('name')),
             'slug'=> Str::of(Str::lower(request('name')))->slug('-')
@@ -42,6 +43,7 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
+        // Takes the name input and creates the slug input all in lowercase and changes the spaces for -'s
         $role->name = Str::ucfirst(request('name'));
         $role->slug = Str::of(request('name'))->slug('-');
 
@@ -69,6 +71,7 @@ class RoleController extends Controller
     }
 
     public function destroy(Request $request, Role $role){
+        // Delete Role
         $role->delete();
         $request->session()->flash('message', 'Role was Deleted...');
         return back();

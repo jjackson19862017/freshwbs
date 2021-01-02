@@ -1,6 +1,7 @@
 <x-home-master>
     @section('content')
-        <section class="resume-section" id="about">
+        <!-- Information about My Raspberry Pi's -->
+            <section class="resume-section" id="about">
             <div class="resume-section-content">
                 <h1 class="mb-3">My Pi Projects</h1>
 
@@ -88,11 +89,8 @@
                     </div>
                 </div>
                 <hr>
-
             </div>
         </section>
         <hr class="m-0" />
-
-
     @endsection
 </x-home-master>

@@ -14,16 +14,13 @@ class Permission extends Model
 
     public function roles(): BelongsToMany
     {
+        // Creates a Many to Many relationship with Role <-> Permission
         return $this->belongsToMany(Role::class);
     }
 
     public function users(): BelongsToMany
     {
+        // Creates a Many to Many relationship with Users <-> Permission
         return $this->belongsToMany(User::class);
     }
-
-
-
-
-
 }

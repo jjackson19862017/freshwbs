@@ -25,6 +25,7 @@ class CustomerController extends Controller
     // Creating a New customer Member
     public function store(Customer $customer, Request $request): \Illuminate\Http\RedirectResponse
     {
+        // Validates all the inputs from the Customer Create Page
         $inputs = request()->validate([
             'brideforename' => ['required', 'string', 'max:255', 'alpha_dash'],
             'bridesurname' => ['required', 'string', 'max:255', 'alpha_dash'],
@@ -51,6 +52,7 @@ class CustomerController extends Controller
 
     public function update(Customer $customer, Request $request): \Illuminate\Http\RedirectResponse
     {
+        // Validates all the inputs from the Customer Edit Page
         $inputs = request()->validate([
             'brideforename' => ['required', 'string', 'max:255', 'alpha_dash'],
             'bridesurname' => ['required', 'string', 'max:255', 'alpha_dash'],
@@ -73,6 +75,7 @@ class CustomerController extends Controller
     }
 
     public function destroy(Request $request, customer $customer){
+        // Delete Customer
         $customer->delete();
         $request->session()->flash('message', 'Customer was Deleted...');
         $request->session()->flash('text-class', 'text-danger');

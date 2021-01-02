@@ -51,11 +51,13 @@ class User extends Authenticatable
 
     public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
+        // Creates a Many to Many relationship with User <-> Permission
         return $this->belongsToMany(Permission::class);
     }
 
     public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
+        // Creates a Many to Many relationship with Role <-> User
         return $this->belongsToMany(Role::class);
     }
 

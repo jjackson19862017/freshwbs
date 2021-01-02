@@ -1,0 +1,11 @@
+
+/* Puts all the buttons in a table on the same row */
+.table_buttons {
+    display: inline-block;
+    margin: 5px; /* space between buttons */
+}
+
+/* Sets Button Width, so that they dont look odd */
+.btn_width {
+    width: 100px;
+}

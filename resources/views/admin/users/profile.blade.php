@@ -1,8 +1,10 @@
 <x-admin-master>
     @section('content')
         <div class="row">
-            <div class="col-sm-8 offset-2">
-                <h1>User Profile for {{$user->username}}</h1>
+            <div class="col-sm-12">
+                <h1>User Profile for {{$user->name}}</h1>
+                <div class="col-sm-8 offset-2">
+
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         Edit User Profile
@@ -75,16 +77,16 @@
                                     @enderror
                                 </div>
                             </div>
-
+<hr>
                             <button type="submit"
                                     @if (Session::has('message'))
-                                    class="btn btn-success">{{Session::get('message')}}
+                                    class="btn btn-success float-right">{{Session::get('message')}}
                                 @else
-                                    class="btn btn-primary">Update
+                                    class="btn btn-primary float-right">Update {{$user->username}}
                                 @endif
                             </button>
                         </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
