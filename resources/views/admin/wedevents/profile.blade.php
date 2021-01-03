@@ -8,7 +8,8 @@
                         Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
                     @else
                         @if($wedevent->contractreturned == "No")
-                            Have they signed the contract? - Issued {{$wedevent->contractissueddate->format('D d M Y')}}.
+                            Have they signed the contract? - Issued {{$wedevent->contractissueddate->format('D d M Y')}}
+                            .
                         @else
                             @if($wedevent->agreementsigned == "No")
                                 Have they signed the agreement?
@@ -45,16 +46,59 @@
                                                                  role="button">Edit</a></span>
                     </div>
                     <div class="card-body text-center">
-                        <p class="card-text">{{$wedevent->customer->brideforename}} {{$wedevent->customer->bridesurname}}
-                            &amp {{$wedevent->customer->groomforename}} {{$wedevent->customer->groomsurname}}</p>
-                        <p>{{$wedevent->customer->telephone}}</p>
-                        <p>{{$wedevent->customer->email}}</p>
-                        <p">{{$wedevent->customer->address1}} <br>
-                        {{$wedevent->customer->address2}} <br>
-                        {{$wedevent->customer->townCity}} <br>
-                        {{$wedevent->customer->county}} <br>
-                        {{$wedevent->customer->postCode}} <br>
-                        </p>
+                        <div class="row">
+                            <div class="col-sm-7 no-gutters">
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-header bg-primary text-white">
+                                            {{$wedevent->customer->couple}}
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                {{$wedevent->customer->telephone}}<br>
+                                                <a href="mailto:{{$wedevent->customer->email}}">{{$wedevent->customer->email}}</a> <br>
+                                                {{$wedevent->customer->address1}} <br>
+                                                {{$wedevent->customer->address2}} <br>
+                                                {{$wedevent->customer->townCity}} <br>
+                                                {{$wedevent->customer->county}} <br>
+                                                {{$wedevent->customer->postCode}} <br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 no-gutters">
+                                <!-- If the Customer has a Card Details -->
+                                @if(isset($card))
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <div class="card-header bg-primary text-white">
+                                                Card Details
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text">
+                                                    Name: {{$card->name}} <br>
+                                                    Type: {{$card->type}} <br>
+                                                    Number: {{$card->number}} <br>
+                                                    Exp: {{$card->exp}} <br>
+                                                    CVC: {{$card->cvc}}</p>
+                                            </div>
+                                            <div class="card-footer">
+
+                                                <form action="{{route('card.destroy', $card->id)}}" method="post"
+                                                      enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-credit-card"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +108,8 @@
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
                         Dates <span class="float-right"><a name="" id="" class="btn btn-primary btn-sm"
-                                                           href="{{route('wedevents.edit', $wedevent)}}" role="button">Edit Dates</a></span>
+                                                           href="{{route('wedevents.edit', $wedevent)}}"
+                                                           role="button">Edit Dates</a></span>
                     </div>
                     <div class="card-body">
                         <table class="table table-hover table-inverse">
@@ -112,14 +157,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <form class="float-right" action="{{route('wedevent.destroy', $wedevent->id)}}" method="post"
-                              enctype="multipart/form-data">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                    class="fas fa-user-times"></i> Delete Event
-                            </button>
-                        </form>
+
                     </div>
                 </div>
             </div>
@@ -132,7 +170,15 @@
             <div class="col mb-6">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
-                        Event Info
+                        Event Info<span class="float-right"><form class="float-right" action="{{route('wedevent.destroy', $wedevent->id)}}"
+                                                                  method="post"
+                                                                  enctype="multipart/form-data">
+                            @csrf
+                                @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                    class="fas fa-user-times"></i> Delete Event
+                            </button>
+                        </form></span>
                     </div>
 
                     <div class="card-body">
@@ -216,66 +262,89 @@
                                class="btn btn-warning btn-sm"
                                href="{{route('card.create',[$wedevent->customer, $wedevent])}}"
                                role="button">Add Card Details</a>
-                                </span>@endif
+                                </span>
+                        @else
+                            <span class="float-right">
+                            <a name="add" id="add"
+                               class="btn btn-success btn-sm"
+                               href="{{route('transaction.create',$wedevent->id)}}"
+                               role="button">Add Transaction</a>
+                                </span>
+                        @endif
 
 
                     </div>
                     <div class="card-body">
-                        <div class="row"><div class="col-sm-6">
-                        <table class="table table-hover table-inverse">
-                            <thead class="thead-dark">
-                            <tr>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-inverse table-sm">
+                                    <thead class="thead-dark">
+                                    <tr>
 
-                                <th>Details</th>
-                                <th>Costs</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
+                                        <th>Detail</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($trans as $tran)
+                                        <tr>
 
-                                <td>
-                                    Cost: <br>
-                                    Subtotal: <br>
-                                </td>
-                                <td>
-                                    £{{$wedevent->cost}}<br>
-                                    £{{$wedevent->subtotal}}<br>
-                                </td>
+                                            <td>
+                                                {{$tran->name}}
+                                            </td>
+                                            <td>
+                                                £{{$tran->amount}}</td>
+                                            <td style="width: 10px;">
+                                                <form action="{{route('transaction.destroy', $tran->id)}}"
+                                                      method="post"
+                                                      enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fas fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
 
-                            </tr>
-                            </tbody>
-                        </table></div>
-                        <!-- If the Customer has a Card Details -->
-                        @if(isset($card))
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <div class="card-header bg-primary text-white">
-                                        Card Details <span class="float-right">
-                                        <form action="{{route('card.destroy', $card->id)}}" method="post"
-                                              enctype="multipart/form-data">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i
-                                                    class="fas fa-credit-card"></i> Delete
-                                            </button>
-                                        </form>
-                                        </span>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            Name: {{$card->name}} <br>
-                                            Type: {{$card->type}} <br>
-                                            Number: {{$card->number}} <br>
-                                            Exp: {{$card->exp}} <br>
-                                            CVC: {{$card->cvc}}</p>
-                                    </div>
-                                </div>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td>Subtotal</td>
+                                        <td>£{{$subtotal}}</td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+
 
                             </div>
 
-
-                        @endif
                         </div>
+                        <hr>
+                        <h3>Summary</h3>
+                        <table class="table table-hover table-inverse table-sm text-center">
+                            <thead class="thead-dark ">
+                            <tr>
+
+                                <th>Cost</th>
+                                <th>Paid</th>
+                                <th>Outstanding</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td>
+                                        £{{$wedevent->cost}}
+                                    </td>
+                                    <td>£{{$subtotal}}
+                                        </td>
+                                    <td @if($outstanding > 0)class="text-danger" @else class="text-success" @endif>£{{$outstanding}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

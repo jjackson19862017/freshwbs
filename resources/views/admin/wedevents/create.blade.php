@@ -271,18 +271,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="subtotal" class="col-form-label col-sm-4 offset-1">Subtotal</label>
-                                        <div class="col-sm-7">
-                                            <input type="number"
-                                                   class="form-control @error('subtotal') is-invalid @enderror"
-                                                   name="subtotal" id="subtotal" aria-describedby="helpId"
-                                                   placeholder="Enter Subtotal" value="{{ old('subtotal') }}">
-                                            @error('subtotal')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <hr>
                                     <button type="submit" class="btn btn-primary float-right">Create Event</button>
                                     <!-- / Right Half Area -->

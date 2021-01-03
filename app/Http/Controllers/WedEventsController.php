@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cards;
 use App\Models\Customer;
+use App\Models\Transactions;
 use App\Models\WedEvents;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class WedEventsController extends Controller
     public function index(){
         $data = [];
         //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
-        $data['wedevents'] = WedEvents::where('completed','=', "No")->get();
+        $data['wedevents'] = WedEvents::where('completed','=', "No")->get(); // Finds all events that are not complete
         $data['count_wedevents'] = count($data['wedevents']);
         return view('admin.wedevents.index', $data);
     }
@@ -22,7 +23,7 @@ class WedEventsController extends Controller
     public function completed(){
         $data = [];
         //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
-        $data['wedevents'] = WedEvents::where('completed','=', "Yes")->get();
+        $data['wedevents'] = WedEvents::where('completed','=', "Yes")->get(); // Finds all events that are complete
         $data['count_wedevents'] = count($data['wedevents']);
         return view('admin.wedevents.completed', $data);
     }
@@ -53,7 +54,6 @@ class WedEventsController extends Controller
             'quarterpaymenttaken' => ['string', 'max:3'],
             'hadfinaltalk' => ['string', 'max:3'],
             'cost' => ['numeric'],
-            'subtotal' => ['numeric'],
             'completed' => ['string', 'max:3'],
 
         ]);
@@ -73,8 +73,12 @@ class WedEventsController extends Controller
 
     // Shows the Users Profile
     public function show(WedEvents $wedevent){
+        $event = WedEvents::find($wedevent)->first();
         $hasCardDetails = Cards::where('customer_id','=',$wedevent->customer_id)->first();
-        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all(),'card'=>$hasCardDetails]);
+        $trans = Transactions::where('wedevent_id', '=',$wedevent->id)->get();
+        $subtotal = Transactions::where('wedevent_id', '=',$wedevent->id)->get()->sum('amount');
+        $outstanding = $event->cost - $subtotal;
+        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all(),'card'=>$hasCardDetails, 'trans'=>$trans,'subtotal'=>$subtotal,'outstanding'=>$outstanding]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse
@@ -96,7 +100,6 @@ class WedEventsController extends Controller
             'quarterpaymenttaken' => ['string', 'max:3'],
             'hadfinaltalk' => ['string', 'max:3'],
             'cost' => ['numeric'],
-            'subtotal' => ['numeric'],
             'completed' => ['string', 'max:3'],
 
         ]);

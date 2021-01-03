@@ -62,6 +62,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapCardsRoutes();
 
+        $this->mapTransactionsRoutes();
+
         //
     }
 
@@ -163,5 +165,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/cards.php'));
+    }
+
+    protected function mapTransactionsRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/transactions.php'));
     }
 }

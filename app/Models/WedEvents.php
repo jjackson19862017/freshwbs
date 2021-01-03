@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WedEvents extends Model
 {
@@ -18,6 +19,11 @@ class WedEvents extends Model
     {
         // Creates a One to One relationship with Customer <-> Wed Event
         return $this->belongsTo(Customer::class);
+    }
+
+    public function transaction(): HasMany
+    {
+        return $this->hasMany(Transactions::class);
     }
 
     public function getholdtilldateAttribute($date)
