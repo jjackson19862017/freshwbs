@@ -31,7 +31,7 @@
                             <div class="form-group row">
                                 <label for="username" class="col-form-label col-sm-3">Username</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" aria-describedby="helpId" placeholder="Enter username">
+                                    <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" aria-describedby="helpId" placeholder="Enter username" value="{{old('username')}}">
                                     @error('username')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
@@ -40,7 +40,7 @@
                             <div class="form-group row">
                                 <label for="name" class="col-form-label col-sm-3">Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Enter Name">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" aria-describedby="helpId" placeholder="Enter Name" value="{{old('name')}}>
                                     @error('name')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
@@ -49,7 +49,7 @@
                             <div class="form-group row">
                                 <label for="email" class="col-form-label col-sm-3"">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="helpId" placeholder="Enter Email">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="helpId" placeholder="Enter Email" value="{{old('email')}}>
                                     @error('email')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror
