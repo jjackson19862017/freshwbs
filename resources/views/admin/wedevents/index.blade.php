@@ -3,7 +3,7 @@
     <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-                <h1>Events</h1>
+                <h1>Events <span class="h6"> You have {{$count_wedevents}} events active.</span></h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -29,8 +29,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+
                         @foreach($wedevents as $wedevent)
+                            <tr>
                             <td>
                                 <!-- If your admin, then you can have access to the Events Page else you cannot access it -->
                                 @if(auth()->user()->userHasRole('Admin'))
@@ -48,10 +49,10 @@
                             <td>
                                 <!-- If Statements that reflect the progess of the Event -->
                                 @if($wedevent->onhold== "No")
-                                    Check Hold
+                                    Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
                                 @else
                                     @if($wedevent->contractreturned == "No")
-                                        Have they signed the contract?
+                                        Have they signed the contract?  - Issued {{$wedevent->contractissueddate->format('D d M Y')}}.
                                     @else
                                         @if($wedevent->agreementsigned == "No")
                                             Have they signed the agreement?
@@ -60,10 +61,10 @@
                                                 Have they paid their deposit?
                                             @else
                                                 @if($wedevent->quarterpaymenttaken == "No")
-                                                    Have they paid there 25% costs?
+                                                    Have they paid there 25% costs? - {{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
                                                 @else
                                                     @if($wedevent->hadfinaltalk == "No")
-                                                        Have they had there final talk?
+                                                        Have they had there final talk? - {{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
                                                     @else
                                                         No Tasks
                                                     @endif
@@ -147,9 +148,9 @@
                                     </button>
                                 </form>
 
-                            </td>
+                            </td></tr>
                         @endforeach
-                    </tr>
+
                     </tbody>
                 </table>
             </div>

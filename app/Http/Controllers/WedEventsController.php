@@ -5,18 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Cards;
 use App\Models\Customer;
 use App\Models\WedEvents;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class WedEventsController extends Controller
 {
     // Shows the All the wedevent Members
     public function index(){
-        $wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $data = [];
+        //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $data['wedevents'] = WedEvents::where('completed','=', "No")->get();
+        $data['count_wedevents'] = count($data['wedevents']);
+        return view('admin.wedevents.index', $data);
+    }
 
-        return view('admin.wedevents.index', ['wedevents'=>$wedevents, 'customer'=>Customer::all()]);
+    public function completed(){
+        $data = [];
+        //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $data['wedevents'] = WedEvents::where('completed','=', "Yes")->get();
+        $data['count_wedevents'] = count($data['wedevents']);
+        return view('admin.wedevents.completed', $data);
     }
 
     // Shows the Create New wedevents Page

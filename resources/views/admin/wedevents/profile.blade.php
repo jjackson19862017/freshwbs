@@ -8,22 +8,21 @@
                         Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
                     @else
                         @if($wedevent->contractreturned == "No")
-                            Have they signed the contract? - {{$wedevent->contractissueddate->diffInDays()}} days left.
+                            Have they signed the contract? - Issued {{$wedevent->contractissueddate->format('D d M Y')}}.
                         @else
                             @if($wedevent->agreementsigned == "No")
                                 Have they signed the agreement?
                             @else
                                 @if($wedevent->deposittaken =="No")
-                                    Have they paid their deposit? - {{$wedevent->deposittakendate->diffInDays()}} days
-                                    left.
+                                    Have they paid their deposit?
                                 @else
                                     @if($wedevent->quarterpaymenttaken == "No")
                                         Have they paid there 25% costs?
-                                        - {{$wedevent->quarterpaymentdate->diffInDays()}} days left.
+                                        - {{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
                                     @else
                                         @if($wedevent->hadfinaltalk == "No")
                                             Have they had there final talk?
-                                            - {{$wedevent->finalweddingtalkdate->diffInDays()}} days left.
+                                            - {{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
                                         @else
                                             Have they had the wedding? - {{$wedevent->weddingdate->diffInDays()}} days
                                             till the big day.

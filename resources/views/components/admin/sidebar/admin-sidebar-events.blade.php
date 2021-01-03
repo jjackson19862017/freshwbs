@@ -6,7 +6,8 @@
     <div id="collapseEventsArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Events:</h6>
-            <a class="collapse-item" href="{{route('wedevents.index')}}">View Events</a>
+            <a class="collapse-item" href="{{route('wedevents.index')}}">View Active Events</a>
+            <a class="collapse-item" href="{{route('wedevents.completed')}}">View Completed Events</a>
         </div>
     </div>
 </li>
