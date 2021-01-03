@@ -1,9 +1,9 @@
 <x-admin-master>
-    @section('content')
-        <!-- Top Row -->
+@section('content')
+    <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-        <h1>View Customers</h1>
+                <h1>View Customers</h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -15,11 +15,11 @@
                 </h3>
             </div>
         </div>
-            <!-- / Top Row -->
-            <!-- Content Row -->
-            <div class="row">
-                <!-- Full Column -->
-                <div class="col-sm-12">
+        <!-- / Top Row -->
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Full Column -->
+            <div class="col-sm-12">
                 <table class="table table-hover table-inverse table-sm text-center">
                     <thead class="thead-dark">
                     <tr>
@@ -31,38 +31,46 @@
                     </thead>
                     <tbody>
                     @foreach($customers as $customer)
-                        <tr >
+                        <tr>
                             <!-- Couple Column, If your an admin you can update the details of the couples else you cannot -->
                             <td>@if(auth()->user()->userHasRole('Admin'))
                                     <a href="{{route('customers.edit', $customer)}}">{{$customer->couple}}</a>
                                 @else
                                     {{$customer->couple}}
                                 @endif
-                                </td>
+                            </td>
                             <td>{{$customer->telephone}}</td>
 
                             <!-- Allows someone to email them directly from the site -->
-                            <td><a href="mailto:{{$customer->email}}">{{$customer->email}}</a> </td>
+                            <td><a href="mailto:{{$customer->email}}">{{$customer->email}}</a></td>
 
                             <!-- Allows someone to Create / View an Event or Delete the Customer -->
                             <td>
                                 <div class="table_buttons">
-                                @foreach($booked as $b)
-                                    @if($b->customer->id == $customer->id)
-                                        <a name="" id="" class="btn btn-success btn-sm btn_width" href="{{route('wedevent.profile.show', $b)}}" role="button">Goto Event</a>
-                                    @else
-                                        <a name="" id="" class="btn btn-primary btn-sm btn_width" href="{{route('wedevent.create')}}" role="button">Create Event</a>
 
-                                    @endif
-                                @endforeach
+                                        @if($customer->booked)
+                                            <a name="" id="" class="btn btn-warning btn-sm btn_width"
+                                               href="{{route('wedevent.profile.show', $customer->booked->id)}}" role="button">Goto
+                                                Event</a>
+                                        @else
+                                            <a name="" id="" class="btn btn-primary btn-sm btn_width"
+                                               href="{{route('wedevent.create', $customer->id)}}" role="button">Create Event</a>
+                                        @endif
+
+
+
+
                                 </div>
                                 <div class="table_buttons">
                                     <!-- Delete Button Form -->
-                                <form action="{{route('customer.destroy', $customer->id)}}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm btn_width"><i class="fas fa-user-times"></i> Delete</button>
-                                </form>
+                                    <form action="{{route('customer.destroy', $customer->id)}}" method="post"
+                                          enctype="multipart/form-data">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm btn_width"><i
+                                                class="fas fa-user-times"></i> Delete
+                                        </button>
+                                    </form>
                                 </div>
 
                             </td>
@@ -73,8 +81,8 @@
             </div>
             <!-- / Full Column -->
 
-            </div>
-            <!-- / Content Row -->
+        </div>
+        <!-- / Content Row -->
 
-        @endsection
+    @endsection
 </x-admin-master>

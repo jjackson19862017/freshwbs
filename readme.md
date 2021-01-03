@@ -181,7 +181,7 @@ Deposit -> Set Cost
 25% Payment ->
 Subtotal -> Payment totals the Cost
 
-Credit Card Details ???
+Credit Card Details -> Done
 
 Many to Many Relationship
 

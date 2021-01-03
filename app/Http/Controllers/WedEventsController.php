@@ -20,9 +20,9 @@ class WedEventsController extends Controller
     }
 
     // Shows the Create New wedevents Page
-    public function create(){
-
-        return view('admin.wedevents.create', ['customers'=>Customer::all()]);
+    public function create(Customer $customer){
+        $customer = Customer::find($customer)->first();
+        return view('admin.wedevents.create', ['customer'=>$customer]);
     }
 
     // Creating a New wedevent Member
@@ -65,7 +65,7 @@ class WedEventsController extends Controller
 
     // Shows the Users Profile
     public function show(WedEvents $wedevent){
-        $hasCardDetails = Cards::has('customer')->first();
+        $hasCardDetails = Cards::where('customer_id','=',$wedevent->customer_id)->first();
         return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all(),'card'=>$hasCardDetails]);
     }
 

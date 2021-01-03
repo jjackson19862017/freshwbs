@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        Create an Event
+                        Create an Event for {{$customer->couple}}
                     </div>
                     <div class="card-body">
                         <form action="{{route('wedevent.store')}}" method="post" class="form-horizontal">
@@ -31,21 +31,14 @@
                             <div class="row">
                                 <!-- Left Half Area -->
                                 <div class="col-sm-6">
-                                    <div class="form-group row">
-                                        <label for="customer_id" class="col-form-label col-sm-4">Customer ID</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control" name="customer_id" id="customer_id">
-                                                @foreach($customers as $customer)
-                                                    @if(!isset($customer->wedevent))
-                                                    <option
-                                                        value="{{$customer->id}}">{{$customer->brideforename}} {{$customer->bridesurname}}
-                                                        &amp {{$customer->groomforename}} {{$customer->groomsurname}}
-                                                    </option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
+
+                                                <div class="form-group">
+                                                    <input type="hidden"
+                                                           class="form-control" name="" id=""
+                                                           aria-describedby="helpId" value="{{$customer->id}}">
+                                                </div>
+
+
 
                                     <div class="form-group row">
                                         <label for="firstappointmentdate" class="col-form-label col-sm-4">First

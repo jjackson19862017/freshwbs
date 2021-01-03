@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\WedEvents;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class CustomerController extends Controller
 {
     // Shows the All the customer Members
     public function index(){
-        $customers = Customer::all(); // Returns all the information back from the customer Table
-        $wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
-        $booked = Wedevents::has('customer')->get();
-        return view('admin.customers.index', ['customers'=>$customers, 'wedevents'=>$wedevents, 'booked'=>$booked]);
+        $data = [];
+        $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
+        $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
+        foreach($data['customers'] as &$customer){
+            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first();
+        }
+
+        return view('admin.customers.index', $data);
     }
 
     // Shows the Create New customers Page
