@@ -515,8 +515,8 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/stephen/PhpstormProjects/freshwbs/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/stephen/PhpstormProjects/freshwbs/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

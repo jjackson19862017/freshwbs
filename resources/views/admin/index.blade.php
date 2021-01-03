@@ -1,5 +1,10 @@
 <x-admin-master>
 
+    @section('scripts')
+        <!-- Graphs -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    @endsection
+
     @section('content')
 
         <!-- Page Heading -->
@@ -15,7 +20,7 @@
                                 <i class="fa fa-user-friends fa-4x"></i>
                             </div>
                             <div class="col-xs-6 offset-3 text-right">
-                                <div class='display-4'>{{$count_customer}}</div>
+                                <div class='display-4'>{{count($customers)}}</div>
                             </div>
                         </div>
                     </div>
@@ -36,11 +41,11 @@
                                 <i class="fa fa-calendar-day fa-4x"></i>
                             </div>
                             <div class="col-xs-6 offset-3 text-right">
-                                <div class='display-4'>{{$count_wedevent}}</div>
+                                <div class='display-4'>{{count($wedevents)}}</div>
                             </div>
                         </div>
                     </div>
-                    <a href="">
+                    <a href="{{route('wedevents.index')}}">
                         <div class="card-footer bg-gradient-primary text-white text-center">
                             <span class="pull-left">View Booked Events</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -57,7 +62,7 @@
                                 <i class="fa fa-user fa-4x"></i>
                             </div>
                             <div class="col-xs-6 offset-3 text-right">
-                                <div class='display-4'>{{$count_user}}</div>
+                                <div class='display-4'>{{count($users)}}</div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +83,7 @@
                                 <i class="fa fa-people-carry fa-4x"></i>
                             </div>
                             <div class="col-xs-6 offset-3 text-right">
-                                <div class='display-4'>{{$count_staff}}</div>
+                                <div class='display-4'>{{count($staff)}}</div>
                             </div>
                         </div>
                     </div>
@@ -92,8 +97,116 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="card vh-33">
+                    <div class="card-header">
+                        Customers Booked VS Unbooked
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height:100%; width:100%">
+                            <canvas id="bookedChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="card vh-33">
+                    <div class="card-header">
+                        Active VS Completed Events
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height:100%; width:100%">
+                        <canvas id="eventsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                </div><div class="col-sm-12 col-md-4">
+                <div class="card vh-33">
+                    <div class="card-header">
+                        Paid VS Outstanding Payments
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height:100%; width:100%">
+                            <canvas id="paymentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-    @endsection
+            </div>
+        </div>
+<div class="row">
+    <script>
+        var ctx = document.getElementById('bookedChart');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Booked', 'Not Booked'],
+                datasets: [{
+                    label: 'Values',
+                    data: [{{count($wedevents)}}, {{$unbooked}}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+            }
+        });
+        var ctx = document.getElementById('eventsChart');
+        var myPieChart2 = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'Active'],
+                datasets: [{
+                    label: 'Values',
+                    data: [{{$event_complete}}, {{$event_active}}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+            }
+        });
+        var ctx = document.getElementById('paymentChart');
+        var myPieChart2 = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Paid', 'Outstanding'],
+                datasets: [{
+                    label: 'Values',
+                    data: [{{$cost_total}}, {{$cost_total}}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+            }
+        });
+    </script>
+
+</div>
+        @endsection
 
 
 </x-admin-master>
