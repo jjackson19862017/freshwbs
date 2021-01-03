@@ -208,16 +208,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="subtotal" class="col-form-label col-sm-4">Subtotal</label>
-                                        <div class="col-sm-8">
-                                            <input type="number" class="form-control @error('subtotal') is-invalid @enderror"
-                                                   name="subtotal" id="subtotal" aria-describedby="helpId" placeholder="Enter Subtotal" value="{{ $wedevent->subtotal }}">
-                                            @error('subtotal')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label for="completed" class="col-form-label col-sm-4">Completed</label>
                                         <div class="col-sm-8">

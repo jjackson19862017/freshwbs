@@ -146,12 +146,12 @@
                     label: 'Values',
                     data: [{{count($wedevents)}}, {{$unbooked}}],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
+                        'rgba(0, 204, 102, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
+                        'rgba(0, 204, 102, 1)',
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -168,12 +168,12 @@
                     label: 'Values',
                     data: [{{$event_complete}}, {{$event_active}}],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
+                        'rgba(0, 204, 102, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
+                        'rgba(0, 204, 102, 1)',
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -188,14 +188,14 @@
                 labels: ['Paid', 'Outstanding'],
                 datasets: [{
                     label: 'Values',
-                    data: [{{$cost_total}}, {{$cost_total}}],
+                    data: [{{$paid}}, {{$outstanding}}],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
+                        'rgba(0, 204, 102, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)'
+                        'rgba(0, 204, 102, 1)',
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1
                 }]

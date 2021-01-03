@@ -25,7 +25,6 @@
 
                         <th>Couple</th>
                         <th>Status</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,7 +71,7 @@
                                             @endif
                                         @endif
                                     @endif
-                                @endif
+                                @endif <span class="float-right">Outstanding: £{{$wedevent->out->amount}}</span>
                                 <hr>
                                 <!-- On Hold Button Yes / No -->
                                 <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
@@ -138,17 +137,7 @@
                                 >Completed</a>
 
                             </td>
-                            <td>
-                                <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fas fa-user-times"></i> Delete
-                                    </button>
-                                </form>
-
-                            </td></tr>
+                            </tr>
                         @endforeach
 
                     </tbody>

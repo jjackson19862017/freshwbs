@@ -12,41 +12,52 @@ use Illuminate\Http\Request;
 class WedEventsController extends Controller
 {
     // Shows the All the wedevent Members
-    public function index(){
+    public function index()
+    {
         $data = [];
         //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
-        $data['wedevents'] = WedEvents::where('completed','=', "No")->get(); // Finds all events that are not complete
+        $data['wedevents'] = WedEvents::where('completed', '=', "No")->get(); // Finds all events that are not complete
         $data['count_wedevents'] = count($data['wedevents']);
+        $event = WedEvents::where('completed', '=', "No")->get();
+        //dd($data['subtotal'] = Transactions::where('wedevent_id', '=',$data['wedevents'])->get()->sum('amount'));
+        //$data['outstanding'] = $data['wedevents']->cost - $data['subtotal'];
+        foreach ($data['wedevents'] as &$wedevent) {
+            $wedevent->out = Transactions::select('wedevent_id as $events', 'amount')->where('wedevent_id', '=', $wedevent->id)->first();
+        }
+
+
         return view('admin.wedevents.index', $data);
     }
 
-    public function completed(){
+    public function completed()
+    {
         $data = [];
         //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
-        $data['wedevents'] = WedEvents::where('completed','=', "Yes")->get(); // Finds all events that are complete
+        $data['wedevents'] = WedEvents::where('completed', '=', "Yes")->get(); // Finds all events that are complete
         $data['count_wedevents'] = count($data['wedevents']);
         return view('admin.wedevents.completed', $data);
     }
 
     // Shows the Create New wedevents Page
-    public function create(Customer $customer){
+    public function create(Customer $customer)
+    {
         $customer = Customer::find($customer)->first();
-        return view('admin.wedevents.create', ['customer'=>$customer]);
+        return view('admin.wedevents.create', ['customer' => $customer]);
     }
 
     // Creating a New wedevent Member
     public function store(Customer $customer, WedEvents $wedevents, Request $request): RedirectResponse
     {
         $inputs = request()->validate([
-            'customer_id' => ['required','numeric','unique:wed_events,customer_id'],
+            'customer_id' => ['required', 'numeric', 'unique:wed_events,customer_id'],
             'firstappointmentdate' => ['date', 'after:tomorrow'],
-            'holdtilldate' => ['date','after:tomorrow'],
-            'contractissueddate' => ['date','after:tomorrow'],
-            'weddingdate' => ['date','after:tomorrow'],
-            'deposittakendate' => ['date','after:tomorrow'],
-            'quarterpaymentdate' => ['date','after:tomorrow'],
-            'finalweddingtalkdate' => ['date','after:tomorrow'],
-            'finalpaymentdate' => ['date','after:tomorrow'],
+            'holdtilldate' => ['date', 'after:tomorrow'],
+            'contractissueddate' => ['date', 'after:tomorrow'],
+            'weddingdate' => ['date', 'after:tomorrow'],
+            'deposittakendate' => ['date', 'after:tomorrow'],
+            'quarterpaymentdate' => ['date', 'after:tomorrow'],
+            'finalweddingtalkdate' => ['date', 'after:tomorrow'],
+            'finalpaymentdate' => ['date', 'after:tomorrow'],
             'onhold' => ['string', 'max:3'],
             'contractreturned' => ['string', 'max:3'],
             'agreementsigned' => ['string', 'max:3'],
@@ -66,33 +77,35 @@ class WedEventsController extends Controller
     }
 
     // Shows the wedevents Edit Page
-    public function edit(WedEvents $wedevent){
+    public function edit(WedEvents $wedevent)
+    {
 
-        return view('admin.wedevents.edit', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return view('admin.wedevents.edit', ['wedevent' => $wedevent, 'customers' => Customer::all()]);
     }
 
     // Shows the Users Profile
-    public function show(WedEvents $wedevent){
+    public function show(WedEvents $wedevent)
+    {
         $event = WedEvents::find($wedevent)->first();
-        $hasCardDetails = Cards::where('customer_id','=',$wedevent->customer_id)->first();
-        $trans = Transactions::where('wedevent_id', '=',$wedevent->id)->get();
-        $subtotal = Transactions::where('wedevent_id', '=',$wedevent->id)->get()->sum('amount');
+        $hasCardDetails = Cards::where('customer_id', '=', $wedevent->customer_id)->first();
+        $trans = Transactions::where('wedevent_id', '=', $wedevent->id)->get();
+        $subtotal = Transactions::where('wedevent_id', '=', $wedevent->id)->get()->sum('amount');
         $outstanding = $event->cost - $subtotal;
-        return view('admin.wedevents.profile', ['wedevent'=>$wedevent,'customers'=>Customer::all(),'card'=>$hasCardDetails, 'trans'=>$trans,'subtotal'=>$subtotal,'outstanding'=>$outstanding]);
+        return view('admin.wedevents.profile', ['wedevent' => $wedevent, 'customers' => Customer::all(), 'card' => $hasCardDetails, 'trans' => $trans, 'subtotal' => $subtotal, 'outstanding' => $outstanding]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse
     {
         $inputs = request()->validate([
-            'customer_id' => ['required','numeric'],
+            'customer_id' => ['required', 'numeric'],
             'firstappointmentdate' => ['date', 'after:tomorrow'],
-            'holdtilldate' => ['date','after:tomorrow'],
-            'contractissueddate' => ['date','after:tomorrow'],
-            'weddingdate' => ['date','after:tomorrow'],
-            'deposittakendate' => ['date','after:tomorrow'],
-            'quarterpaymentdate' => ['date','after:tomorrow'],
-            'finalweddingtalkdate' => ['date','after:tomorrow'],
-            'finalpaymentdate' => ['date','after:tomorrow'],
+            'holdtilldate' => ['date', 'after:tomorrow'],
+            'contractissueddate' => ['date', 'after:tomorrow'],
+            'weddingdate' => ['date', 'after:tomorrow'],
+            'deposittakendate' => ['date', 'after:tomorrow'],
+            'quarterpaymentdate' => ['date', 'after:tomorrow'],
+            'finalweddingtalkdate' => ['date', 'after:tomorrow'],
+            'finalpaymentdate' => ['date', 'after:tomorrow'],
             'onhold' => ['string', 'max:3'],
             'contractreturned' => ['string', 'max:3'],
             'agreementsigned' => ['string', 'max:3'],
@@ -106,10 +119,11 @@ class WedEventsController extends Controller
         $wedevent->update($inputs);
         $request->session()->flash('message', 'Event was Updated... ');
         $request->session()->flash('text-class', 'text-success');
-        return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);
+        return redirect()->route('wedevent.profile.show', ['wedevent' => $wedevent, 'customers' => Customer::all()]);
     }
 
-    public function destroy(Request $request, WedEvents $wedevent){
+    public function destroy(Request $request, WedEvents $wedevent)
+    {
         // Delete Event
         $wedevent->delete();
         $request->session()->flash('message', 'Event was Deleted...');
@@ -117,10 +131,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateOnHold(Request $request, WedEvents $wedevent){
+    public function updateOnHold(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->onhold == "No"){
+        if ($wedevent->onhold == "No") {
             $wedevent->onhold = "Yes";
         } else {
             $wedevent->onhold = "No";
@@ -129,10 +144,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateContractReturned(Request $request, WedEvents $wedevent){
+    public function updateContractReturned(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->contractreturned == "No"){
+        if ($wedevent->contractreturned == "No") {
             $wedevent->contractreturned = "Yes";
         } else {
             $wedevent->contractreturned = "No";
@@ -141,10 +157,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateAgreementSigned(Request $request, WedEvents $wedevent){
+    public function updateAgreementSigned(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->agreementsigned == "No"){
+        if ($wedevent->agreementsigned == "No") {
             $wedevent->agreementsigned = "Yes";
         } else {
             $wedevent->agreementsigned = "No";
@@ -153,10 +170,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateDepositTaken(Request $request, WedEvents $wedevent){
+    public function updateDepositTaken(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->deposittaken == "No"){
+        if ($wedevent->deposittaken == "No") {
             $wedevent->deposittaken = "Yes";
         } else {
             $wedevent->deposittaken = "No";
@@ -165,10 +183,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateQuarterPaymentTaken(Request $request, WedEvents $wedevent){
+    public function updateQuarterPaymentTaken(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->quarterpaymenttaken == "No"){
+        if ($wedevent->quarterpaymenttaken == "No") {
             $wedevent->quarterpaymenttaken = "Yes";
         } else {
             $wedevent->quarterpaymenttaken = "No";
@@ -177,10 +196,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateHadFinalTalk(Request $request, WedEvents $wedevent){
+    public function updateHadFinalTalk(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->hadfinaltalk == "No"){
+        if ($wedevent->hadfinaltalk == "No") {
             $wedevent->hadfinaltalk = "Yes";
         } else {
             $wedevent->hadfinaltalk = "No";
@@ -189,10 +209,11 @@ class WedEventsController extends Controller
         return back();
     }
 
-    public function updateComplete(Request $request, WedEvents $wedevent){
+    public function updateComplete(Request $request, WedEvents $wedevent)
+    {
         // When clicking on the button, it updates from yes to no and no to yes
         $wedevent = WedEvents::find($wedevent)->first();
-        if($wedevent->completed == "No"){
+        if ($wedevent->completed == "No") {
             $wedevent->completed = "Yes";
         } else {
             $wedevent->completed = "No";

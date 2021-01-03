@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Staff;
+use App\Models\Transactions;
 use App\Models\User;
 use App\Models\WedEvents;
 use Illuminate\Http\Request;
@@ -27,6 +28,8 @@ class AdminsController extends Controller
 
         $data['cost_total'] = WedEvents::sum('cost'); // Adds Up the Costs Column in Wed Events
 
+        $data['paid'] = Transactions::all()->sum('amount'); // Calculates the amount that everyone has paid towards the events
+        $data['outstanding'] = $data['cost_total'] - $data['paid']; // Calculates the amount still owed to the company.
 
         return view('admin.index', $data);
     }
