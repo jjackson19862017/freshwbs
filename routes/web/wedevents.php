@@ -19,5 +19,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/wedevents/update/{wedevent}/QuarterPaymentTaken', [App\Http\Controllers\WedEventsController::class, 'updateQuarterPaymentTaken'])->name('wedevent.QuarterPaymentTaken');
     Route::get('/wedevents/update/{wedevent}/HadFinalTalk', [App\Http\Controllers\WedEventsController::class, 'updateHadFinalTalk'])->name('wedevent.HadFinalTalk');
     Route::get('/wedevents/update/{wedevent}/Complete', [App\Http\Controllers\WedEventsController::class, 'updateComplete'])->name('wedevent.Complete');
+    Route::put('/wedevents/update/{wedevent}/Notes', [App\Http\Controllers\WedEventsController::class, 'updateNotes'])->name('wedevent.Notes');
 
 });

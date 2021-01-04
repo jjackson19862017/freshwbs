@@ -182,23 +182,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="contractreturned" class="col-form-label col-sm-4 offset-1">Contract
-                                            Returned</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="contractreturned"
-                                                       id="contractreturned1" value="Yes">
-                                                <label class="form-check-label" for="contractreturned1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="contractreturned"
-                                                       id="contractreturned2" value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="contractreturned2">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
                                         <label for="agreementsigned" class="col-form-label col-sm-4 offset-1">Agreement
                                             Signed</label>
                                         <div class="col-sm-7">

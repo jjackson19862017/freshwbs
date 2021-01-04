@@ -33,7 +33,7 @@
                                 <div class="col-sm-6">
 
                                                 <div class="form-group">
-                                                    <input type="number"
+                                                    <input type="hidden"
                                                            class="form-control"
                                                            name="wedevent_id"
                                                            id="wedevent_id"

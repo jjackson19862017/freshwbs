@@ -1,43 +1,59 @@
 <x-admin-master>
     @section('scripts')
         <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
-
     @endsection
 
-@section('content')
+    @section('content')
     <!-- Top Row Content -->
         <div class="row">
             <div class="col-sm-12">
-                <h1>Event Page for {{$wedevent->customer->couple}} </h1>
-                <h4>Status: @if($wedevent->onhold== "No")
-                        Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
+                <h1>{{$wedevent->customer->couple}} on {{$wedevent->weddingdate->format('D d M Y')}}</h1>
+                @if($wedevent->completed == "No")
+                <h4>Status:
+                    @if($wedevent->onhold== "No")
+                        Check Hold -
+                        @if($wedevent->holdtilldate->isPast() == 1)
+                            <span class="text-danger">Overdue</span>
+                        @else{{$wedevent->holdtilldate->diffInDays()}} days left.
+                        @endif
                     @else
-                        @if($wedevent->contractreturned == "No")
-                            Have they signed the contract? - Issued {{$wedevent->contractissueddate->format('D d M Y')}}
-                            .
-                        @else
-                            @if($wedevent->agreementsigned == "No")
-                                Have they signed the agreement?
+                        @if($wedevent->agreementsigned == "No")
+                            Have they signed the contract? -
+                            @if($wedevent->contractissueddate->isPast() == 1)
+                                <span class="text-danger">Overdue</span>
                             @else
+                                Issued {{$wedevent->contractissueddate->format('D d M Y')}}
+                            @endif
+                        @else
                                 @if($wedevent->deposittaken =="No")
                                     Have they paid their deposit?
                                 @else
                                     @if($wedevent->quarterpaymenttaken == "No")
-                                        Have they paid there 25% costs?
-                                        - {{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
+                                        Have they paid there 25% costs? -
+                                    @if($wedevent->quarterpaymentdate->isPast() == 1)
+                                        <span class="text-danger">Overdue</span>
+                                    @else{{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
+                                    @endif
                                     @else
                                         @if($wedevent->hadfinaltalk == "No")
-                                            Have they had there final talk?
-                                            - {{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
+                                            Have they had there final talk -
+                                        @if($wedevent->finalweddingtalkdate->isPast() == 1)
+                                            <span class="text-danger">Overdue</span>
+                                        @else{{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
+                                        @endif
                                         @else
-                                            Have they had the wedding? - {{$wedevent->weddingdate->diffInDays()}} days
-                                            till the big day.
+                                            Have they had the wedding? -
+                                        @if($wedevent->weddingdate->isPast() == 1)
+                                            <span class="text-danger">Overdue</span>
+                                        @else{{$wedevent->weddingdate->diffInDays()}} days till the big day.
+                                        @endif
+
                                         @endif
                                     @endif
                                 @endif
-                            @endif
                         @endif
                     @endif</h4>
+                    @endif
             </div>
         </div>
         <!-- / Top Row Content -->
@@ -47,26 +63,31 @@
             <div class="col mb-6">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
-                        Couple Info <span class="float-right"><a name="" id="" class="btn btn-primary btn-sm" href="#"
-                                                                 role="button">Edit</a></span>
+                        Couple Info
                     </div>
                     <div class="card-body text-center">
                         <div class="row">
                             <div class="col-sm-7 no-gutters">
                                 <div class="col-sm-12">
                                     <div class="card">
-                                        <div class="card-header bg-primary text-white">
-                                            {{$wedevent->customer->couple}}
-                                        </div>
                                         <div class="card-body">
                                             <p class="card-text">
-                                                {{$wedevent->customer->telephone}}<br>
-                                                <a href="mailto:{{$wedevent->customer->email}}">{{$wedevent->customer->email}}</a> <br>
+                                                {{$wedevent->customer->couple}}
+                                                <br>
+                                                Telephone: {{$wedevent->customer->telephone}}
+                                                <br>
+                                                Email:
+                                                <br>
+                                                <a href="mailto:{{$wedevent->customer->email}}">{{$wedevent->customer->email}}</a>
+                                                <br>
+                                                Address:
+                                                <br>
                                                 {{$wedevent->customer->address1}} <br>
                                                 {{$wedevent->customer->address2}} <br>
                                                 {{$wedevent->customer->townCity}} <br>
                                                 {{$wedevent->customer->county}} <br>
-                                                {{$wedevent->customer->postCode}} <br>
+                                                {{$wedevent->customer->postCode}}
+                                                <br>
                                             </p>
                                         </div>
                                     </div>
@@ -74,34 +95,68 @@
                             </div>
                             <div class="col-sm-5 no-gutters">
                                 <!-- If the Customer has a Card Details -->
-                                @if(isset($card))
-                                    <div class="col-sm-12">
-                                        <div class="card">
-                                            <div class="card-header bg-primary text-white">
-                                                Card Details
-                                            </div>
-                                            <div class="card-body">
-                                                <p class="card-text">
-                                                    Name: {{$card->name}} <br>
-                                                    Type: {{$card->type}} <br>
-                                                    Number: {{$card->number}} <br>
-                                                    Exp: {{$card->exp}} <br>
-                                                    CVC: {{$card->cvc}}</p>
-                                            </div>
-                                            <div class="card-footer">
 
-                                                <form action="{{route('card.destroy', $card->id)}}" method="post"
-                                                      enctype="multipart/form-data">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fas fa-credit-card"></i> Delete
-                                                    </button>
-                                                </form>
-                                            </div>
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <!-- On Hold Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
+                                               @if($wedevent->onhold == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >On Hold: {{$wedevent->onhold}}</a>
+
+                                            <!-- Agreement Signed Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.AgreementSigned',$wedevent)}}"
+                                               @if($wedevent->agreementsigned == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >Contract Signed: {{$wedevent->agreementsigned}}</a>
+
+                                            <!-- Deposit Taken Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.DepositTaken',$wedevent)}}"
+                                               @if($wedevent->deposittaken == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >Deposit Taken: {{$wedevent->deposittaken}}</a>
+
+                                            <!-- 25% Payment Taken Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.QuarterPaymentTaken',$wedevent)}}"
+                                               @if($wedevent->quarterpaymenttaken == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >25% Payment: {{$wedevent->quarterpaymenttaken}}</a>
+
+                                            <!-- Had Final Talk Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.HadFinalTalk',$wedevent)}}"
+                                               @if($wedevent->hadfinaltalk == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >Had Final Talk: {{$wedevent->hadfinaltalk}}</a>
+
+
+                                            <!-- On Hold Button Yes / No -->
+                                            <a type="button" href="{{route('wedevent.Complete',$wedevent)}}"
+                                               @if($wedevent->completed == "No")
+                                               class="btn btn-block btn-danger btn-sm mb-1"
+                                               @else
+                                               class="btn btn-block btn-success btn-sm mb-1"
+                                                @endif
+                                            >Had Wedding: {{$wedevent->completed}}</a>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -150,14 +205,59 @@
                                     {{$wedevent->finalpaymentdate->format('D d M Y')}} <br>
                                 </td>
                                 <td class="text-center">
-                                    {{$wedevent->firstappointmentdate->diffInDays()}} Days<br>
-                                    {{$wedevent->holdtilldate->diffInDays()}} Days<br>
-                                    {{$wedevent->contractissueddate->diffInDays()}} Days<br>
-                                    {{$wedevent->weddingdate->diffInDays()}} Days<br>
-                                    {{$wedevent->deposittakendate->diffInDays()}} Days<br>
-                                    {{$wedevent->quarterpaymentdate->diffInDays()}} Days<br>
-                                    {{$wedevent->finalweddingtalkdate->diffInDays()}} Days<br>
-                                    {{$wedevent->finalpaymentdate->diffInDays()}} Days<br>
+                                    <br>
+                                    @if($wedevent->holdtilldate->isPast() == 1)
+                                        <span class="
+                                        @if($wedevent->onhold == "No")
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->holdtilldate->diffInDays()}} Days @endif<br>
+                                    <br>
+                                    @if($wedevent->weddingdate->isPast() == 1)<span class="
+                                        @if($wedevent->completed == "No")
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->weddingdate->diffInDays()}}
+                                    Days @endif<br>
+                                    @if($wedevent->deposittakendate->isPast() == 1)
+                                        <span class="
+                                        @if($wedevent->deposittaken == "No")
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->deposittakendate->diffInDays()}}
+                                    Days @endif<br>
+                                    @if($wedevent->quarterpaymentdate->isPast() == 1)
+                                        <span class="
+                                        @if($wedevent->quarterpaymenttaken == "No")
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->quarterpaymentdate->diffInDays()}}
+                                    Days @endif<br>
+                                    @if($wedevent->finalweddingtalkdate->isPast() == 1)
+                                        <span class="
+                                            @if($wedevent->hadfinaltalk == "No")
+                                            text-danger
+                                            @else
+                                            text-success
+                                            @endif
+                                            ">PAST</span> @else{{$wedevent->finalweddingtalkdate->diffInDays()}}
+                                    Days @endif<br>
+                                    @if($wedevent->finalpaymentdate->isPast() == 1)<span class="
+                                        @if($outstanding > 0)
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->finalpaymentdate->diffInDays()}}
+                                    Days @endif<br>
                                 </td>
                             </tr>
                             </tbody>
@@ -175,9 +275,11 @@
             <div class="col mb-6">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
-                        Event Info<span class="float-right"><form class="float-right" action="{{route('wedevent.destroy', $wedevent->id)}}"
-                                                                  method="post"
-                                                                  enctype="multipart/form-data">
+                        Event Notes
+                        <span class="float-right"><form class="float-right"
+                                                        action="{{route('wedevent.destroy', $wedevent->id)}}"
+                                                        method="post"
+                                                        enctype="multipart/form-data">
                             @csrf
                                 @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"><i
@@ -187,73 +289,21 @@
                     </div>
 
                     <div class="card-body">
+                        <form class="float-right" action="{{route('wedevent.Notes', $wedevent->id)}}"
+                              method="POST"
+                              enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
 
-                        <div class="col-md-12">
-                            <!-- On Hold Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
-                               @if($wedevent->onhold == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >On Hold: {{$wedevent->onhold}}</a>
-
-                            <!-- Contract Returned Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.ContractReturned',$wedevent)}}"
-                               @if($wedevent->contractreturned == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >Contract Returned: {{$wedevent->contractreturned}}</a>
-
-                            <!-- Agreement Signed Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.AgreementSigned',$wedevent)}}"
-                               @if($wedevent->agreementsigned == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >Agreement Signed: {{$wedevent->agreementsigned}}</a>
-
-                            <!-- Deposit Taken Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.DepositTaken',$wedevent)}}"
-                               @if($wedevent->deposittaken == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >Deposit Taken: {{$wedevent->deposittaken}}</a>
-
-                            <!-- 25% Payment Taken Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.QuarterPaymentTaken',$wedevent)}}"
-                               @if($wedevent->quarterpaymenttaken == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >25% Payment Taken: {{$wedevent->quarterpaymenttaken}}</a>
-
-                            <!-- Had Final Talk Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.HadFinalTalk',$wedevent)}}"
-                               @if($wedevent->hadfinaltalk == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >Had Final Talk: {{$wedevent->hadfinaltalk}}</a>
-
-                            <!-- On Hold Button Yes / No -->
-                            <a type="button" href="{{route('wedevent.Complete',$wedevent)}}"
-                               @if($wedevent->completed == "No")
-                               class="btn btn-block btn-danger ribbon mb-1"
-                               @else
-                               class="btn btn-block btn-success ribbon mb-1"
-                                @endif
-                            >Wedding Completed: {{$wedevent->completed}}</a>
-                        </div>
+                            <textarea name="notes" id="notes" class="w-100" rows="20">{{$wedevent->notes}}</textarea>
 
 
+
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-success btn-sm float-right" type="submit">
+                            <i class="fas fa-save"> Notes</i></button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -262,13 +312,19 @@
             <div class="col mb-6">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white">
-                        Payment Info @if(!isset($card))<span class="float-right">
+                        Payment Info
+                        @if(!isset($card))
+                            <span class="float-right">
                             <a name="add" id="add"
                                class="btn btn-warning btn-sm"
                                href="{{route('card.create',[$wedevent->customer, $wedevent])}}"
                                role="button">Add Card Details</a>
                                 </span>
                         @else
+                            <a class="btn btn-warning btn-sm" href="#" data-toggle="modal"
+                               data-target="#cardDetailsModal">
+                                View Card
+                            </a>
                             <span class="float-right">
                             <a name="add" id="add"
                                class="btn btn-success btn-sm"
@@ -328,56 +384,84 @@
 
                         </div>
                         <hr>
-                        <h3>Summary</h3>
-                        <table class="table table-hover table-inverse table-sm text-center">
-                            <thead class="thead-dark ">
-                            <tr>
 
-                                <th>Cost</th>
-                                <th>Paid</th>
-                                <th>Outstanding</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-                                    <td>
-                                        £{{$wedevent->cost}}
-                                    </td>
-                                    <td>£{{$subtotal}}
-                                        </td>
-                                    <td @if($outstanding > 0)class="text-danger" @else class="text-success" @endif>£{{$outstanding}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <h4 @if($outstanding > 0)
+                                class="text-danger text-center"
+                            @else
+                                class="text-success text-center"
+                            @endif
+                            >Amount Outstanding -  £{{$outstanding}}</h4>
                     </div>
                 </div>
             </div>
             <!-- / Payment Information Card -->
         </div>
         <!-- / Card Grid -->
-        <!-- Notes Information Card -->
-        <div class="col mb-6">
-            <div class="card h-100">
-                <div class="card-header bg-primary text-white">
-                    Event Notes
-                </div>
-                <div class="card-body">
-                    <textarea name="body" id="body" class="w-100" rows="20"></textarea>
+        </div>
+        </div>
 
+        <!-- Card Details Modal-->
+        @if(isset($card))
+            <div class="modal fade" id="cardDetailsModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Card Details</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i
+                                    class="fas fa-times"></i></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            Name on the Card: {{$card->name}} <br>
+                            Type of Card: {{$card->type}}<br>
+                            Card Number: {{$card->number}}<br>
+                            Expiry Date: {{$card->exp}}<br>
+                            CVC Number: {{$card->cvc}}<br>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{route('card.destroy', $card->id)}}" method="post"
+                                  enctype="multipart/form-data">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"><i
+                                        class="fas fa-credit-card"></i> Delete Card
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- / Notes Information Card -->
-        </div>
-        </div>
+        @else
+            <div class="modal fade" id="cardDetailsModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Card Details</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i
+                                    class="fas fa-times"></i></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <h1>No Card Details</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+    @endsection
 
     @section('js')
-            <script>
-                // Replace the <textarea id="editor1"> with a CKEditor 4
-                // instance, using default configuration.
-                CKEDITOR.replace( 'body' );
-            </script>
-        @endsection
+        <script>
+            CKEDITOR.replace('notes');
+        </script>
     @endsection
 </x-admin-master>

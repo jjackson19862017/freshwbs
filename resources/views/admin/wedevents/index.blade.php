@@ -84,15 +84,6 @@
                                     @endif
                                 >On Hold</a>
 
-                                <!-- Contract Returned Button Yes / No -->
-                                <a type="button" href="{{route('wedevent.ContractReturned',$wedevent)}}"
-                                   @if($wedevent->contractreturned == "No")
-                                   class="btn btn-sm btn-danger  mb-1"
-                                   @else
-                                   class="btn btn-sm btn-success  mb-1"
-                                    @endif
-                                >Contract</a>
-
                                 <!-- Agreement Signed Button Yes / No -->
                                 <a type="button" href="{{route('wedevent.AgreementSigned',$wedevent)}}"
                                    @if($wedevent->agreementsigned == "No")

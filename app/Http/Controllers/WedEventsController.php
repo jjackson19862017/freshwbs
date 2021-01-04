@@ -60,7 +60,6 @@ class WedEventsController extends Controller
             'finalweddingtalkdate' => ['date', 'after:tomorrow'],
             'finalpaymentdate' => ['date', 'after:tomorrow'],
             'onhold' => ['string', 'max:3'],
-            'contractreturned' => ['string', 'max:3'],
             'agreementsigned' => ['string', 'max:3'],
             'deposittaken' => ['string', 'max:3'],
             'quarterpaymenttaken' => ['string', 'max:3'],
@@ -107,7 +106,6 @@ class WedEventsController extends Controller
             'finalweddingtalkdate' => ['date', 'after:tomorrow'],
             'finalpaymentdate' => ['date', 'after:tomorrow'],
             'onhold' => ['string', 'max:3'],
-            'contractreturned' => ['string', 'max:3'],
             'agreementsigned' => ['string', 'max:3'],
             'deposittaken' => ['string', 'max:3'],
             'quarterpaymenttaken' => ['string', 'max:3'],
@@ -219,6 +217,19 @@ class WedEventsController extends Controller
             $wedevent->completed = "No";
         }
         $wedevent->save();
+        return back();
+    }
+
+
+
+    public function updateNotes(WedEvents $wedevent, Request $request): RedirectResponse
+    {
+        $inputs = request()->validate([
+            'notes' => ['required','string'],
+        ]);
+        $wedevent->update($inputs);
+        $request->session()->flash('message', 'Event was Updated... ');
+        $request->session()->flash('text-class', 'text-success');
         return back();
     }
 }
