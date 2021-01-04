@@ -2,7 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
+use App\Models\Customer;
+
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -17,12 +18,18 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\Models\Customer::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'brideforename' => $faker->firstnamefemale,
+        'bridesurname' => $faker->lastname,
+        'groomforename' => $faker->firstnamemale,
+        'groomsurname' => $faker->lastname,
+        'telephone' => $faker->unique()->randomNumber($nbDigits = 11, $strict=false),
         'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'address1' => $faker->streetaddress,
+        'address2' => $faker->streetname,
+        'townCity' => $faker->city,
+        'county' => $faker->state,
+        'postCode' => $faker->postcode,
     ];
 });

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Customer;
+use App\Models\WedEvents;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        //$this->call(CustomersTableSeeder::class);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('customers')->truncate();
+        DB::table('wed_events')->truncate();
+
+
+        Customer::factory(25)->create();
+        WedEvents::factory(35)->create();
     }
 }
