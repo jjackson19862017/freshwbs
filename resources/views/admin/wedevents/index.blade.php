@@ -71,7 +71,9 @@
                                             @endif
                                         @endif
                                     @endif
-                                @endif @if(@isset($wedevent->out->amount))<span class="float-right">Outstanding: £{{$wedevent->out->amount}}@endif</span>
+                                @endif <span class="float-right">Outstanding: @if(!$wedevent->out == 0)
+
+                                        £{{$wedevent->out}}@else£{{$wedevent->cost}}@endif</span>
                                 <hr>
                                 <!-- On Hold Button Yes / No -->
                                 <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"

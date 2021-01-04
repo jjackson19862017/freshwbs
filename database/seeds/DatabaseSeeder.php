@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         DB::table('wed_events')->truncate();
 
 
-        Customer::factory(25)->create();
-        WedEvents::factory(35)->create();
+        Customer::factory(10)->create();
+        WedEvents::factory(10)->create();
     }
 }

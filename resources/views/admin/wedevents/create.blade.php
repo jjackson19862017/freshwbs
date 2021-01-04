@@ -34,9 +34,16 @@
 
                                                 <div class="form-group">
                                                     <input type="hidden"
-                                                           class="form-control" name="" id=""
+                                                           class="form-control" name="customer_id" id="customer_id"
                                                            aria-describedby="helpId" value="{{$customer->id}}">
                                                 </div>
+
+                                    <div class="form-group">
+                                        <input type="hidden"
+                                               class="form-control" name="completed" id="completed"
+                                               aria-describedby="helpId" value="No">
+                                    </div>
+
 
 
 
@@ -263,7 +270,7 @@
                                         <div class="col-sm-7">
                                             <input type="number"
                                                    class="form-control @error('cost') is-invalid @enderror"
-                                                   name="cost"
+                                                   name="cost" step="0.01" min="0"
                                                    id="cost" aria-describedby="helpId" placeholder="Enter Cost"
                                                    value="{{ old('cost') }}">
                                             @error('cost')

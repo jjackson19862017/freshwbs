@@ -24,6 +24,7 @@ class CreateWedEventsTable extends Migration
             $table->date('quarterpaymentdate')->nullable();
             $table->date('finalweddingtalkdate')->nullable();
             $table->date('finalpaymentdate')->nullable();
+            $table->text('notes')->nullable();
             $table->enum('onhold',['Yes','No'])->default('Yes');
             $table->enum('contractreturned',['Yes','No'])->default('No');
             $table->enum('agreementsigned',['Yes','No'])->default('No');

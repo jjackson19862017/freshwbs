@@ -15,16 +15,17 @@ class WedEventsController extends Controller
     public function index()
     {
         $data = [];
-        //$wedevents = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $we = WedEvents::all(); // Returns all the information back from the wedevent Table
         $data['wedevents'] = WedEvents::where('completed', '=', "No")->get(); // Finds all events that are not complete
         $data['count_wedevents'] = count($data['wedevents']);
         $event = WedEvents::where('completed', '=', "No")->get();
-        //dd($data['subtotal'] = Transactions::where('wedevent_id', '=',$data['wedevents'])->get()->sum('amount'));
-        //$data['outstanding'] = $data['wedevents']->cost - $data['subtotal'];
-        foreach ($data['wedevents'] as &$wedevent) {
-            $wedevent->out = Transactions::select('wedevent_id as $events', 'amount')->where('wedevent_id', '=', $wedevent->id)->first();
-        }
 
+        foreach ($data['wedevents'] as &$wedevent) {
+            $wedevent->out = Transactions::select('wedevent_id as $events', 'amount')->
+                where('wedevent_id', '=', $wedevent->id)->sum('amount');
+
+            $wedevent->out = $wedevent->cost - $wedevent->out;
+        }
 
         return view('admin.wedevents.index', $data);
     }
@@ -41,7 +42,7 @@ class WedEventsController extends Controller
     // Shows the Create New wedevents Page
     public function create(Customer $customer)
     {
-        $customer = Customer::find($customer)->first();
+
         return view('admin.wedevents.create', ['customer' => $customer]);
     }
 
@@ -68,7 +69,6 @@ class WedEventsController extends Controller
             'completed' => ['string', 'max:3'],
 
         ]);
-        //dd($inputs);
 
         $wedevents->create($inputs);
         $request->session()->flash('message', 'Event was Created... ');
@@ -128,7 +128,7 @@ class WedEventsController extends Controller
         $wedevent->delete();
         $request->session()->flash('message', 'Event was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
-        return back();
+        return redirect()->route('wedevents.index');
     }
 
     public function updateOnHold(Request $request, WedEvents $wedevent)

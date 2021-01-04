@@ -13,21 +13,21 @@ class TransactionsController extends Controller
     //
     // Shows the Create New Transaction Page
     public function create($wedevent){
-        $event = WedEvents::find($wedevent)->first();
-        $quarter = $event->cost / 4;
+        $event = WedEvents::find($wedevent);
+        $quarter = round($event->cost / 4,2);
         return view('admin.transactions.create', ['wedevent'=>$wedevent, 'event'=>$event, 'quarter'=>$quarter]);
     }
 
-    // Creating a New wedevent Member
+    // Creating a New Transaction
     public function store(WedEvents $wedevent, Transactions $transaction, Request $request): RedirectResponse
     {
         $wedevent = request ('wedevent_id');
         $inputs = request()->validate([
-            'wedevent_id' => ['required','numeric','unique:wed_events,customer_id'],
+            'wedevent_id' => ['required','numeric'],
             'name' => ['required','string', 'max:255'],
             'amount' => ['required','numeric'],
         ]);
-        $inputs;
+
 
         $transaction->create($inputs);
         $request->session()->flash('message', 'Transaction was Created... ');

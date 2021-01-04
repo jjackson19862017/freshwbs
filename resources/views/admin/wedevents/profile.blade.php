@@ -1,4 +1,9 @@
 <x-admin-master>
+    @section('scripts')
+        <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+
+    @endsection
+
 @section('content')
     <!-- Top Row Content -->
         <div class="row">
@@ -277,7 +282,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-hover table-inverse table-sm">
+                                <table class="table table-hover table-inverse table-sm text-center">
                                     <thead class="thead-dark">
                                     <tr>
 
@@ -294,7 +299,7 @@
                                                 {{$tran->name}}
                                             </td>
                                             <td>
-                                                £{{$tran->amount}}</td>
+                                                £{{round($tran->amount,2)}}</td>
                                             <td style="width: 10px;">
                                                 <form action="{{route('transaction.destroy', $tran->id)}}"
                                                       method="post"
@@ -310,10 +315,10 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                    <tfoot>
+                                    <tfoot class="alert alert-success">
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td>£{{$subtotal}}</td>
+                                        <td>£{{round($subtotal,2)}}</td>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -351,7 +356,28 @@
             <!-- / Payment Information Card -->
         </div>
         <!-- / Card Grid -->
+        <!-- Notes Information Card -->
+        <div class="col mb-6">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    Event Notes
+                </div>
+                <div class="card-body">
+                    <textarea name="body" id="body" class="w-100" rows="20"></textarea>
+
+                </div>
+            </div>
+        </div>
+        <!-- / Notes Information Card -->
         </div>
         </div>
+
+    @section('js')
+            <script>
+                // Replace the <textarea id="editor1"> with a CKEditor 4
+                // instance, using default configuration.
+                CKEDITOR.replace( 'body' );
+            </script>
+        @endsection
     @endsection
 </x-admin-master>

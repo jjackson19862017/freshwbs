@@ -33,9 +33,12 @@
                                 <div class="col-sm-6">
 
                                                 <div class="form-group">
-                                                    <input type="hidden"
-                                                           class="form-control" name="wedevent_id" id="wedevent_id"
-                                                           aria-describedby="helpId" value="{{$wedevent}}">
+                                                    <input type="number"
+                                                           class="form-control"
+                                                           name="wedevent_id"
+                                                           id="wedevent_id"
+                                                           aria-describedby="helpId"
+                                                           value="{{$wedevent}}">
                                                 </div>
 
                                     <div class="form-group row">
@@ -44,7 +47,9 @@
                                             <input type="text"
                                                    class="form-control @error('name') is-invalid @enderror"
                                                    name="name"
-                                                   id="name" aria-describedby="helpId" placeholder="What is it?"
+                                                   id="name"
+                                                   aria-describedby="helpId"
+                                                   placeholder="What is it?"
                                                    value="{{ old('name') }}">
                                             @error('name')
                                             <div class="invalid-feedback">{{$message}}</div>
@@ -56,7 +61,7 @@
                                         <div class="col-sm-8">
                                             <input type="number"
                                                    class="form-control @error('amount') is-invalid @enderror"
-                                                   name="amount" id="amount" aria-describedby="helpId"
+                                                   name="amount" id="amount" aria-describedby="helpId" step="0.01" min="0"
                                                    placeholder="Enter Amount" value="{{ old('amount') }}">
                                             @error('amount')
                                             <div class="invalid-feedback">{{$message}}</div>
@@ -77,7 +82,7 @@
                                         <div class="card">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">Cost of Event: £{{$event->cost}}</li>
-                                                <li class="list-group-item">Deposit: £????</li>
+                                                <li class="list-group-item">Deposit: £500</li>
                                                 <li class="list-group-item">25% Payment: £{{$quarter}}</li>
                                             </ul>
                                         </div>

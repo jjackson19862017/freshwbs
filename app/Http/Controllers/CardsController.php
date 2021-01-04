@@ -12,7 +12,7 @@ class CardsController extends Controller
     //
     // Shows the Create New cards Page
     public function create(Customer $Card, WedEvents $Wed){
-        $customer = Customer::find($Card)->first();
+        $customer = $Card;
         $wedevent = WedEvents::find($Wed)->first();
         return view('admin.cards.create',['customer'=>$customer, 'wedevent'=>$wedevent]);
     }
