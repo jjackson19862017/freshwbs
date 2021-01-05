@@ -31,6 +31,9 @@ class AdminsController extends Controller
         $data['paid'] = Transactions::all()->sum('amount'); // Calculates the amount that everyone has paid towards the events
         $data['outstanding'] = $data['cost_total'] - $data['paid']; // Calculates the amount still owed to the company.
 
+        $data['count_pastOnHolds'] = WedEvents::where('onhold','=','No')->where('holdtilldate','<',now())->count(); // Returns a Count of How many Overdue OnHolds there are
+        $data['count_pastQuarterlyPayments'] = WedEvents::where('quarterpaymenttaken','=','No')->where('quarterpaymentdate','<',now())->count(); // Returns a Count of How many Overdue 25% Payments there are
+        $data['count_pastFinalTalks'] = WedEvents::where('hadfinaltalk','=','No')->where('finalweddingtalkdate','<',now())->count(); // Returns a Count of How many Overdue Final Talks there are
         return view('admin.index', $data);
     }
 }

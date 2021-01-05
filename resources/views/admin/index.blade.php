@@ -1,13 +1,13 @@
 <x-admin-master>
 
-    @section('scripts')
-        <!-- Graphs -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    @endsection
+@section('scripts')
+    <!-- Graphs -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+@endsection
 
-    @section('content')
+@section('content')
 
-        <!-- Page Heading -->
+    <!-- Page Heading -->
         @if(auth()->user()->userHasRole('Admin'))
             <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
         @endif
@@ -108,9 +108,9 @@
 
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-6">
                 <div class="card vh-33">
-                    <div class="card-header">
+                    <div class="card-header text-center">
                         Customers Booked VS Unbooked
                     </div>
                     <div class="card-body">
@@ -120,20 +120,24 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-6">
                 <div class="card vh-33">
-                    <div class="card-header">
+                    <div class="card-header text-center">
                         Active VS Completed Events
                     </div>
                     <div class="card-body">
                         <div class="chart-container" style="position: relative; height:100%; width:100%">
-                        <canvas id="eventsChart"></canvas>
+                            <canvas id="eventsChart"></canvas>
                         </div>
                     </div>
                 </div>
-                </div><div class="col-sm-12 col-md-4">
+            </div>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-12 col-md-6">
                 <div class="card vh-33">
-                    <div class="card-header">
+                    <div class="card-header text-center">
                         Paid VS Outstanding Payments
                     </div>
                     <div class="card-body">
@@ -142,93 +146,134 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-<div class="row">
-    <script>
-        var ctx = document.getElementById('bookedChart');
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Booked', 'Not Booked'],
-                datasets: [{
-                    label: 'Values',
-                    data: [{{count($wedevents)}}, {{$unbooked}}],
-                    backgroundColor: [
-                        'rgba(0, 204, 102, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(0, 204, 102, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    position: 'right',
-                }
-            }
-        });
-        var ctx = document.getElementById('eventsChart');
-        var myPieChart2 = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Completed', 'Active'],
-                datasets: [{
-                    label: 'Values',
-                    data: [{{$event_complete}}, {{$event_active}}],
-                    backgroundColor: [
-                        'rgba(0, 204, 102, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(0, 204, 102, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    position: 'right',
-                }
-            }
-        });
-        var ctx = document.getElementById('paymentChart');
-        var myPieChart2 = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Paid', 'Outstanding'],
-                datasets: [{
-                    label: 'Values',
-                    data: [{{$paid}}, {{$outstanding}}],
-                    backgroundColor: [
-                        'rgba(0, 204, 102, 0.2)',
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(0, 204, 102, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    position: 'right',
-                }
-            }
-        });
-    </script>
+            <div class="col-sm-12 col-md-6">
+                <div class="card vh-33">
+                    <div class="card-header text-center">
+                        Overdues !!!
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height:100%; width:100%">
+                            <canvas id="overduesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</div>
-        @endsection
+        </div>
+
+        <div class="row">
+            <script>
+                var ctx = document.getElementById('bookedChart');
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Booked', 'Not Booked'],
+                        datasets: [{
+                            label: 'Values',
+                            data: [{{count($wedevents)}}, {{$unbooked}}],
+                            backgroundColor: [
+                                'rgba(0, 204, 102, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 204, 102, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                        }
+                    }
+                });
+                var ctx = document.getElementById('eventsChart');
+                var myPieChart2 = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Completed', 'Active'],
+                        datasets: [{
+                            label: 'Values',
+                            data: [{{$event_complete}}, {{$event_active}}],
+                            backgroundColor: [
+                                'rgba(0, 204, 102, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 204, 102, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                        }
+                    }
+                });
+                var ctx = document.getElementById('paymentChart');
+                var myPieChart2 = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Paid', 'Outstanding'],
+                        datasets: [{
+                            label: 'Values',
+                            data: [{{$paid}}, {{$outstanding}}],
+                            backgroundColor: [
+                                'rgba(0, 204, 102, 0.2)',
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 204, 102, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                        }
+                    }
+                });
+                var ctx = document.getElementById('overduesChart');
+                var myPieChart2 = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['On Holds', '25% Payments', 'Final Wedding Talk'],
+                        datasets: [{
+                            label: 'Values',
+                            data: [{{$count_pastOnHolds}}, {{$count_pastQuarterlyPayments}}, {{$count_pastFinalTalks}}],
+                            backgroundColor: [
+                                'rgba(0, 204, 102, 0.2)',
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(225, 225, 0, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 204, 102, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(225, 225, 0, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'right',
+                        }
+                    }
+                });
+            </script>
+
+        </div>
+    @endsection
 
 
 </x-admin-master>

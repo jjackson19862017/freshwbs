@@ -19,7 +19,9 @@ class WedEventsController extends Controller
         $data = [];
         $we = WedEvents::all(); // Returns all the information back from the wedevent Table
         $data['wedevents'] = WedEvents::where('completed', '=', "No")->get(); // Finds all events that are not complete
+
         $data['count_wedevents'] = count($data['wedevents']);
+
         $event = WedEvents::where('completed', '=', "No")->get();
 
         foreach ($data['wedevents'] as &$wedevent) {
