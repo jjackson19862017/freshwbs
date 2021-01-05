@@ -88,13 +88,13 @@ class WedEventsController extends Controller
         ];
 
         //dd($wedevents);
-        WedEvents::create($wedevents);
+        $newId= WedEvents::create($wedevents)->id; // Stores the New Records Id in $newId
         $request->session()->flash('message', 'Event was Created... ');
         $request->session()->flash('text-class', 'text-success');
 
+        //dd($newId);
 
-
-        return redirect()->route('wedevents.index');
+        return redirect()->route('wedevent.profile.show', ['wedevent' => $newId, 'customers' => Customer::find($request->input('customer_id'))]);
     }
 
     // Shows the wedevents Edit Page
@@ -112,7 +112,7 @@ class WedEventsController extends Controller
         $trans = Transactions::where('wedevent_id', '=', $wedevent->id)->get();
         $subtotal = Transactions::where('wedevent_id', '=', $wedevent->id)->get()->sum('amount');
         $outstanding = $event->cost - $subtotal;
-        return view('admin.wedevents.profile', ['wedevent' => $wedevent, 'customers' => Customer::all(), 'card' => $hasCardDetails, 'trans' => $trans, 'subtotal' => $subtotal, 'outstanding' => $outstanding]);
+        return view('admin.wedevents.profile', ['wedevent' => $wedevent, 'customers' => Customer::find($wedevent->customer->id)->first(), 'card' => $hasCardDetails, 'trans' => $trans, 'subtotal' => $subtotal, 'outstanding' => $outstanding]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse

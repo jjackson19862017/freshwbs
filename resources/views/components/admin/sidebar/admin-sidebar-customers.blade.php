@@ -8,6 +8,11 @@
             <h6 class="collapse-header">Customers:</h6>
             <a class="collapse-item" href="{{route('customer.create')}}">New Customer</a>
             <a class="collapse-item" href="{{route('customers.index')}}">View All Customers</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Events:</h6>
+            <a class="collapse-item" href="{{route('customers.unbooked')}}">Unbooked</a>
+            <a class="collapse-item" href="{{route('customers.booked')}}">Booked</a>
+            <a class="collapse-item" href="{{route('customers.completed')}}">Completed</a>
         </div>
     </div>
 </li>

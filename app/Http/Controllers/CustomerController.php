@@ -16,11 +16,50 @@ class CustomerController extends Controller
         $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
         $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
         foreach($data['customers'] as &$customer){
-            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first();
+            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns
         }
-
         return view('admin.customers.index', $data);
     }
+
+    public function booked(){
+        $data = [];
+        $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
+        foreach($data['wedevents'] as &$wedevent){
+            $wedevent=Customer::where('id','=',$wedevent->customer->id)->get();
+        }
+        $data['count_customers'] = $data['wedevents']->count();
+        return view('admin.customers.booked', $data);
+    }
+
+    public function unbooked(){
+        $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
+        $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
+        foreach($data['customers'] as &$customer){
+            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns
+        }
+        $data['count_customers'] = $data['customers']->count() - $data['wedevents']->count();
+        $data['count_customers'];
+
+        return view('admin.customers.unbooked', $data);
+    }
+
+    public function completed(){
+        $data = [];
+        $data['wedevents'] = WedEvents::where('completed','=',"Yes")->get();
+        //dd($data['wedevents']);
+        foreach($data['wedevents'] as &$wedevent){
+            $wedevent=Customer::where('id','=',$wedevent->customer->id)->get();
+        }
+        //dd($data['wedevents']);
+        $data['count_customers'] = $data['wedevents']->count();
+        return view('admin.customers.completed', $data);
+    }
+
+
+
+
+
+
 
     // Shows the Create New customers Page
     public function create(){
