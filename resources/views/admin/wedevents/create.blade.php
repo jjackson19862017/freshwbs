@@ -20,7 +20,7 @@
             <!-- Add Event Row -->
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         Create an Event for {{$customer->couple}}
@@ -30,42 +30,23 @@
                             @csrf
                             <div class="row">
                                 <!-- Left Half Area -->
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
 
-                                                <div class="form-group">
-                                                    <input type="hidden"
-                                                           class="form-control" name="customer_id" id="customer_id"
-                                                           aria-describedby="helpId" value="{{$customer->id}}">
-                                                </div>
 
-                                    <div class="form-group">
-                                        <input type="hidden"
-                                               class="form-control" name="completed" id="completed"
-                                               aria-describedby="helpId" value="No">
-                                    </div>
+                                    <input type="hidden" class="form-control" name="customer_id" id="customer_id" aria-describedby="helpId" value="{{$customer->id}}">
 
+                                    <input type="hidden" class="form-control" name="completed" id="completed" aria-describedby="helpId" value="No">
+                                    <input type="hidden" class="form-control" name="onhold" id="onhold" aria-describedby="helpId" value="No">
+                                    <input type="hidden" class="form-control" name="agreementsigned" id="agreementsigned" aria-describedby="helpId" value="No">
+                                    <input type="hidden" class="form-control" name="deposittaken" id="deposittaken" aria-describedby="helpId" value="No">
+                                    <input type="hidden" class="form-control" name="quarterpaymenttaken" id="quarterpaymenttaken" aria-describedby="helpId" value="No">
+                                    <input type="hidden" class="form-control" name="hadfinaltalk" id="hadfinaltalk" aria-describedby="helpId" value="No">
 
 
 
                                     <div class="form-group row">
-                                        <label for="firstappointmentdate" class="col-form-label col-sm-4">First
-                                            Appointment Date</label>
                                         <div class="col-sm-8">
-                                            <input type="date"
-                                                   class="form-control @error('firstappointmentdate') is-invalid @enderror"
-                                                   name="firstappointmentdate" id="firstappointmentdate"
-                                                   aria-describedby="helpId"
-                                                   placeholder="Enter Appointment Date"
-                                                   value="{{ old('firstappointmentdate') }}">
-                                            @error('firstappointmentdate')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="holdtilldate" class="col-form-label col-sm-4">Hold Till Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="date"
+                                            <input type="hidden"
                                                    class="form-control @error('holdtilldate') is-invalid @enderror"
                                                    name="holdtilldate" id="holdtilldate" aria-describedby="helpId"
                                                    placeholder="Enter Hold Till Date" value="{{ old('holdtilldate') }}">
@@ -75,9 +56,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="contractissueddate" class="col-form-label col-sm-4">Contract Issued
+                                        <label for="contractissueddate" class="col-form-label col-sm-5">Contract Issued
                                             Date</label>
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-7">
                                             <input type="date"
                                                    class="form-control @error('contractissueddate') is-invalid @enderror"
                                                    name="contractissueddate" id="contractissueddate"
@@ -90,8 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="weddingdate" class="col-form-label col-sm-4">Wedding Date</label>
-                                        <div class="col-sm-8">
+                                        <label for="weddingdate" class="col-form-label col-sm-5">Wedding Date</label>
+                                        <div class="col-sm-7">
                                             <input type="date"
                                                    class="form-control @error('weddingdate') is-invalid @enderror"
                                                    name="weddingdate" id="weddingdate" aria-describedby="helpId"
@@ -102,25 +83,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="deposittakendate" class="col-form-label col-sm-4">Deposit Taken
-                                            Date</label>
                                         <div class="col-sm-8">
-                                            <input type="date"
-                                                   class="form-control @error('deposittakendate') is-invalid @enderror"
-                                                   name="deposittakendate" id="deposittakendate"
-                                                   aria-describedby="helpId"
-                                                   placeholder="Enter Deposit Taken Date"
-                                                   value="{{ old('deposittakendate') }}">
-                                            @error('deposittakendate')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="quarterpaymentdate" class="col-form-label col-sm-4">25% Payment
-                                            Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="date"
+                                            <input type="hidden"
                                                    class="form-control @error('quarterpaymentdate') is-invalid @enderror"
                                                    name="quarterpaymentdate" id="quarterpaymentdate"
                                                    aria-describedby="helpId"
@@ -132,10 +96,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="finalweddingtalkdate" class="col-form-label col-sm-4">Final Talk
-                                            Date</label>
                                         <div class="col-sm-8">
-                                            <input type="date"
+                                            <input type="hidden"
                                                    class="form-control @error('finalweddingtalkdate') is-invalid @enderror"
                                                    name="finalweddingtalkdate" id="finalweddingtalkdate"
                                                    aria-describedby="helpId"
@@ -147,10 +109,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="finalpaymentdate" class="col-form-label col-sm-4">Final Payment
-                                            Date</label>
                                         <div class="col-sm-8">
-                                            <input type="date"
+                                            <input type="hidden"
                                                    class="form-control @error('finalpaymentdate') is-invalid @enderror"
                                                    name="finalpaymentdate" id="finalpaymentdate"
                                                    aria-describedby="helpId"
@@ -159,92 +119,6 @@
                                             @error('finalpaymentdate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- / Left Half Area -->
-                                <!-- Right Half Area -->
-                                <div class="col-sm-6">
-                                    <div class="form-group row">
-                                        <label for="onhold" class="col-form-label col-sm-4 offset-1">On Hold</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="onhold" id="onhold1"
-                                                       value="Yes">
-                                                <label class="form-check-label" for="onhold1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="onhold" id="onhold2"
-                                                       value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="onhold2">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="agreementsigned" class="col-form-label col-sm-4 offset-1">Agreement
-                                            Signed</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="agreementsigned"
-                                                       id="agreementsigned1" value="Yes">
-                                                <label class="form-check-label" for="agreementsigned1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="agreementsigned"
-                                                       id="agreementsigned2" value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="agreementsigned2">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="deposittaken" class="col-form-label col-sm-4  offset-1">Deposit Taken</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="deposittaken"
-                                                       id="deposittaken1" value="Yes">
-                                                <label class="form-check-label" for="deposittaken1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="deposittaken"
-                                                       id="deposittaken2" value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="deposittaken2">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="quarterpaymenttaken" class="col-form-label col-sm-4 offset-1">25% Payment
-                                            Taken</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="quarterpaymenttaken"
-                                                       id="quarterpaymenttaken1" value="Yes">
-                                                <label class="form-check-label" for="quarterpaymenttaken1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="quarterpaymenttaken"
-                                                       id="quarterpaymenttaken2" value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="quarterpaymenttaken2">No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="hadfinaltalk" class="col-form-label col-sm-4 offset-1">Had Final Talk</label>
-                                        <div class="col-sm-7">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="hadfinaltalk"
-                                                       id="hadfinaltalk1" value="Yes">
-                                                <label class="form-check-label" for="hadfinaltalk1">Yes</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="hadfinaltalk"
-                                                       id="hadfinaltalk2" value="No"
-                                                       checked="checked">
-                                                <label class="form-check-label" for="hadfinaltalk2">No</label>
-                                            </div>
                                         </div>
                                     </div>
                                     <hr>
@@ -263,9 +137,10 @@
                                     </div>
                                     <hr>
                                     <button type="submit" class="btn btn-primary float-right">Create Event</button>
-                                    <!-- / Right Half Area -->
                         </form>
-                    </div>
+                                </div>
+                                <!-- / Left Half Area -->
+
                 </div>
             </div>
         </div>

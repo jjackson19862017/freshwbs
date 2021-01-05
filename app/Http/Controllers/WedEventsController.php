@@ -6,8 +6,10 @@ use App\Models\Cards;
 use App\Models\Customer;
 use App\Models\Transactions;
 use App\Models\WedEvents;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WedEventsController extends Controller
 {
@@ -49,29 +51,49 @@ class WedEventsController extends Controller
     // Creating a New wedevent Member
     public function store(Customer $customer, WedEvents $wedevents, Request $request): RedirectResponse
     {
-        $inputs = request()->validate([
-            'customer_id' => ['required', 'numeric', 'unique:wed_events,customer_id'],
-            'firstappointmentdate' => ['date', 'after:tomorrow'],
-            'holdtilldate' => ['date', 'after:tomorrow'],
-            'contractissueddate' => ['date', 'after:tomorrow'],
-            'weddingdate' => ['date', 'after:tomorrow'],
-            'deposittakendate' => ['date', 'after:tomorrow'],
-            'quarterpaymentdate' => ['date', 'after:tomorrow'],
-            'finalweddingtalkdate' => ['date', 'after:tomorrow'],
-            'finalpaymentdate' => ['date', 'after:tomorrow'],
-            'onhold' => ['string', 'max:3'],
-            'agreementsigned' => ['string', 'max:3'],
-            'deposittaken' => ['string', 'max:3'],
-            'quarterpaymenttaken' => ['string', 'max:3'],
-            'hadfinaltalk' => ['string', 'max:3'],
-            'cost' => ['numeric'],
-            'completed' => ['string', 'max:3'],
-
+        $validator = Validator::make($request->all(), [
+            'customer_id' => 'required|numeric',
+            'contractissueddate' => 'date',
+            'weddingdate' => 'date',
+            'onhold' => 'string|max:3',
+            'contractreturned' => 'string|max:3',
+            'agreementsigned' => 'string|max:3',
+            'deposittaken' => 'string|max:3',
+            'quarterpaymenttaken' => 'string|max:3',
+            'hadfinaltalk' => 'string|max:3',
+            'cost' => 'numeric',
         ]);
 
-        $wedevents->create($inputs);
+        if ($validator->fails()) {
+            return redirect('post/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //dd($validator);
+        $wedevents = [
+            'customer_id' => $request->input('customer_id'),
+            'contractissueddate'=> $request->input('contractissueddate'),
+            'holdtilldate'=> Carbon::parse($request->contractissueddate)->addDays(14),
+            'weddingdate'=> $request->input('weddingdate'),
+            'quarterpaymentdate'=> Carbon::parse($request->weddingdate)->subDays(90),
+            'finalweddingtalkdate'=> Carbon::parse($request->weddingdate)->subDays(42),
+            'finalpaymentdate'=> Carbon::parse($request->weddingdate)->subDays(30),
+            'onhold'=> $request->input('onhold'),
+            'agreementsigned'=> $request->input('agreementsigned'),
+            'deposittaken'=> $request->input('deposittaken'),
+            'quarterpaymenttaken'=> $request->input('quarterpaymenttaken'),
+            'hadfinaltalk'=> $request->input('hadfinaltalk'),
+            'cost'=> $request->input('cost'),
+        ];
+
+        //dd($wedevents);
+        WedEvents::create($wedevents);
         $request->session()->flash('message', 'Event was Created... ');
         $request->session()->flash('text-class', 'text-success');
+
+
+
         return redirect()->route('wedevents.index');
     }
 
@@ -97,7 +119,6 @@ class WedEventsController extends Controller
     {
         $inputs = request()->validate([
             'customer_id' => ['required', 'numeric'],
-            'firstappointmentdate' => ['date', 'after:tomorrow'],
             'holdtilldate' => ['date', 'after:tomorrow'],
             'contractissueddate' => ['date', 'after:tomorrow'],
             'weddingdate' => ['date', 'after:tomorrow'],

@@ -61,18 +61,6 @@
 
 
                                 </div>
-                                <div class="table_buttons">
-                                    <!-- Delete Button Form -->
-                                    <form action="{{route('customer.destroy', $customer->id)}}" method="post"
-                                          enctype="multipart/form-data">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm btn_width"><i
-                                                class="fas fa-user-times"></i> Delete
-                                        </button>
-                                    </form>
-                                </div>
-
                             </td>
                         </tr>
                     @endforeach

@@ -26,7 +26,6 @@
                         <th>Couple</th>
                         <th>Event</th>
                         <th>Cost</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,17 +48,7 @@
                                 <td>
                                     £{{$wedevent->cost}}
                                 </td>
-                            <td>
-                                <form action="{{route('wedevent.destroy', $wedevent->id)}}" method="post"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fas fa-user-times"></i> Delete
-                                    </button>
-                                </form>
-
-                            </td></tr>
+                           </tr>
                         @endforeach
 
                     </tbody>

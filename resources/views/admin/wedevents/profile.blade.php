@@ -172,7 +172,7 @@
                                                            role="button">Edit Dates</a></span>
                     </div>
                     <div class="card-body">
-                        <table class="table table-hover table-inverse">
+                        <table class="table table-hover table-inverse table-sm">
                             <thead class="thead-dark">
                             <tr>
 
@@ -185,27 +185,24 @@
                             <tr>
 
                                 <td>
-                                    1st Appointment: <br>
                                     Hold Till: <br>
                                     Contract Issued: <br>
-                                    Wedding Date: <br>
-                                    Deposit Taken: <br>
                                     25% Payment: <br>
                                     Final Wedding Talk: <br>
                                     Final Payment: <br>
+                                    Wedding Date: <br>
                                 </td>
                                 <td>
-                                    {{$wedevent->firstappointmentdate->format('D d M Y')}}<br>
                                     {{$wedevent->holdtilldate->format('D d M Y')}} <br>
                                     {{$wedevent->contractissueddate->format('D d M Y')}} <br>
-                                    {{$wedevent->weddingdate->format('D d M Y')}} <br>
-                                    {{$wedevent->deposittakendate->format('D d M Y')}} <br>
                                     {{$wedevent->quarterpaymentdate->format('D d M Y')}} <br>
                                     {{$wedevent->finalweddingtalkdate->format('D d M Y')}} <br>
                                     {{$wedevent->finalpaymentdate->format('D d M Y')}} <br>
+                                    {{$wedevent->weddingdate->format('D d M Y')}} <br>
+
                                 </td>
                                 <td class="text-center">
-                                    <br>
+
                                     @if($wedevent->holdtilldate->isPast() == 1)
                                         <span class="
                                         @if($wedevent->onhold == "No")
@@ -215,23 +212,6 @@
                                         @endif
                                         ">PAST</span> @else{{$wedevent->holdtilldate->diffInDays()}} Days @endif<br>
                                     <br>
-                                    @if($wedevent->weddingdate->isPast() == 1)<span class="
-                                        @if($wedevent->completed == "No")
-                                        text-danger
-                                        @else
-                                        text-success
-                                        @endif
-                                        ">PAST</span> @else{{$wedevent->weddingdate->diffInDays()}}
-                                    Days @endif<br>
-                                    @if($wedevent->deposittakendate->isPast() == 1)
-                                        <span class="
-                                        @if($wedevent->deposittaken == "No")
-                                        text-danger
-                                        @else
-                                        text-success
-                                        @endif
-                                        ">PAST</span> @else{{$wedevent->deposittakendate->diffInDays()}}
-                                    Days @endif<br>
                                     @if($wedevent->quarterpaymentdate->isPast() == 1)
                                         <span class="
                                         @if($wedevent->quarterpaymenttaken == "No")
@@ -257,6 +237,14 @@
                                         text-success
                                         @endif
                                         ">PAST</span> @else{{$wedevent->finalpaymentdate->diffInDays()}}
+                                    Days @endif<br>
+                                    @if($wedevent->weddingdate->isPast() == 1)<span class="
+                                        @if($wedevent->completed == "No")
+                                        text-danger
+                                        @else
+                                        text-success
+                                        @endif
+                                        ">PAST</span> @else{{$wedevent->weddingdate->diffInDays()}}
                                     Days @endif<br>
                                 </td>
                             </tr>
@@ -332,8 +320,6 @@
                                role="button">Add Transaction</a>
                                 </span>
                         @endif
-
-
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -342,6 +328,7 @@
                                     <thead class="thead-dark">
                                     <tr>
 
+                                        <th>Date</th>
                                         <th>Detail</th>
                                         <th>Amount</th>
                                         <th></th>
@@ -350,7 +337,9 @@
                                     <tbody>
                                     @foreach($trans as $tran)
                                         <tr>
-
+                                            <td>
+                                                {{$tran->created_at->format('d/m/y')}}
+                                            </td>
                                             <td>
                                                 {{$tran->name}}
                                             </td>
@@ -373,6 +362,7 @@
                                     </tbody>
                                     <tfoot class="alert alert-success">
                                     <tr>
+                                        <td></td>
                                         <td>Subtotal</td>
                                         <td>£{{round($subtotal,2)}}</td>
                                     </tr>
@@ -456,6 +446,7 @@
                 </div>
             </div>
         @endif
+
 
     @endsection
 

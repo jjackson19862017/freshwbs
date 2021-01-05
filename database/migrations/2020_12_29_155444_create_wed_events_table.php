@@ -16,11 +16,9 @@ class CreateWedEventsTable extends Migration
         Schema::create('wed_events', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id')->unsigned();
-            $table->date('firstappointmentdate')->nullable();
             $table->date('holdtilldate')->nullable();
             $table->date('contractissueddate')->nullable();
             $table->date('weddingdate')->nullable();
-            $table->date('deposittakendate')->nullable();
             $table->date('quarterpaymentdate')->nullable();
             $table->date('finalweddingtalkdate')->nullable();
             $table->date('finalpaymentdate')->nullable();

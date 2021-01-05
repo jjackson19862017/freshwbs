@@ -48,25 +48,43 @@
                             <td>
                                 <!-- If Statements that reflect the progess of the Event -->
                                 @if($wedevent->onhold== "No")
-                                    Check Hold - {{$wedevent->holdtilldate->diffInDays()}} days left.
+                                    Check Hold -
+                                    @if($wedevent->holdtilldate->isPast() == 1)
+                                        <span class="text-danger">Overdue</span>
+                                    @else{{$wedevent->holdtilldate->diffInDays()}} days left.
+                                    @endif
                                 @else
-                                    @if($wedevent->contractreturned == "No")
-                                        Have they signed the contract?  - Issued {{$wedevent->contractissueddate->format('D d M Y')}}.
-                                    @else
-                                        @if($wedevent->agreementsigned == "No")
-                                            Have they signed the agreement?
+                                    @if($wedevent->agreementsigned == "No")
+                                        Have they signed the contract? -
+                                        @if($wedevent->contractissueddate->isPast() == 1)
+                                            <span class="text-danger">Overdue</span>
                                         @else
-                                            @if($wedevent->deposittaken =="No")
-                                                Have they paid their deposit?
+                                            Issued {{$wedevent->contractissueddate->format('D d M Y')}}
+                                        @endif
+                                    @else
+                                        @if($wedevent->deposittaken =="No")
+                                            Have they paid their deposit?
+                                        @else
+                                            @if($wedevent->quarterpaymenttaken == "No")
+                                                Have they paid there 25% costs? -
+                                                @if($wedevent->quarterpaymentdate->isPast() == 1)
+                                                    <span class="text-danger">Overdue</span>
+                                                @else{{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
+                                                @endif
                                             @else
-                                                @if($wedevent->quarterpaymenttaken == "No")
-                                                    Have they paid there 25% costs? - {{$wedevent->quarterpaymentdate->diffInDays()}} days till due date.
-                                                @else
-                                                    @if($wedevent->hadfinaltalk == "No")
-                                                        Have they had there final talk? - {{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
-                                                    @else
-                                                        No Tasks
+                                                @if($wedevent->hadfinaltalk == "No")
+                                                    Have they had there final talk -
+                                                    @if($wedevent->finalweddingtalkdate->isPast() == 1)
+                                                        <span class="text-danger">Overdue</span>
+                                                    @else{{$wedevent->finalweddingtalkdate->diffInDays()}} days till due date.
                                                     @endif
+                                                @else
+                                                    Have they had the wedding? -
+                                                    @if($wedevent->weddingdate->isPast() == 1)
+                                                        <span class="text-danger">Overdue</span>
+                                                    @else{{$wedevent->weddingdate->diffInDays()}} days till the big day.
+                                                    @endif
+
                                                 @endif
                                             @endif
                                         @endif
