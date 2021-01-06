@@ -65,7 +65,13 @@
                         </tr>
                     @endforeach
                     </tbody>
+
                 </table>
+                <div class="d-flex">
+                    <div class="mx-auto">
+                        {{ $customers->links() }}
+                    </div>
+                </div>
             </div>
             <!-- / Full Column -->
 

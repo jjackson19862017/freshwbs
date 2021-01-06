@@ -13,7 +13,7 @@ class CustomerController extends Controller
     // Shows the All the customer Members
     public function index(){
         $data = [];
-        $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
+        $data['customers'] = Customer::paginate(15); // Returns all the information back from the customer Table
         $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
         foreach($data['customers'] as &$customer){
             $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns
@@ -23,7 +23,7 @@ class CustomerController extends Controller
 
     public function booked(){
         $data = [];
-        $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
+        $data['wedevents'] = WedEvents::paginate(15); // Returns all the information back from the wedevent Table
         foreach($data['wedevents'] as &$wedevent){
             $wedevent=Customer::where('id','=',$wedevent->customer->id)->get();
         }
@@ -35,9 +35,9 @@ class CustomerController extends Controller
         $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
         $data['wedevents'] = WedEvents::all(); // Returns all the information back from the wedevent Table
         foreach($data['customers'] as &$customer){
-            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns
+            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns True if customers have booked, else Null
         }
-        $data['count_customers'] = $data['customers']->count() - $data['wedevents']->count();
+        $data['count_customers'] = Customer::all()->count() - $data['wedevents']->count();
         $data['count_customers'];
 
         return view('admin.customers.unbooked', $data);

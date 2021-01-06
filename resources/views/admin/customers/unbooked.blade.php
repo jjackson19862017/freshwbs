@@ -33,7 +33,6 @@
 
                     @foreach($customers as $customer)
                         @if(!$customer->booked)
-
                             <tr>
                             <!-- Couple Column, If your an admin you can update the details of the couples else you cannot -->
                             <td>@if(auth()->user()->userHasRole('Admin'))
@@ -50,17 +49,13 @@
                             <!-- Allows someone to Create / View an Event or Delete the Customer -->
                             <td>
                                 <a name="" id="" class="btn btn-warning btn-sm btn_width" href="{{route('wedevent.create', $customer->id)}}" role="button">Create Event</a>
-
-
-
-
-
                             </td>
                         </tr>
                             @endif
                     @endforeach
                     </tbody>
                 </table>
+
             </div>
             <!-- / Full Column -->
 

@@ -54,6 +54,11 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="d-flex">
+                    <div class="mx-auto">
+                        {{ $wedevents->links() }}
+                    </div>
+                </div>
             </div>
             <!-- / Full Column -->
 
