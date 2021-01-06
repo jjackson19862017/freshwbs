@@ -1,5 +1,6 @@
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomerArea" aria-expanded="true" aria-controls="collapseUserArea">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomerArea"
+       aria-expanded="true" aria-controls="collapseUserArea">
         <i class="fas fa-fw fa-cog"></i>
         <span>Customers:</span>
     </a>
@@ -157,9 +158,9 @@
                             </div>
                             <hr>
                             <button type="submit" class="btn btn-primary float-right">Create Customer</button>
+                        </div>
+                    </div>
                 </form>
-            </div>
-            </div>
             </div>
         </div>
     </div>

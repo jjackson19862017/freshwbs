@@ -23,17 +23,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="firstappointmentdate" class="col-form-label col-sm-3">First Appointment Date</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control @error('firstappointmentdate') is-invalid @enderror"
-                                                   name="firstappointmentdate" id="firstappointmentdate" aria-describedby="helpId"
-                                                   placeholder="Enter Appointment Date" value="{{ $wedevent->firstappointmentdate->toDateString()}}">
-                                            @error('firstappointmentdate')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label for="holdtilldate" class="col-form-label col-sm-3">Hold Till Date</label>
                                         <div class="col-sm-9">
@@ -63,17 +53,6 @@
                                                    name="weddingdate" id="weddingdate" aria-describedby="helpId"
                                                    placeholder="Enter Wedding Date" value="{{ $wedevent->weddingdate->toDateString() }}">
                                             @error('weddingdate')
-                                            <div class="invalid-feedback">{{$message}}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="deposittakendate" class="col-form-label col-sm-3">Deposit Taken Date</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control @error('deposittakendate') is-invalid @enderror"
-                                                   name="deposittakendate" id="deposittakendate" aria-describedby="helpId"
-                                                   placeholder="Enter Deposit Taken Date" value="{{ $wedevent->deposittakendate->toDateString() }}">
-                                            @error('deposittakendate')
                                             <div class="invalid-feedback">{{$message}}</div>
                                             @enderror
                                         </div>

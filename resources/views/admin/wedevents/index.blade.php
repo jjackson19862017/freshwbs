@@ -37,7 +37,7 @@
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->couple}}
                                         <hr>
-                                        Event: {{$wedevent->weddingdate->diffInDays()}} days away
+                                        Event: {{$wedevent->weddingdate->format('d/m/y')}} - {{$wedevent->weddingdate->diffInDays()}} days away
                                     </a>
                                 @else
                                     {{$customer->couple}}

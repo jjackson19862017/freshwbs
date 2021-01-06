@@ -21,6 +21,5 @@ class DatabaseSeeder extends Seeder
 
 
         Customer::factory(10)->create();
-        WedEvents::factory(10)->create();
     }
 }

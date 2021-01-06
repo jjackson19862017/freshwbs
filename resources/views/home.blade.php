@@ -55,12 +55,23 @@
         </div>
     </div>
 </nav>
-<div class="contaier">
+<div class="container-fluid">
         <div class="jumbotron text-center">
             <h1 class="display-3">Welcome</h1>
             <p class="lead">This page is currently under construction</p>
             <hr class="my-2">
-            <p>I am currently working on a project, so I will update this page soon.</p>
+            <p>The project I am currently working on his a Hotel Management System,<br> My system will help hotel owners and managers</p>
+            <div class="col-sm-4 offset-4">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item rounded-pill">Create and View Staff Details,</li>
+                <li class="list-group-item rounded-pill">Create and View Events,</li>
+                <li class="list-group-item rounded-pill">Create and View Rotas,</li>
+                <li class="list-group-item rounded-pill">Track Financial Information,</li>
+
+            </ul>
+            </div>
+            <br>
             <a name="aboutme" id="aboutme" class="btn btn-outline-primary" href="{{route('about')}}" role="button">Find out about me</a>
         </div>
 </div>
