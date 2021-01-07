@@ -50,6 +50,13 @@
         </div>
         <x-admin.sidebar.admin-sidebar-customers></x-admin.sidebar.admin-sidebar-customers>
         <x-admin.sidebar.admin-sidebar-events></x-admin.sidebar.admin-sidebar-events>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Statistics
+            </div>
+        <x-admin.sidebar.admin-sidebar-stats></x-admin.sidebar.admin-sidebar-stats>
 
 @endif
 
