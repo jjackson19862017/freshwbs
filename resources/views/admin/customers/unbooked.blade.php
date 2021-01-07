@@ -24,8 +24,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th>Couple</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
+                        <th>Added</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -41,10 +40,8 @@
                                     {{$customer->couple}}
                                 @endif
                             </td>
-                            <td>{{$customer->telephone}}</td>
+                            <td>{{$customer->created_at->diffForHumans()}}</td>
 
-                            <!-- Allows someone to email them directly from the site -->
-                            <td><a href="mailto:{{$customer->email}}">{{$customer->email}}</a></td>
 
                             <!-- Allows someone to Create / View an Event or Delete the Customer -->
                             <td>

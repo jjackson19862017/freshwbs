@@ -193,7 +193,7 @@
                                         <tr>
                                             <th>Couple</th>
                                             <th>Telephone</th>
-                                            <th>Email</th>
+                                            <th>Added</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -209,12 +209,23 @@
                                                     </td>
                                                     <td>{{$customer->telephone}}</td>
 
-                                                    <!-- Allows someone to email them directly from the site -->
-                                                    <td><a href="mailto:{{$customer->email}}">{{$customer->email}}</a></td>
+                                                    <td @if($customer->created_at->diffInDays(now()) > 14)class="text-danger"@endif>{{$customer->created_at->diffForHumans()}}</td>
 
                                                     <!-- Allows someone to Create / View an Event or Delete the Customer -->
-                                                    <td>
+                                                    <td><div class="table_buttons">
                                                         <a name="" id="" class="btn btn-warning btn-sm btn_width" href="{{route('wedevent.create', $customer->id)}}" role="button">Create Event</a>
+                                                        </div>
+                                                        <!-- Delete Button Form -->
+                                                        <div class="table_buttons">
+                                                        <form action="{{route('customer.destroy', $customer->id)}}" method="post"
+                                                              enctype="multipart/form-data">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                    class="fas fa-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endif

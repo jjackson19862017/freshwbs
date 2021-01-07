@@ -15,7 +15,7 @@ class AdminsController extends Controller
     // This returns the Main Dashboard of the Admin Area
     public function index(){
         $data = [];
-        $data['customers'] = Customer::all(); // Returns all the information back from the customer Table
+        $data['customers'] = Customer::orderBy('created_at','asc')->get(); // Returns all the information back from the customer Table
         $data['wedevents'] = WedEvents::orderBy('weddingdate','asc')->get(); // Returns all the information back from the wedevent Table
         $data['users'] = User::all(); // Returns all the information back from the Users Table
         $data['staff'] = Staff::all(); // Returns all the information back from the Staff Table
@@ -47,7 +47,6 @@ class AdminsController extends Controller
         foreach($data['booked'] as &$booker){
             $booker=Customer::where('id','=',$booker->customer->id)->get();
         }
-
 
 
 
