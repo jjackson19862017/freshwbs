@@ -57,7 +57,7 @@
 </nav>
 <div class="container-fluid">
         <div class="jumbotron text-center">
-            <h1 class="display-3">Welcome</h1>
+            <h1 class="display-1">Welcome</h1>
             <p class="lead">This page is currently under construction</p>
             <hr class="my-2">
             <p>The project I am currently working on his a Hotel Management System,<br> My system will help hotel owners and managers</p>
