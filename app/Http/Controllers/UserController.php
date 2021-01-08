@@ -9,13 +9,15 @@ class UserController extends Controller
 {
     // Shows the All the Users
     public function index(){
-        $users = User::all(); // Returns all the information back from the Users Table
-        $admins = count(Role::whereName('Admin')->first()->users); // Counts all the admins in the roles/users Table
-        $owners = count(Role::whereName('Owner')->first()->users); // Counts all the owners in the roles/users Table
-        $managers = count(Role::whereName('Manager')->first()->users); // Counts all the managers in the roles/users Table
-        $staffs = count(Role::whereName('Staff')->first()->users); // Counts all the staff in the roles/users Table
-        $count = count($users); // Counts all the users Table
-        return view('admin.users.index', ['users'=>$users, 'count'=>$count, 'roles'=>Role::all(), 'admins'=>$admins, 'owners'=>$owners, 'managers'=>$managers, 'staffs'=>$staffs]);
+        $data = [];
+        $data['users'] = User::all(); // Returns all the information back from the Users Table
+        $data['titles'] = Role::pluck('name'); // Returns all the Role names as titles
+        $data['c'] = []; // Blank Array for the counting.
+            foreach ($data['titles'] as &$title){
+                $data['c'][$title] = Role::whereName($title)->first()->users->count(); // Counts each Role and assigns it to the id in C
+            }
+        //dd($data['c']);
+        return view('admin.users.index', $data);
     }
 
     // Shows the Create New Users Page

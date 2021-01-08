@@ -46,7 +46,7 @@
                                     {{$user->username}}
                                 @endif
                             </td>
-                            <td>{{$user->name}}</td>
+                            <td @if($user->last_login_at == null)class="text-danger"@endif>{{$user->name}}</td>
                             <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                             <td>
                             @if (auth()->user()->id <> $user->id) <!--info Stops User from deleting own account-->
@@ -70,43 +70,22 @@
             <div class="col-sm-3">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        Users
+                        Total Users = {{count($users)}}
                     </div>
                     <div class="card-body">
                         <!-- If there are some Users to display -->
-                        @if($count > 0)
+                        @if(count($users) > 0)
                             <p class="card-text">
-                                @if($admins == 0)
-                                    No Admins
-                                @elseif($admins == 1)
-                                    {{$admins}} Admin
-                                @else
-                                    {{$admins}} Admins
-                                @endif
-                                <br>
-                                @if($owners == 0)
-                                    No Owners
-                                @elseif($owners == 1)
-                                    {{$owners}} Owner
-                                @else
-                                    {{$owners}} Owners
-                                @endif
-                                <br>
-                                @if($managers == 0)
-                                    No Mangers
-                                @elseif($managers == 1)
-                                    {{$managers}} Manager
-                                @else
-                                    {{$managers}} Managers
-                                @endif
-                                <br>
-                                @if($staffs == 0)
-                                    No Members of Staff
-                                @elseif($staffs == 1)
-                                    {{$staffs}} Staff Member
-                                @else
-                                    {{$staffs}} Staff Members
-                                @endif
+                                @foreach($titles as $title)
+                                    @if($c[$title] == 0)
+                                        No {{$title}}s
+                                    @elseif($c[$title] == 1)
+                                        {{$c[$title]}} {{$title}}
+                                    @else
+                                        {{$c[$title]}} {{$title}}s
+                                    @endif
+                                    <br>
+                                @endforeach
                             </p>
                         @else
                         <!-- There are No Users to display -->
