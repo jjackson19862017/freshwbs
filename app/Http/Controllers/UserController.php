@@ -10,7 +10,11 @@ class UserController extends Controller
     // Shows the All the Users
     public function index(){
         $data = [];
-        $data['users'] = User::all(); // Returns all the information back from the Users Table
+        if(auth()->user()->id == 1){
+            $data['users'] = User::all(); // Returns all the information back from the Users Table
+        } else {
+                $data['users'] = User::where('id','!=',1)->get(); // Returns all the information back from the Users Table except the first User
+                }
         $data['titles'] = Role::pluck('name'); // Returns all the Role names as titles
         $data['roles'] = Role::all();
         $data['c'] = []; // Blank Array for the counting.
