@@ -97,7 +97,7 @@
                     </div>
                     <a href="{{route('wedevents.completed')}}">
                         <div class="card-footer bg-gradient-success text-white text-center">
-                            <span class="pull-left">View Booked Events</span>
+                            <span class="pull-left">View Completed Events</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>

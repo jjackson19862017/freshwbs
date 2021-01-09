@@ -124,7 +124,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapPermissionRoutes()
     {
         Route::prefix('admin')
-            ->middleware(['web','auth'])
+            ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
     }
@@ -148,7 +148,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapPositionRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/positions.php'));
     }
