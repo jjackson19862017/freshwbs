@@ -60,7 +60,7 @@
                                             <tbody>
                                             <tr>
                                                 <td>Position:</td>
-                                                <td> @if(count($staff->positions) != 0)
+                                                <td> <a class="text-dark" data-toggle="modal" data-target="#addPositionModal">@if(count($staff->positions) != 0)
                                                         @foreach ($staff->positions as $position)
                                                             {!!$position->icon!!} {{$position->name}} <br>
                                                         @endforeach
@@ -68,7 +68,7 @@
                                                         <a class="btn btn-outline-secondary text-danger btn-sm" data-toggle="modal" data-target="#addPositionModal">
                                                             Setup
                                                         </a>
-                                                    @endif</td>
+                                                        @endif</a></td>
                                             </tr>
                                             <tr>
                                                 <td>Personal License:</td>
@@ -118,7 +118,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Staff Member?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Staff Member?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
                         </button>

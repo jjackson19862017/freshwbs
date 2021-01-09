@@ -12,6 +12,7 @@ class UserController extends Controller
         $data = [];
         $data['users'] = User::all(); // Returns all the information back from the Users Table
         $data['titles'] = Role::pluck('name'); // Returns all the Role names as titles
+        $data['roles'] = Role::all();
         $data['c'] = []; // Blank Array for the counting.
             foreach ($data['titles'] as &$title){
                 $data['c'][$title] = Role::whereName($title)->first()->users->count(); // Counts each Role and assigns it to the id in C

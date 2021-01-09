@@ -24,13 +24,6 @@ class StaffController extends Controller
         return view('admin.staffs.profile', $data);
     }
 
-
-
-    // Shows the Create New Staffs Page
-    public function create(){
-        return view('admin.staffs.create');
-    }
-
     // Creating a New Staff Member
     public function store(Staff $staff, Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -57,10 +50,7 @@ class StaffController extends Controller
         return redirect()->route('staffs.index');
     }
 
-    // Shows the Staffs Profile
-    public function edit(Staff $staff){
-        return view('admin.staffs.edit', ['staff'=>$staff], ['positions'=>Position::all()]);
-    }
+
 
     public function update(Staff $staff, Request $request): \Illuminate\Http\RedirectResponse
     {

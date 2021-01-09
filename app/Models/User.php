@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,5 +69,14 @@ class User extends Authenticatable
             if($role_name == $role->name)
                 return true;
         }
+    }
+
+    public function getLastLoginAtAttribute($date)
+    {
+        // Changes the Date from the Database (String) to a Carbon Date
+        if($date == Null){
+            return "Never Logged in";
+        }
+        return Carbon::parse($date)->diffForHumans();
     }
 }
