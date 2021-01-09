@@ -108,7 +108,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapUserRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/users.php'));
     }
@@ -116,7 +116,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapRoleRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/roles.php'));
     }
@@ -124,7 +124,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapPermissionRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
     }
@@ -132,7 +132,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapStaffRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/staffs.php'));
     }
@@ -140,7 +140,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapCustomerRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/customers.php'));
     }
@@ -148,7 +148,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapPositionRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/positions.php'));
     }
@@ -156,7 +156,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWedEventsRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/wedevents.php'));
     }
@@ -164,7 +164,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapCardsRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/cards.php'));
     }
@@ -172,7 +172,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapTransactionsRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/transactions.php'));
     }
@@ -180,7 +180,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapStatsRoutes()
     {
         Route::prefix('admin')
-            ->middleware('web')
+            ->middleware(['web','auth','role:Admin','role:Owner'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/stats.php'));
     }
