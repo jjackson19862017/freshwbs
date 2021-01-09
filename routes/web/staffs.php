@@ -10,4 +10,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/staffs/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staff.create');
     Route::put('/staffs/{staff}/attach', [App\Http\Controllers\StaffController::class, 'attach'])->name('staff.position.attach');
     Route::put('/staffs/{staff}/detach', [App\Http\Controllers\StaffController::class, 'detach'])->name('staff.position.detach');
+
+    Route::get('/staffs/update/{staff}/updatePL', [App\Http\Controllers\StaffController::class, 'updatePL'])->name('staff.PL');
+    Route::get('/staffs/{staff}/profile', [App\Http\Controllers\StaffController::class, 'show'])->name('staffs.profile');
+
 });

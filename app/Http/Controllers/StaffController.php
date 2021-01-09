@@ -11,9 +11,20 @@ class StaffController extends Controller
 {
     // Shows the All the Staff Members
     public function index(){
-        $staffs = Staff::all(); // Returns all the information back from the Staff Table
-        return view('admin.staffs.index', ['staffs'=>$staffs, 'positions'=>Position::all()]);
+        $data = [];
+        $data['staffs'] = Staff::orderBy('hotel','asc')->orderBy('employmenttype','asc')->orderBy('surname','asc')->get(); // Returns all the information back from the Staff Table
+        $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
+        return view('admin.staffs.index', $data);
     }
+
+    public function show(Staff $staff){
+        $data = [];
+        $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
+        $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
+        return view('admin.staffs.profile', $data);
+    }
+
+
 
     // Shows the Create New Staffs Page
     public function create(){
@@ -69,12 +80,10 @@ class StaffController extends Controller
             'hotel' => ['string', 'max:255'],
             'status' => ['string', 'max:255'],
         ]);
-
         $staff->update($inputs);
-        // Do they have a Personal License?
         $request->session()->flash('message', 'Staff was Updated... ');
         $request->session()->flash('text-class', 'text-success');
-        return redirect()->route('staffs.index');
+        return redirect()->route('staffs.profile', $staff);
     }
 
     public function destroy(Request $request, Staff $staff): \Illuminate\Http\RedirectResponse
@@ -83,7 +92,8 @@ class StaffController extends Controller
         $staff->delete();
         $request->session()->flash('message', 'Staff Member was Deleted...');
         $request->session()->flash('text-class', 'text-danger');
-        return back();
+        return redirect()->route('staffs.index');
+
     }
 
     public function attach(Staff $staff): \Illuminate\Http\RedirectResponse
@@ -97,6 +107,16 @@ class StaffController extends Controller
     {
         # Detach a role to a Staff Member
         $staff->positions()->detach(request ('position'));
+        return back();
+    }
+    public function updatePL(Request $request, Staff $staff)
+    {
+        // When clicking on the button, it updates from yes to no and no to yes
+        $staff = Staff::find($staff)->first();
+
+        // info Times is used because thats that it gets modified into when it comes out of the database instead of No.
+        ($staff->personallicense == "times" ? $staff->personallicense = "Yes" : $staff->personallicense = "No"); // Tenary If Statement
+        $staff->save();
         return back();
     }
 }

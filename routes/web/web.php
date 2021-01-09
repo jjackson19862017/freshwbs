@@ -34,7 +34,7 @@ Route::get('/setup', function(){
     $admin = App\Models\Role::create(['name'=>'Owner','slug'=>'owner']);
     $admin = App\Models\Role::create(['name'=>'Manager','slug'=>'manager']);
     $admin = App\Models\Role::create(['name'=>'Staff','slug'=>'staff']);
-    $position = App\Models\Position::create(['name'=>'Genernal Manager', 'slug'=>'general-manager', 'icon'=>'<i class="fas fa-chess-king"></i>']);
+    $position = App\Models\Position::create(['name'=>'General Manager', 'slug'=>'general-manager', 'icon'=>'<i class="fas fa-chess-king"></i>']);
     $position = App\Models\Position::create(['name'=>'Assistant Manager', 'slug'=>'assistant-manager', 'icon'=>'<i class="fas fa-chess-queen"></i>']);
     $position = App\Models\Position::create(['name'=>'Restaurant Manager', 'slug'=>'restaurant-manager', 'icon'=>'<i class="fas fa-chess-rook"></i>']);
     $position = App\Models\Position::create(['name'=>'Head Housekeeper', 'slug'=>'head-housekeeper', 'icon'=>'<i class="fas fa-chess-bishop"></i>']);

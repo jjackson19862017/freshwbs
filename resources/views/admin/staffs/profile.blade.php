@@ -1,36 +1,194 @@
 <x-admin-master>
-
-@section('content')
-    <!-- Top Row -->
+    @section('content')
         <div class="row">
-            <div class="col-sm-7">
-                <h1>Edit Staff Details</h1>
-            </div>
-            <div class="col-sm-5">
-                <h3 class="font-weight-bold @if (Session::has('text-class'))
-                {{Session::get('text-class')}}
-                @endif">
-                    @if (Session::has('message'))
-                        {{Session::get('message')}}
-                    @endif
-                </h3>
+            <div class="col-sm-12">
+                <h1>{{$staff->forename}}'s Details <a class="btn btn-link" data-toggle="modal" data-target="#editModal">Edit...</a>
+                    <span class="float-right">
+                        <form action="{{route('staff.destroy', $staff->id)}}" method="post"
+                              enctype="multipart/form-data">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                    </button>
+                                </form></span></h1>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <!-- Personal Details -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                        <table class="table table-sm table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>Name:</td>
+                                                <td>{{$staff->forename}} {{$staff->surname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Telephone:</td>
+                                                <td>{{$staff->telephone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>E-mail:</td>
+                                                <td><a href="mailto:{{$staff->email}}">{{$staff->email}}</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address:</td>
+                                                <td>{{$staff->address1}}<br>
+                                                    {{$staff->address2}}<br>
+                                                    {{$staff->townCity}}<br>
+                                                    {{$staff->county}}<br>
+                                                    {{$staff->postCode}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / Personal Details -->
+                        <!-- Other Information -->
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                        <table class="table table-sm table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>Position:</td>
+                                                <td> @if(count($staff->positions) != 0)
+                                                        @foreach ($staff->positions as $position)
+                                                            {!!$position->icon!!} {{$position->name}} <br>
+                                                        @endforeach
+                                                    @else
+                                                        <a class="btn btn-outline-secondary text-danger btn-sm" data-toggle="modal" data-target="#addPositionModal">
+                                                            Setup
+                                                        </a>
+                                                    @endif</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Personal License:</td>
+                                                <td>{{$staff->getRawOriginal('personallicense')}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Salary / Hourly:</td>
+                                                <td>{{$staff->employmenttype}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Hotel:</td>
+                                                <td>{{$staff->hotel}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Status:</td>
+                                                <td>{{$staff->status}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- / Other Information -->
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            To be Added Later
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- / Top Row -->
-        <!-- Content Row -->
-        <div class="row">
-            <!-- Left Half -->
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        Edit Staff Details...
+
+        <!-- Change Staff Positions Modal-->
+        <div class="modal fade" id="addPositionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Staff Member?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                        </button>
                     </div>
-                    <div class="card-body">
+                    <div class="modal-body">
+
+                        <div class="row row-cols-2 row-cols-md-1">
+
+                            @foreach ($positions as $position)
+                                <div class="col-sm-6 mb-1">
+                                    <div class="card mx-auto">
+                                        <div class="card-body py-1 no-gutters">
+                                            <h3 class="h6 text-center">{!!$position->icon!!} {{$position->name}}</h3>
+                                            @if(!$staff->positions->contains($position))
+                                                <form class="align-middle"
+                                                      action="{{route('staff.position.attach', $staff->id)}}"
+                                                      method="post">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="position" id="position"
+                                                               value="{{$position->id}}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary btn-block">Assign
+
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{route('staff.position.detach', $staff->id)}}"
+                                                      method="post">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="position" id="position"
+                                                               value="{{$position->id}}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger btn-block">Unassign
+
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Staff Modal-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Staff Member?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
                         <form action="{{route('staffs.update', $staff->id)}}" method="post" class="form-horizontal">
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group row">
                                         <label for="forename" class="col-form-label col-sm-4">Forename</label>
                                         <div class="col-sm-8">
@@ -148,6 +306,9 @@
                                     </div>
 
 
+
+                                </div>
+                                <div class="col-sm-6">
                                     <div class="form-group row">
                                         <label for="personallicense" class="col-form-label col-sm-4">Personal
                                             License</label>
@@ -184,11 +345,11 @@
                                             <select class="form-control" name="hotel" id="hotel">
                                                 @if($staff->hotel == "Shard")
                                                     <option value="Shard">Shard</option>
-                                                <option value="The Mill">The Mill</option>
+                                                    <option value="The Mill">The Mill</option>
                                                 @else
                                                     <option value="The Mill">The Mill</option>
                                                     <option value="Shard">Shard</option>
-@endif
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -197,9 +358,9 @@
                                         <div class="col-sm-8">
                                             <select class="form-control" name="status" id="status">
                                                 @if($staff->status == "Employed")
-                                                <option value="Employed">Employed</option>
-                                                <option value="Furloughed">Furloughed</option>
-                                                <option value="Not Employed">Not Employed</option>
+                                                    <option value="Employed">Employed</option>
+                                                    <option value="Furloughed">Furloughed</option>
+                                                    <option value="Not Employed">Not Employed</option>
                                                 @elseif($staff->status == "Furloughed")
                                                     <option value="Furloughed">Furloughed</option>
                                                     <option value="Employed">Employed</option>
@@ -225,14 +386,9 @@
                             </div>
                         </form>
                     </div>
-                </div><!-- / Left Half -->
+                </div>
             </div>
-
-
-        </div><!-- / Content Row -->
-
-
+        </div>
 
     @endsection
 </x-admin-master>
-

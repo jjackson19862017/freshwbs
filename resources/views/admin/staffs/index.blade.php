@@ -29,7 +29,6 @@
                         <th>Employment Type</th>
                         <th>Position</th>
                         <th>Hotel</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -43,31 +42,30 @@
                             class="alert-danger"
                             @endif>
                             <td>@if(auth()->user()->userHasRole('Admin'))
-                                    <a href="{{route('staffs.edit', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
+                                    <a href="{{route('staffs.profile', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
                                 @else
                                     {{$staff->forename}} {{$staff->surname}}
                                 @endif
                             </td>
                             <td>{{$staff->telephone}}</td>
-                            <td class="h4">{!! '<i class="fas fa-'!!}{{$staff->personallicense}}{!!'"></i>' !!}
-
+                            <td class="h4"><a class="text-dark"
+                                              href="{{route('staff.PL', $staff)}}">{!! '<i class="fas fa-'!!}{{$staff->personallicense}}{!!'"></i>' !!}
+                                </a>
                             </td>
                             <td>{{$staff->employmenttype}}</td>
-                            <td>@foreach ($staff->positions as $position)
-                                    {!!$position->icon!!}
-                                @endforeach</td>
+                            <td><a class="text-dark" data-toggle="modal" data-target="#addPositionModal">
+                                    @if(count($staff->positions) != 0)
+                                    @foreach ($staff->positions as $position)
+                                        {!!$position->icon!!}
+                                    @endforeach
+                                    @else
+                                        <a class="btn btn-outline-secondary text-danger btn-sm" data-toggle="modal" data-target="#addPositionModal">
+                                            Setup
+                                        </a>
+                                        @endif
+                                </a></td>
                             <td>{{$staff->hotel}}</td>
-                            <td>
-                                <form action="{{route('staff.destroy', $staff->id)}}" method="post"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                            class="fas fa-user-times"></i> Delete
-                                    </button>
-                                </form>
 
-                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -128,6 +126,65 @@
             <!-- / Legend Table Area -->
         </div>
         <!-- Content Row -->
+
+        <!-- Change Staff Positions Modal-->
+        <div class="modal fade" id="addPositionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Staff Member?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row row-cols-2 row-cols-md-1">
+
+                            @foreach ($positions as $position)
+                                <div class="col-sm-6 mb-1">
+                                    <div class="card mx-auto">
+                                        <div class="card-body py-1 no-gutters">
+                                            <h3 class="h6 text-center">{!!$position->icon!!} {{$position->name}}</h3>
+                                            @if(!$staff->positions->contains($position))
+                                                <form class="align-middle"
+                                                      action="{{route('staff.position.attach', $staff->id)}}"
+                                                      method="post">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="position" id="position"
+                                                               value="{{$position->id}}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary btn-block">Assign
+
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{route('staff.position.detach', $staff->id)}}"
+                                                      method="post">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="position" id="position"
+                                                               value="{{$position->id}}">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-danger btn-block">Unassign
+
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     @endsection
 </x-admin-master>
