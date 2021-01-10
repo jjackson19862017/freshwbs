@@ -6,17 +6,11 @@
 @endsection
 
 @section('content')
-
-    <!-- Page Heading -->
-        <h1 class="h3 mb-4 text-gray-800">Statistics Breakdown</h1>
-
-
-
         <div class="row mb-3">
             <div class="col-sm-12">
                 <div class="card vh-33">
                     <div class="card-header text-center">
-                        Three Year Monthly Breakdown
+                        Three Year Monthly Sales Breakdown
                     </div>
                     <div class="card-body p-1">
                         <div class="chart-container" style="position: relative; height:100%; width:100%;">

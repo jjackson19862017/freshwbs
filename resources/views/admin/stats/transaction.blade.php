@@ -12,7 +12,7 @@
             <h1 class="h3 mb-4 text-gray-800">Transactions Breakdown</h1>
         </div>
         <div class="col-sm-4">
-            <h1 class="h3 mb-4 text-gray-800">Coming Later</h1>
+            <h1 class="h3 mb-4 text-gray-800">Breakdowns</h1>
         </div>
     </div>
     <div class="row mb-3">
@@ -47,8 +47,90 @@
             </table>
         </div>
         <div class="col-sm-4">
-
-
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">From the beginning...</h4>
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Events purchased</td>
+                                <td>£{{number_format($purchased, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money taken</td>
+                                <td>£{{number_format($paid, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money outstanding</td>
+                                <td>£{{number_format($outstanding, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                <div class="progress" style="height: 20px; width: 100%;">
+                                    <div class="progress-bar bg-primary" style="width:{{$percentage}}%"></div>
+                                </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">This Year...</h4>
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Events purchased</td>
+                                <td>£{{number_format($purchasedThisYear, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money taken</td>
+                                <td>£{{number_format($paidThisYear, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money outstanding</td>
+                                <td>£{{number_format($outstandingThisYear, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                <div class="progress" style="height: 20px; width: 100%;">
+                                    <div class="progress-bar bg-primary" style="width:{{$percentageThisYear}}%"></div>
+                                </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Upcoming Years...</h4>
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                            <tr>
+                                <td>Events purchased</td>
+                                <td>£{{number_format($purchasedUpcomingYears, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money taken</td>
+                                <td>£{{number_format($paidUpcomingYears, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Money outstanding</td>
+                                <td>£{{number_format($outstandingUpcomingYears, 2)}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                <div class="progress" style="height: 20px; width: 100%;">
+                                    <div class="progress-bar bg-primary" style="width:{{$percentageUpcomingYears}}%"></div>
+                                </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

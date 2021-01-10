@@ -195,8 +195,7 @@ class StatsController extends Controller
         $data = [];
         $data['wedevents'] = WedEvents::orderBy('weddingdate', 'asc')->get();
 
-
-
+        // Transactions Table
         foreach($data['wedevents'] as $event) {
         $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
         $event->tCount = $event->transactions->count(); // Counts Transactions
@@ -219,6 +218,40 @@ class StatsController extends Controller
             $event->progress = $event->progress + 20;
         };
         }
+
+
+        // Breakdown Cards
+        // From the Beginning
+        $data['purchased'] = WedEvents::pluck('cost')->sum();
+        $data['paid'] = Transactions::pluck('amount')->sum();
+        $data['outstanding'] = $data['purchased'] - $data['paid'];
+        $data['percentage'] = (100/$data['purchased']) * $data['paid'];
+
+
+        // The Current Year
+        $data['currentYear'] = Carbon::createFromDate(null)->format('Y');
+        $data['upcomingYears'] = $data['currentYear'] + 1;
+
+        // This Year
+        $data['purchasedThisYear'] = WedEvents::where('contractissueddate', '>=', Carbon::create(null,1,1,0,0,0))->where('contractissueddate', '<=', Carbon::create(null,12,31,23,59,59))->pluck('cost')->sum();
+        $data['paidThisYear'] = Transactions::where('created_at', '>=', Carbon::create(null,1,1,0,0,0))->where('created_at', '<=', Carbon::create(null,12,31,23,59,59))->pluck('amount')->sum();
+        $data['outstandingThisYear'] = $data['purchasedThisYear'] - $data['paidThisYear'];
+        $data['percentageThisYear'] = (100/$data['purchasedThisYear']) * $data['paidThisYear'];
+
+
+        // Upcoming Years
+        $data['purchasedUpcomingYears'] = WedEvents::where('contractissueddate', '>=', Carbon::create($data['upcomingYears'],1,1,0,0,0))->pluck('cost')->sum();
+        $data['paidUpcomingYears'] = Transactions::where('created_at', '>=', Carbon::create($data['upcomingYears'],1,1,0,0,0))->pluck('amount')->sum();
+        $data['outstandingUpcomingYears'] = $data['purchasedUpcomingYears'] - $data['paidUpcomingYears'];
+        $data['percentageUpcomingYears'] = (100/$data['purchasedUpcomingYears']) * $data['paidUpcomingYears'];
+
+
+
+
+
+
+        // Next Year
+
 
 //dd(Transactions::where('wedevent_id', '=', 1)->get());
 
