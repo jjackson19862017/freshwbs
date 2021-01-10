@@ -8,7 +8,7 @@
 @section('content')
 
     <!-- Page Heading -->
-        @if(auth()->user()->userHasRole('Admin'))
+        @if(auth()->user()->userHasRole('Admin') || auth()->user()->userHasRole('Manager') || auth()->user()->userHasRole('Owner'))
             <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
 
         <div class="row">

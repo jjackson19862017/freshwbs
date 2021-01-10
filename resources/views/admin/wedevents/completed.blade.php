@@ -34,7 +34,7 @@
                             <tr>
                             <td>
                                 <!-- If your admin, then you can have access to the Events Page else you cannot access it -->
-                                @if(auth()->user()->userHasRole('Admin'))
+                                @if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->couple}}
                                     </a>

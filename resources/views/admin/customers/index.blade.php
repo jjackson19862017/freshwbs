@@ -33,7 +33,7 @@
                     @foreach($customers as $customer)
                         <tr>
                             <!-- Couple Column, If your an admin you can update the details of the couples else you cannot -->
-                            <td>@if(auth()->user()->userHasRole('Admin'))
+                            <td>@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('customers.edit', $customer)}}">{{$customer->couple}}</a>
                                 @else
                                     {{$customer->couple}}

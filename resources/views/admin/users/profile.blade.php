@@ -40,7 +40,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if(auth()->user()->userHasRole('Admin'))
+                            @if(!auth()->user()->userHasRole('Staff'))
                                 <div class="form-group row">
                                     <label for="role" class="col-form-label col-sm-3">Role</label>
                                     <div class="col-sm-9">

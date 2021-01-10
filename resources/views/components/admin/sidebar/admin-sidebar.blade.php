@@ -19,19 +19,21 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
 
 
     <!-- Nav Item - Pages Collapse Menu -->
-    @if(auth()->user()->userHasRole('Admin'))
+    @if(auth()->user()->userHasRole('Admin') || auth()->user()->userHasRole('Manager') || auth()->user()->userHasRole('Owner'))
+    <!-- Divider -->
+    <hr class="sidebar-divider">
         <!-- Heading -->
             <div class="sidebar-heading">
                 Administrator
             </div>
         <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
+        @if(auth()->user()->userHasRole('Admin'))
         <x-admin.sidebar.admin-sidebar-authorization></x-admin.sidebar.admin-sidebar-authorization>
+        @endif
     @endif
 
     @if(!auth()->user()->userHasRole('Staff'))
@@ -50,13 +52,15 @@
         </div>
         <x-admin.sidebar.admin-sidebar-customers></x-admin.sidebar.admin-sidebar-customers>
         <x-admin.sidebar.admin-sidebar-events></x-admin.sidebar.admin-sidebar-events>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Statistics
-            </div>
+        @if(auth()->user()->userHasRole('Owner') || auth()->user()->userHasRole('Admin'))
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Statistics
+        </div>
         <x-admin.sidebar.admin-sidebar-stats></x-admin.sidebar.admin-sidebar-stats>
+        @endif
  <!-- Divider -->
     <hr class="sidebar-divider">
 @endif

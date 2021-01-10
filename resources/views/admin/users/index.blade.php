@@ -34,7 +34,7 @@
                     @foreach($users as $user)
                         <tr>
                             <td>
-                                @if (auth()->user()->userHasRole('Admin'))
+                                @if (!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('user.profile.show', $user)}}">{{$user->username}} <small>@foreach ($user->roles as $user_role)
                                             @if ($user_role->slug == $user_role->slug)
                                                 {{$user_role->name}}

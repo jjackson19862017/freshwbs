@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomerArea"
        aria-expanded="true" aria-controls="collapseUserArea">
-        <i class="fas fa-fw fa-cog"></i>
+        <i class="fas fa-user-friends"></i>
         <span>Customers:</span>
     </a>
     <div id="collapseCustomerArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

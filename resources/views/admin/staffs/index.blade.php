@@ -41,7 +41,7 @@
                             @else
                             class="alert-danger"
                             @endif>
-                            <td>@if(auth()->user()->userHasRole('Admin'))
+                            <td>@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('staffs.profile', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
                                 @else
                                     {{$staff->forename}} {{$staff->surname}}
