@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Transactions;
 use App\Models\WedEvents;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 
 class StatsController extends Controller
 {
@@ -188,4 +190,40 @@ class StatsController extends Controller
         //dd($data['marThisYearSales']);
         return view('admin.stats.breakdown', $data);
     }
+
+    public function transaction(){
+        $data = [];
+        $data['wedevents'] = WedEvents::orderBy('weddingdate', 'asc')->get();
+
+
+
+        foreach($data['wedevents'] as $event) {
+        $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
+        $event->tCount = $event->transactions->count(); // Counts Transactions
+        $event->paid = $event->transactions->sum('amount'); // Adds all the payments up
+        $event->out = $event->cost - $event->paid; // Calculates outstanding payments
+        $event->percentage = (100/$event->cost) * $event->paid; // Calculates the percentage paid
+        if($event->onhold == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->agreementsigned == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->deposittaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->quarterpaymenttaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->hadfinaltalk == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        }
+
+//dd(Transactions::where('wedevent_id', '=', 1)->get());
+
+
+        return view('admin.stats.transaction', $data);
+    }
+
 }

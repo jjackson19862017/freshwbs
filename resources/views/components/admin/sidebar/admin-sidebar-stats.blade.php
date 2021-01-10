@@ -8,6 +8,7 @@
             <h6 class="collapse-header">Stats:</h6>
             <a class="collapse-item" href="{{route('stats.index')}}">Dashboard Stats</a>
             <a class="collapse-item" href="{{route('stats.breakdown')}}">Breakdown Stats</a>
+            <a class="collapse-item" href="{{route('stats.transaction')}}">Transactions</a>
         </div>
     </div>
 </li>
