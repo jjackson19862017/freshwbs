@@ -10,7 +10,7 @@
     <!-- Page Heading -->
         @if(auth()->user()->userHasRole('Admin'))
             <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-        @endif
+
         <div class="row">
             <!-- Customer Cards -->
             <div class="col-lg-3 col-md-6 mb-3">
@@ -361,6 +361,9 @@
                     </div>
                 </div>
             </div>
+            @else
+            <h1>Welcome</h1>
+            @endif
             <script>
                 var ctx = document.getElementById('bookedChart');
                 var myPieChart = new Chart(ctx, {

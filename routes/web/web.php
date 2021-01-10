@@ -3,7 +3,7 @@
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Position;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,7 @@ Route::get('/setup', function(){
     $position = App\Models\Position::create(['name'=>'Supervisor', 'slug'=>'supervisor', 'icon'=>'<i class="fas fa-chess-knight"></i>']);
     $position = App\Models\Position::create(['name'=>'Chef', 'slug'=>'chef', 'icon'=>'<i class="fas fa-utensils"></i>']);
     $position = App\Models\Position::create(['name'=>'Pot Wash', 'slug'=>'pot-wash', 'icon'=>'<i class="fas fa-tint"></i>']);
+    echo "Setup has been completed.";
     return view('admin.index');
 });
 

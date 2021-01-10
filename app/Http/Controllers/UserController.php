@@ -21,7 +21,7 @@ class UserController extends Controller
             foreach ($data['titles'] as &$title){
                 $data['c'][$title] = Role::whereName($title)->first()->users->count(); // Counts each Role and assigns it to the id in C
             }
-        //dd($data['c']);
+        //dd($data['users']);
         return view('admin.users.index', $data);
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
             $user->roles()->attach(request('role')); // Attaches the selected role to the user
         $request->session()->flash('message', 'Profile Updated...');
 
-        return back();
+       return redirect()->route('users.index');
     }
 
     public function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse

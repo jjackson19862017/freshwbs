@@ -57,11 +57,11 @@
                 Statistics
             </div>
         <x-admin.sidebar.admin-sidebar-stats></x-admin.sidebar.admin-sidebar-stats>
-
+ <!-- Divider -->
+    <hr class="sidebar-divider">
 @endif
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
