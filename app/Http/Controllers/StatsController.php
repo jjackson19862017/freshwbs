@@ -193,10 +193,88 @@ class StatsController extends Controller
 
     public function transaction(){
         $data = [];
-        $data['wedevents'] = WedEvents::orderBy('weddingdate', 'asc')->get();
 
-        // Transactions Table
+        // The Current Year
+        $data['currentYear'] = Carbon::createFromDate(null)->format('Y');
+        $data['upcomingYears'] = $data['currentYear'] + 1;
+
+        $data['wedevents'] = WedEvents::orderBy('weddingdate', 'asc')->get();
+        $data['thisYear'] = WedEvents::where('contractissueddate', '>=', Carbon::create(null,1,1,0,0,0))->where('contractissueddate', '<=', Carbon::create(null,12,31,23,59,59))->get();
+        $data['nextYear'] = WedEvents::where('contractissueddate', '>=', Carbon::create($data['upcomingYears'],1,1,0,0,0))->where('contractissueddate', '<=', Carbon::create($data['upcomingYears'],12,31,23,59,59))->get();
+        $data['pastYears'] = WedEvents::where('contractissueddate', '<', Carbon::create(null,1,1,0,0,0))->get();
+
+        // All Transactions Table
         foreach($data['wedevents'] as $event) {
+        $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
+        $event->tCount = $event->transactions->count(); // Counts Transactions
+        $event->paid = $event->transactions->sum('amount'); // Adds all the payments up
+        $event->out = $event->cost - $event->paid; // Calculates outstanding payments
+        $event->percentage = (100/$event->cost) * $event->paid; // Calculates the percentage paid
+        if($event->onhold == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->agreementsigned == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->deposittaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->quarterpaymenttaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->hadfinaltalk == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        }
+
+        // All Transactions Table
+        foreach($data['thisYear'] as $event) {
+        $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
+        $event->tCount = $event->transactions->count(); // Counts Transactions
+        $event->paid = $event->transactions->sum('amount'); // Adds all the payments up
+        $event->out = $event->cost - $event->paid; // Calculates outstanding payments
+        $event->percentage = (100/$event->cost) * $event->paid; // Calculates the percentage paid
+        if($event->onhold == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->agreementsigned == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->deposittaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->quarterpaymenttaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->hadfinaltalk == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        }
+
+        foreach($data['nextYear'] as $event) {
+        $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
+        $event->tCount = $event->transactions->count(); // Counts Transactions
+        $event->paid = $event->transactions->sum('amount'); // Adds all the payments up
+        $event->out = $event->cost - $event->paid; // Calculates outstanding payments
+        $event->percentage = (100/$event->cost) * $event->paid; // Calculates the percentage paid
+        if($event->onhold == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->agreementsigned == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->deposittaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->quarterpaymenttaken == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        if($event->hadfinaltalk == "Yes") {
+            $event->progress = $event->progress + 20;
+        };
+        }
+
+        foreach($data['pastYears'] as $event) {
         $event->transactions = Transactions::where('wedevent_id', '=', $event->id)->get(); // Returns Transactions based on each Event
         $event->tCount = $event->transactions->count(); // Counts Transactions
         $event->paid = $event->transactions->sum('amount'); // Adds all the payments up
@@ -226,11 +304,6 @@ class StatsController extends Controller
         $data['paid'] = Transactions::pluck('amount')->sum();
         $data['outstanding'] = $data['purchased'] - $data['paid'];
         $data['percentage'] = (100/$data['purchased']) * $data['paid'];
-
-
-        // The Current Year
-        $data['currentYear'] = Carbon::createFromDate(null)->format('Y');
-        $data['upcomingYears'] = $data['currentYear'] + 1;
 
         // This Year
         $data['purchasedThisYear'] = WedEvents::where('contractissueddate', '>=', Carbon::create(null,1,1,0,0,0))->where('contractissueddate', '<=', Carbon::create(null,12,31,23,59,59))->pluck('cost')->sum();

@@ -45,7 +45,7 @@
                                 @endif
                             </td>
                             <td>{{$user->name}} @if(auth()->user()->id == 1)
-                                 <small>{{$user->last_login_at}}</small>
+                                 <small @if($user->last_login_at == 0)class="text-danger"@endif>{{$user->last_login_at}}</small>
                                 @endif</td>
                             <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                             <td>
