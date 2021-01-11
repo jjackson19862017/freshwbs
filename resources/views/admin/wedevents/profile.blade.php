@@ -290,7 +290,7 @@
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-success btn-sm float-right" type="submit">
-                            <i class="fas fa-save"> Notes</i></button>
+                            <i class="fas fa-save"> Save Notes</i></button>
                         </form>
                     </div>
                 </div>
@@ -303,20 +303,20 @@
                         Payment Info
                         @if(!isset($card))
                             <span class="float-right">
-                            <a name="add" id="add"
+                            <a name="addcard" id="addcard"
                                class="btn btn-warning btn-sm"
-                               href="{{route('card.create',[$wedevent->customer, $wedevent])}}"
+                                href="{{route('card.create',[$wedevent->customer, $wedevent])}}"
                                role="button">Add Card Details</a>
                                 </span>
                         @else
-                            <a class="btn btn-warning btn-sm" href="#" data-toggle="modal"
+                            <a class="btn btn-warning btn-sm" data-toggle="modal"
                                data-target="#cardDetailsModal">
                                 View Card
                             </a>
                             <span class="float-right">
                             <a name="add" id="add"
                                class="btn btn-success btn-sm"
-                               href="{{route('transaction.create',$wedevent->id)}}"
+                               data-toggle="modal" data-target="#addTransactionModal"
                                role="button">Add Transaction</a>
                                 </span>
                         @endif
@@ -366,6 +366,13 @@
                                         <td>Subtotal</td>
                                         <td>£{{round($subtotal,2)}}</td>
                                     </tr>
+                                    @if($outstanding > 0)
+                                    <tr class="alert alert-danger">
+                                        <td></td>
+                                        <td>Outstanding</td>
+                                        <td>£{{round($outstanding,2)}}</td>
+                                    </tr>
+                                    @endif
                                     </tfoot>
                                 </table>
 
@@ -375,14 +382,6 @@
                         </div>
                         <hr>
 
-                    </div>
-                    <div class="card-footer">
-                        <h4 @if($outstanding > 0)
-                                class="text-danger text-center"
-                            @else
-                                class="text-success text-center"
-                            @endif
-                            >Amount Outstanding -  £{{$outstanding}}</h4>
                     </div>
                 </div>
             </div>
@@ -445,6 +444,76 @@
                 </div>
             </div>
         @endif
+
+<!-- Add Transaction Modal-->
+<div class="modal fade" id="addTransactionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Transaction?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('transaction.store')}}" method="post" class="form-horizontal">
+                            @csrf
+                            <div class="row">
+                                <!-- Left Half Area -->
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Cost of Event: £{{$event->cost}}</li>
+                                            <li class="list-group-item">Deposit: £500</li>
+                                            <li class="list-group-item">25% Payment: £{{$quarter}}</li>
+                                        </ul>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <input type="hidden"
+                                                    class="form-control"
+                                                    name="wedevent_id"
+                                                    id="wedevent_id"
+                                                    aria-describedby="helpId"
+                                                    value="{{$wedevent->id}}">
+                                        </div>
+
+                                    <div class="form-group row">
+                                        <label for="name" class="col-form-label col-sm-4">Transaction</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                                   class="form-control @error('name') is-invalid @enderror"
+                                                   name="name"
+                                                   id="name"
+                                                   aria-describedby="helpId"
+                                                   placeholder="What is it?"
+                                                   value="{{ old('name') }}">
+                                            @error('name')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="amount" class="col-form-label col-sm-4">Subtotal</label>
+                                        <div class="col-sm-8">
+                                            <input type="number"
+                                                   class="form-control @error('amount') is-invalid @enderror"
+                                                   name="amount" id="amount" aria-describedby="helpId" step="0.01" min="0"
+                                                   placeholder="Enter Amount" value="{{ old('amount') }}">
+                                            @error('amount')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <button type="submit" class="btn btn-primary float-right">Create Transaction</button>
+
+                        </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     @endsection

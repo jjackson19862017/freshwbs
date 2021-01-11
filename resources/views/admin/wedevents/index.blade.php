@@ -36,13 +36,10 @@
                                 @if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('wedevent.profile.show', $wedevent)}}">
                                         {{$wedevent->customer->couple}}
-                                        <hr>
-                                        Event: {{$wedevent->weddingdate->format('d/m/y')}} - {{$wedevent->weddingdate->diffInDays()}} days away
+
                                     </a>
                                 @else
                                     {{$customer->couple}}
-                                    <hr>
-                                    Event: {{$wedevent->weddingdate->diffInDays()}} days away
                                 @endif
                             </td>
                             <td>
@@ -92,8 +89,13 @@
                                 @endif <span class="float-right">Outstanding: @if(!$wedevent->out == 0)
 
                                         £{{$wedevent->out}}@else£{{$wedevent->cost}}@endif</span>
-                                <hr>
-                                <!-- On Hold Button Yes / No -->
+
+
+                            </td>
+                            </tr>
+                            <tr>
+                                <td class="border-top-0">Event: {{$wedevent->weddingdate->format('d/m/y')}} - {{$wedevent->weddingdate->diffInDays()}} days away</td>
+<td class="border-top-0"><!-- On Hold Button Yes / No -->
                                 <a type="button" href="{{route('wedevent.OnHold',$wedevent)}}"
                                    @if($wedevent->onhold == "No")
                                    class="btn btn-sm btn-danger  mb-1"
@@ -145,9 +147,9 @@
                                    @else
                                    class="btn btn-sm btn-success  mb-1"
                                     @endif
-                                >Completed</a>
+                                >Completed</a></td>
 
-                            </td>
+
                             </tr>
                         @endforeach
 

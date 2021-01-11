@@ -110,7 +110,8 @@ class WedEventsController extends Controller
         $trans = Transactions::where('wedevent_id', '=', $wedevent->id)->get();
         $subtotal = Transactions::where('wedevent_id', '=', $wedevent->id)->get()->sum('amount');
         $outstanding = $event->cost - $subtotal;
-        return view('admin.wedevents.profile', ['wedevent' => $wedevent, 'customers' => Customer::find($wedevent->customer->id)->first(), 'card' => $hasCardDetails, 'trans' => $trans, 'subtotal' => $subtotal, 'outstanding' => $outstanding]);
+        $quarter = round($event->cost / 4,2);
+        return view('admin.wedevents.profile', ['wedevent' => $wedevent, 'customers' => Customer::find($wedevent->customer->id)->first(), 'card' => $hasCardDetails, 'trans' => $trans, 'subtotal' => $subtotal, 'outstanding' => $outstanding,'event'=>$event, 'quarter'=>$quarter]);
     }
 
     public function update(WedEvents $wedevent, Request $request): RedirectResponse
