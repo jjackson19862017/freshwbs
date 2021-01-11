@@ -38,13 +38,6 @@
 
     @if(!auth()->user()->userHasRole('Staff'))
         <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Company
-            </div>
-        <x-admin.sidebar.admin-sidebar-staff></x-admin.sidebar.admin-sidebar-staff>
-        <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading">
@@ -60,6 +53,16 @@
             Statistics
         </div>
         <x-admin.sidebar.admin-sidebar-stats></x-admin.sidebar.admin-sidebar-stats>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Hotels
+        </div>
+        <x-admin.sidebar.admin-sidebar-shard></x-admin.sidebar.admin-sidebar-shard>
+        <x-admin.sidebar.admin-sidebar-themill></x-admin.sidebar.admin-sidebar-themill>
+        <x-admin.sidebar.admin-sidebar-staff></x-admin.sidebar.admin-sidebar-staff>
         @endif
  <!-- Divider -->
     <hr class="sidebar-divider">

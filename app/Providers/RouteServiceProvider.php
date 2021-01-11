@@ -66,6 +66,9 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapStatsRoutes();
 
+        $this->mapHotelsRoutes();
+
+
         //
     }
 
@@ -183,5 +186,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web','auth'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/stats.php'));
+    }
+
+     protected function mapHotelsRoutes()
+    {
+        Route::prefix('admin')
+            ->middleware(['web','auth'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/hotels.php'));
     }
 }
