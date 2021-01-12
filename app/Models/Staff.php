@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Staff extends Model
 {
@@ -12,10 +13,14 @@ class Staff extends Model
     protected $guarded = [];
 
 
-
     public function positions(){
         // Creates a Many to Many relationship with Staff <-> Position
         return $this->belongsToMany('App\Models\Position');
+    }
+
+    public function holidays(){
+        // Creates a Many to Many relationship with Staff <-> Holidays
+        return $this->hasMany('App\Models\Holidays');
     }
 
     public function getPersonallicenseAttribute($value)

@@ -29,6 +29,7 @@
                         <th>Employment Type</th>
                         <th>Position</th>
                         <th>Hotel</th>
+                        <th>Holidays Left</th>
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -65,6 +66,7 @@
                                         @endif
                                 </a></td>
                             <td>{{$staff->hotel}}</td>
+                            <td>{{$staff->holidaysleft}}</td>
 
                         </tr>
                     @endforeach

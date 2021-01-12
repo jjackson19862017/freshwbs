@@ -28,7 +28,7 @@
     <hr class="sidebar-divider">
         <!-- Heading -->
             <div class="sidebar-heading">
-                Administrator
+                Admin
             </div>
         <x-admin.sidebar.admin-sidebar-user></x-admin.sidebar.admin-sidebar-user>
         @if(auth()->user()->userHasRole('Admin'))

@@ -100,9 +100,45 @@
                             <div class="card-body">
                                 <div class="card">
                                     <div class="card-body">
-                                        <p class="card-text">
-                                            To be Added Later
-                                        </p>
+                                        <table class="table table-borderless table-sm">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Holidays Taken:</td>
+                                                    <td>{{$daysTaken}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Holidays Left:</td>
+                                                    <td>{{$staff->holidaysleft}}</td>
+                                                </tr>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan=2><a class="btn btn-success" href="{{route('staffs.createHoliday', $staff)}}">Add Holiday</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table-borderless table-small">
+                                            <thead>
+                                                <tr>
+                                                    <th>Start</th>
+                                                    <th>Finish</th>
+                                                    <th>Days Taken</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($holidays as $hol)
+                                                    <tr>
+                                                    <td>{{$hol->start}}</td>
+                                                    <td>{{$hol->finish}}</td>
+                                                    <td>{{$hol->daystaken}}</td>
+                                                </tr>
+                                                @endforeach
+                                                <tr>
+                                                    <td scope="row"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -372,6 +408,19 @@
                                                 @endif
 
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="holidaysleft" class="col-form-label col-sm-4">Holidays Left: </label>
+                                        <div class="col-sm-8">
+                                            <input type="number"
+                                                   class="form-control @error('holidaysleft') is-invalid @enderror"
+                                                   name="holidaysleft" id="holidaysleft" aria-describedby="helpId"
+                                                   placeholder="Holiday days left to take"
+                                                   value="{{$staff->holidaysleft}}">
+                                            @error('holidaysleft')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <hr>

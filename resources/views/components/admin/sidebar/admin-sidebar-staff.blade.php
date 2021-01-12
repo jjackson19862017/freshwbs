@@ -179,6 +179,19 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                                        <label for="holidaysleft" class="col-form-label col-sm-4">Holidays Left: </label>
+                                        <div class="col-sm-8">
+                                            <input type="number"
+                                                   class="form-control @error('holidaysleft') is-invalid @enderror"
+                                                   name="holidaysleft" id="holidaysleft" aria-describedby="helpId"
+                                                   placeholder="Holiday days left to take"
+                                                   value="28">
+                                            @error('holidaysleft')
+                                            <div class="invalid-feedback">{{$message}}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                         <hr>
                         <button type="submit"
                                 @if (Session::has('message'))

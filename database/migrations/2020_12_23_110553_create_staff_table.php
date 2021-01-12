@@ -28,6 +28,7 @@ class CreateStaffTable extends Migration
             $table->enum('employmenttype',['Salary','Hourly']);
             $table->string('hotel');
             $table->string('status');
+            $table->integer('holidaysleft')->default('0');
             $table->timestamps();
         });
     }

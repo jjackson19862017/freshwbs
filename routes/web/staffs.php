@@ -12,4 +12,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/staffs/update/{staff}/updatePL', [App\Http\Controllers\StaffController::class, 'updatePL'])->name('staff.PL');
     Route::get('/staffs/{staff}/profile', [App\Http\Controllers\StaffController::class, 'show'])->name('staffs.profile');
 
+    Route::get('/staffs/{staff}/holiday/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.createHoliday');
+    Route::post('/staffs/{staff}/holiday/store', [App\Http\Controllers\StaffController::class, 'storeHoliday'])->name('staffs.storeHoliday');
+
+
 });

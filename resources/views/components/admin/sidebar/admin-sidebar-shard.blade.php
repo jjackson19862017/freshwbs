@@ -8,7 +8,7 @@
             <h6 class="collapse-header">Stats:</h6>
             <a class="collapse-item" href="{{route('admin.hotels.shard.index')}}">Staff</a>
             <a class="collapse-item" href="">Daily Sales</a>
-            <a class="collapse-item" href="">Holidays</a>
+            <a class="collapse-item" href="{{route('admin.hotels.shard.holidays')}}">Holidays</a>
         </div>
     </div>
 </li>

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Holidays;
 use App\Models\PersonalLicense;
 use App\Models\Position;
 use App\Models\Staff;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StaffController extends Controller
 {
@@ -21,8 +25,60 @@ class StaffController extends Controller
         $data = [];
         $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
         $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
+        $data['holidays'] = Holidays::all();
+        $data['daysTaken'] = Holidays::pluck('daystaken')->sum();
+        $data['daysLeft'] = Staff::find($staff)->pluck('holidaysleft')->first() - Holidays::pluck('daystaken')->sum();
         return view('admin.staffs.profile', $data);
     }
+
+        public function create(Staff $staff){
+        $data = [];
+        $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
+        return view('admin.staffs.createHoliday', $data);
+    }
+
+    public function storeHoliday(Staff $staff, Request $request){
+
+
+        $validator = Validator::make($request->all(), [
+            'staff_id' => 'required|numeric',
+            'start' => 'date',
+            'finish' => 'date',
+
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        $holiday = [
+            'staff_id' => $request->input('staff_id'),
+            'start'=> $request->input('start'),
+            'finish'=> $request->input('finish'),
+            'daystaken'=>  Carbon::parse($request->start)->diff(Carbon::parse($request->finish))->days,
+        ];
+
+        $oriHolidaysLeft = $staff->holidaysleft;
+
+        //dd($oriHolidaysLeft);
+
+        $newId= Holidays::create($holiday)->id; // Stores the New Records Id in $newId
+        $taken = Holidays::find($newId)->pluck('daystaken')->last();
+        //dd($taken);
+        $staff->holidaysleft = $oriHolidaysLeft - $taken;
+//dd($staff);
+        $staff->save();
+        $request->session()->flash('message', 'Holiday was Created... ');
+        $request->session()->flash('text-class', 'text-success');
+
+        //dd($newId);
+
+        return redirect()->route('staffs.profile', $staff);
+    }
+
 
     // Creating a New Staff Member
     public function store(Staff $staff, Request $request): \Illuminate\Http\RedirectResponse
@@ -42,6 +98,8 @@ class StaffController extends Controller
             'position' => ['string', 'max:255'],
             'hotel' => ['string', 'max:255'],
             'status' => ['string', 'max:255'],
+            'holidaysleft' => ['numeric'],
+
         ]);
         $staff->create($inputs);
 
@@ -69,6 +127,8 @@ class StaffController extends Controller
             'position' => ['string', 'max:255'],
             'hotel' => ['string', 'max:255'],
             'status' => ['string', 'max:255'],
+            'holidaysleft' => ['numeric'],
+
         ]);
         $staff->update($inputs);
         $request->session()->flash('message', 'Staff was Updated... ');
