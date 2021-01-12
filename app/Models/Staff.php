@@ -19,8 +19,13 @@ class Staff extends Model
     }
 
     public function holidays(){
-        // Creates a Many to Many relationship with Staff <-> Holidays
+        // Creates a One to Many relationship with Staff <-> Holidays
         return $this->hasMany('App\Models\Holidays');
+    }
+
+     public function dailysales(){
+        // Creates a One to Many relationship with Staff <-> Holidays
+        return $this->hasMany('App\Models\DailySales');
     }
 
     public function getPersonallicenseAttribute($value)

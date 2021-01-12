@@ -112,7 +112,7 @@
                                                 </tr>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan=2><a class="btn btn-success" href="{{route('staffs.createHoliday', $staff)}}">Add Holiday</a></td>
+                                                    <td colspan=2><a class="btn btn-success" data-toggle="modal" data-target="#addHolidayModal">Add Holiday</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -452,6 +452,78 @@
                 </div>
             </div>
         </div>
+
+        <!-- Change Staff Positions Modal-->
+        <div class="modal fade" id="addHolidayModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Holiday for {{$staff->forename}}</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+            <form action="{{route('staffs.storeHoliday', $staff)}}" method="post" class="form-horizontal">
+                @csrf
+
+                    <input type="hidden"
+                        class="form-control" name="staff_id" id="staff_id" aria-describedby="helpId" value="{{$staff->id}}">
+
+                <div class="form-group row">
+                    <label for="start" class="col-form-label col-sm-5">Start
+                        Date</label>
+                    <div class="col-sm-7">
+                        <input type="date"
+                                class="form-control @error('start') is-invalid @enderror"
+                                name="start" id="start"
+                                aria-describedby="helpId"
+                                placeholder="yyyy-mm-dd"
+                                value="{{ old('start') }}">
+                        @error('start')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="finish" class="col-form-label col-sm-5">Finish
+                        Date</label>
+                    <div class="col-sm-7">
+                        <input type="date"
+                                class="form-control @error('finish') is-invalid @enderror"
+                                name="finish" id="finish"
+                                aria-describedby="helpId"
+                                placeholder="yyyy-mm-dd"
+                                value="{{ old('finish') }}">
+                        @error('finish')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary float-right">Create Holiday</button>
+
+
+
+            </form>
+
+            </div>
+            <!-- / Staff Table Area -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+                    </div>
+                </div>
+            </div>
+
 
     @endsection
 </x-admin-master>

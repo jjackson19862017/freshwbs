@@ -30,6 +30,8 @@ class TransactionsController extends Controller
 
 
         $transaction->create($inputs);
+
+
         $request->session()->flash('message', 'Transaction was Created... ');
         $request->session()->flash('text-class', 'text-success');
         return redirect()->route('wedevent.profile.show', ['wedevent'=>$wedevent,'customers'=>Customer::all()]);

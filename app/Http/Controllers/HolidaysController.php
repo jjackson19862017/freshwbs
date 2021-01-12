@@ -35,11 +35,12 @@ class HolidaysController extends Controller
         $staff = Staff::find($staffId)->first();
         //dd($staffId);
 
-        if($holDetails->getRawOriginal('start') >= Carbon::now()){
+        if($holDetails->getRawOriginal('start') >= Carbon::now()->subDay()){
             // If the Holiday is either today or beyond
             $oriHolidaysLeft = $staff->holidaysleft;
             $staff->holidaysleft = $oriHolidaysLeft + $daysReclaimed;
             $staff->save();
+
         }
         // Delete Event
         $holiday->delete();

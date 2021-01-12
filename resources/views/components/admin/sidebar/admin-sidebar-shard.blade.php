@@ -7,7 +7,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Stats:</h6>
             <a class="collapse-item" href="{{route('admin.hotels.shard.index')}}">Staff</a>
-            <a class="collapse-item" href="">Daily Sales</a>
+            <a class="collapse-item" href="{{route('admin.hotels.createDailySales')}}">Daily Sales</a>
             <a class="collapse-item" href="{{route('admin.hotels.shard.holidays')}}">Holidays</a>
         </div>
     </div>

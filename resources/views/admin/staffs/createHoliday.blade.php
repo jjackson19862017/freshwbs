@@ -22,13 +22,10 @@
             <div class="col-sm-12">
             <form action="{{route('staffs.storeHoliday', $staff)}}" method="post" class="form-horizontal">
                 @csrf
-                <div class="form-group row">
-                    <div class="form-group">
-                    <label for="staff_id">Staff Id</label>
-                    <input type="number"
+
+                    <input type="hidden"
                         class="form-control" name="staff_id" id="staff_id" aria-describedby="helpId" value="{{$staff->id}}">
-                    </div>
-                </div>
+
                 <div class="form-group row">
                     <label for="start" class="col-form-label col-sm-5">Start
                         Date</label>
@@ -61,7 +58,13 @@
                 </div>
                 <button type="submit" class="btn btn-primary float-right">Create Holiday</button>
 
-                @if ($errors->any())
+
+
+            </form>
+
+            </div>
+            <!-- / Staff Table Area -->
+@if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -70,11 +73,6 @@
         </ul>
     </div>
 @endif
-
-            </form>
-            </div>
-            <!-- / Staff Table Area -->
-
         </div>
         <!-- Content Row -->
 

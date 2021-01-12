@@ -26,8 +26,8 @@ class StaffController extends Controller
         $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
         $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
         $data['holidays'] = Holidays::where('staff_id', '=', $staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->get(); // Returns all the holidays for the current year
-        $data['daysTaken'] = Holidays::pluck('daystaken')->sum();
-        $data['daysLeft'] = Staff::find($staff)->pluck('holidaysleft')->first() - Holidays::pluck('daystaken')->sum();
+        $data['daysTaken'] = Holidays::where('staff_id', '=', $staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->pluck('daystaken')->sum(); // Adds all the Days taken for the Year
+        $data['daysLeft'] = Staff::find($staff)->pluck('holidaysleft')->first() - $data['daysTaken'];
 
 
         return view('admin.staffs.profile', $data);
@@ -44,8 +44,8 @@ class StaffController extends Controller
 
         $validator = Validator::make($request->all(), [
             'staff_id' => 'required|numeric',
-            'start' => 'date',
-            'finish' => 'date',
+            'start' => 'required|date|after_or_equal:today',
+            'finish' => 'required|date|after:start',
 
         ]);
 
