@@ -14,6 +14,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/staffs/{staff}/holiday/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.createHoliday');
     Route::post('/staffs/{staff}/holiday/store', [App\Http\Controllers\StaffController::class, 'storeHoliday'])->name('staffs.storeHoliday');
+    Route::delete('/staffs/{holiday}/holiday', [App\Http\Controllers\HolidaysController::class, 'destroy'])->name('holidays.destroy'); //info This allows users to delete Holidays in the admin area
 
 
 });

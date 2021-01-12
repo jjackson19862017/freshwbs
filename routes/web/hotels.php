@@ -11,6 +11,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/hotels/themill/holidays', [App\Http\Controllers\HotelsController::class, 'themillStaffHolidays'])->name('admin.hotels.themill.holidays');
 
 
+    Route::get('/hotels/holidays', [App\Http\Controllers\HolidaysController::class, 'holidays'])->name('admin.hotels.holidays');
 
 
 });

@@ -9,6 +9,7 @@
             <h6 class="collapse-header">Staff:</h6>
             <a class="collapse-item" data-toggle="modal" data-target="#addStaffModal">Add Staff Member</a>
             <a class="collapse-item" href="{{route('staffs.index')}}">View All Staff Members</a>
+            <a class="collapse-item" href="{{route('admin.hotels.holidays')}}">View All Holidays</a>
         </div>
     </div>
 </li>

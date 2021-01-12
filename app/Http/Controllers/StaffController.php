@@ -25,9 +25,11 @@ class StaffController extends Controller
         $data = [];
         $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
         $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
-        $data['holidays'] = Holidays::all();
+        $data['holidays'] = Holidays::where('staff_id', '=', $staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->get(); // Returns all the holidays for the current year
         $data['daysTaken'] = Holidays::pluck('daystaken')->sum();
         $data['daysLeft'] = Staff::find($staff)->pluck('holidaysleft')->first() - Holidays::pluck('daystaken')->sum();
+
+
         return view('admin.staffs.profile', $data);
     }
 

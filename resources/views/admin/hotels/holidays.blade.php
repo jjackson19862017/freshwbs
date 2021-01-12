@@ -3,7 +3,7 @@
     <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-                <h1>Staff Holiday List - Shard</h1>
+                <h1>Staff Holiday List</h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -46,9 +46,9 @@
                     </thead>
                     <tbody class="text-center">
                     @foreach($holidays as $hol)
-                    @if($hol->staff->hotel == "Shard")
-                        <tr>
-                            <td>@if(!auth()->user()->userHasRole('Staff'))
+
+                        <tr @if($hol->staff->hotel == "Shard")class="alert alert-secondary"@endif>
+                            <td >@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('staffs.profile', $hol->staff)}}">{{$hol->staff->forename}} {{$hol->staff->surname}}</a>
                                 @else
                                     {{$hol->staff->forename}} {{$hol->staff->surname}}
@@ -57,7 +57,7 @@
                             <td>{{$hol->start}}</td>
                             <td>{{$hol->finish}}</td>
                         </tr>
-                    @endif
+
                     @endforeach
                     </tbody>
                 </table>
@@ -74,8 +74,8 @@
                     </thead>
                     <tbody class="text-center">
                     @foreach($pastHolidays as $hol)
-                    @if($hol->staff->hotel == "Shard")
-                        <tr>
+
+                        <tr @if($hol->staff->hotel == "Shard")class="alert alert-secondary"@endif>
                             <td>@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('staffs.profile', $hol->staff)}}">{{$hol->staff->forename}} {{$hol->staff->surname}}</a>
                                 @else
@@ -85,7 +85,7 @@
                             <td>{{$hol->start}}</td>
                             <td>{{$hol->finish}}</td>
                         </tr>
-                    @endif
+
                     @endforeach
                     </tbody>
                 </table>
@@ -117,7 +117,7 @@
                     </thead>
                     <tbody class="text-center">
                     @foreach($staffs as $staff)
-                        <tr>
+                        <tr @if($staff->hotel == "Shard")class="alert alert-secondary"@endif>
                             <td>@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('staffs.profile', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
                                 @else
