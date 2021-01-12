@@ -146,6 +146,13 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <h3 class="font-weight-bold @if (Session::has('text-class'))
+                {{Session::get('text-class')}}
+                @endif">
+                    @if (Session::has('message'))
+                        {{Session::get('message')}}
+                    @endif
+                </h3>
                                     </div>
                                 </div>
                             </div>

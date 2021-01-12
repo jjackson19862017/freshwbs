@@ -29,6 +29,18 @@ class HolidaysController extends Controller
 
     public function destroy(Request $request, Holidays $holiday)
     {
+        $staffId = Holidays::find($holiday)->pluck('staff_id'); // Finds Current Staff Id
+        $holDetails = Holidays::find($holiday)->first();
+        $daysReclaimed = Holidays::find($holiday)->pluck('daystaken')->first(); // Finds the days that would of been taken
+        $staff = Staff::find($staffId)->first();
+        //dd($staffId);
+
+        if($holDetails->getRawOriginal('start') >= Carbon::now()){
+            // If the Holiday is either today or beyond
+            $oriHolidaysLeft = $staff->holidaysleft;
+            $staff->holidaysleft = $oriHolidaysLeft + $daysReclaimed;
+            $staff->save();
+        }
         // Delete Event
         $holiday->delete();
         $request->session()->flash('message', 'Holiday was Deleted...');
