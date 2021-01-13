@@ -22,6 +22,7 @@ class DailySalesController extends Controller
     public function store(Request $request){
      $validator = Validator::make($request->all(), [
             'user_id' => 'required|numeric',
+            'date' => 'unique:daily_sales,date',
             'iou' => 'numeric',
             'bacs' => 'numeric',
             'cheque' => 'numeric',
