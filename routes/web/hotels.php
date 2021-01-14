@@ -13,9 +13,9 @@ Route::middleware('auth')->group(function(){
 
     // Both Hotels
     Route::get('/hotels/holidays', [App\Http\Controllers\HolidaysController::class, 'holidays'])->name('admin.hotels.holidays');
-    Route::get('/hotels/holidays', [App\Http\Controllers\HolidaysController::class, 'holidays'])->name('admin.hotels.holidays');
     Route::get('/hotels/endofdaysales', [App\Http\Controllers\DailySalesController::class, 'endofdaysales'])->name('admin.hotels.createDailySales');
     Route::post('/hotels/endofdaysales/store', [App\Http\Controllers\DailySalesController::class, 'store'])->name('hotels.store');
+    Route::get('/hotels/salessheet', [App\Http\Controllers\DailySalesController::class, 'salessheet'])->name('admin.hotels.salessheet');
 
 
 });

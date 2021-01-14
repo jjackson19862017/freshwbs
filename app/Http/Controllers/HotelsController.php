@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DailySales;
 use App\Models\Holidays;
 use Illuminate\Http\Request;
 use App\Models\Staff;
@@ -30,8 +31,6 @@ class HotelsController extends Controller
 
         return view('admin.hotels.shard.holidays', $data);
     }
-
-
 
 
 

@@ -8,6 +8,7 @@ use App\Models\Staff;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
+use function PHPUnit\Framework\isEmpty;
 
 class DailySalesController extends Controller
 {
@@ -112,4 +113,38 @@ class DailySalesController extends Controller
 
         return redirect()->route('admin.index');
     }
+
+    public function salessheet(){
+        $data = [];
+        $data['dailysales'] = DailySales::all();
+        $data['currentweek'] = DailySales::pluck('date');
+
+
+
+        $data['currentweek'] = $data['currentweek']->map(function($item, $key){
+            return Carbon::create($item)->format('d m y');
+        });
+
+        $startOfWeek = Carbon::create(2021,1,11);
+
+        $data['monday'] = DailySales::where('date','=',Carbon::create(2021,1,18))->get();
+
+        if(!$data['monday']->isEmpty()){
+        $data['monday'] = DailySales::where('date','=',$startOfWeek)->get();
+    } else {
+        $id = DailySales::insert(['date'=>Carbon::create(2021,1,18), 'hotel'=>"Shard", 'user_id'=>99,'iou'=>0,'bacs'=>0,'cheque'=>0,'pdqreception'=>0,'pdqbar'=>0,'pdqrestaurant'=>0,'cashtotal'=>0,'gpostotal'=>0,'cashsafe'=>0]);
+        $data['monday'] = DailySales::find($id)->first();
+    }
+        $data['tuesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+        $data['wednesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+        $data['thursday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+        $data['friday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+        $data['saturday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+        $data['sunday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
+
+
+        return view('admin.hotels.salessheet', $data);
+    }
+
+
 }
