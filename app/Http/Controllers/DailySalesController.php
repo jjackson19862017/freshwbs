@@ -115,26 +115,39 @@ class DailySalesController extends Controller
     }
 
     public function salessheet(){
+        $startOfWeek = Carbon::create(2021,1,11);
+
+        $days = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+            ];
+
         $data = [];
-        $data['dailysales'] = DailySales::all();
+        $data['dailysales'] = DailySales::orderBy('date','asc')->get();
         $data['currentweek'] = DailySales::pluck('date');
 
+        $data['weeklysales'] = DailySales::orderBy('date','asc')->where('date','>=',$startOfWeek)->limit(7)->get();
+        //dd($data['weeklysales']);
+
+        foreach ($days as $day => $val) {
+            # code...
+            $data['daysofweek'][$val] = DailySales::where('date', $startOfWeek)->get();
+
+           $startOfWeek = $startOfWeek->addDay();
+
+        }
 
 
         $data['currentweek'] = $data['currentweek']->map(function($item, $key){
             return Carbon::create($item)->format('d m y');
         });
 
-        $startOfWeek = Carbon::create(2021,1,11);
-
-        $data['monday'] = DailySales::where('date','=',Carbon::create(2021,1,18))->get();
-
-        if(!$data['monday']->isEmpty()){
         $data['monday'] = DailySales::where('date','=',$startOfWeek)->get();
-    } else {
-        $id = DailySales::insert(['date'=>Carbon::create(2021,1,18), 'hotel'=>"Shard", 'user_id'=>99,'iou'=>0,'bacs'=>0,'cheque'=>0,'pdqreception'=>0,'pdqbar'=>0,'pdqrestaurant'=>0,'cashtotal'=>0,'gpostotal'=>0,'cashsafe'=>0]);
-        $data['monday'] = DailySales::find($id)->first();
-    }
         $data['tuesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
         $data['wednesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
         $data['thursday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
@@ -143,6 +156,7 @@ class DailySalesController extends Controller
         $data['sunday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
 
 
+//dd($data['daysofweek']);
         return view('admin.hotels.salessheet', $data);
     }
 

@@ -16,4 +16,5 @@ class DailySales extends Model
         // Creates a One to Many relationship with Holidays <-> Staff
         return $this->belongsTo(Staff::class);
     }
+
 }

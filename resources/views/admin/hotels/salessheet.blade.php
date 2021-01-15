@@ -33,6 +33,9 @@
             </form>
         </div>
         </div>
+
+
+
         <div class="row">
             <!-- Staff Table Area -->
             <div class="col-sm-12">
@@ -40,152 +43,97 @@
                     <thead class="thead-dark text-center">
                     <tr>
                         <th></th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thurdsay</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
-                        <th>Totals</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        @foreach ($currentweek as $day)
+                        @foreach ($daysofweek as $day => $days)
                         <th>{{$day}}</th>
                         @endforeach
-                        <th></th>
+                        <th>Totals</th>
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach ($monday as $m)
-                            @foreach ($tuesday as $t)
-                            @foreach ($wednesday as $w)
-                            @foreach ($thursday as $th)
-                            @foreach ($friday as $f)
-                            @foreach ($saturday as $s)
-                            @foreach ($sunday as $su)
+
+                        <tr>
+                            <td>Date</td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{date('d/m/y', strtotime($day[0]->date))}}</td>
+                            @endforeach
+                            <td></td>
+                        </tr>
                         <tr>
                             <td>Clerk</td>
-                            <td>{{$m->user_id}}</td>
-                            <td>{{$t->user_id}}</td>
-                            <td>{{$w->user_id}}</td>
-                            <td>{{$th->user_id}}</td>
-                            <td>{{$f->user_id}}</td>
-                            <td>{{$s->user_id}}</td>
-                            <td>{{$su->user_id}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->user_id}}</td>
+                            @endforeach
                             <td></td>
                         </tr>
 
                         <tr>
                             <td>Ious</td>
-                            <td>{{$m->iou}}</td>
-                            <td>{{$t->iou}}</td>
-                            <td>{{$w->iou}}</td>
-                            <td>{{$th->iou}}</td>
-                            <td>{{$f->iou}}</td>
-                            <td>{{$s->iou}}</td>
-                            <td>{{$su->iou}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->iou}}</td>
+                            @endforeach
                             <td></td>
                         </tr>
                         <tr>
                             <td>Bacs</td>
-                            <td>{{$m->bacs}}</td>
-                            <td>{{$t->bacs}}</td>
-                            <td>{{$w->bacs}}</td>
-                            <td>{{$th->bacs}}</td>
-                            <td>{{$f->bacs}}</td>
-                            <td>{{$s->bacs}}</td>
-                            <td>{{$su->bacs}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->bacs}}</td>
+                            @endforeach
                             <td></td>
                         </tr>
                         <tr>
                             <td>Cheque</td>
-                            <td>{{$m->cheque}}</td>
-                            <td>{{$t->cheque}}</td>
-                            <td>{{$w->cheque}}</td>
-                            <td>{{$th->cheque}}</td>
-                            <td>{{$f->cheque}}</td>
-                            <td>{{$s->cheque}}</td>
-                            <td>{{$su->cheque}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->cheque}}</td>
+                            @endforeach
                             <td></td>
                         </tr>
 
                         <tr>
                             <td class="border-top border-primary">Reception</td>
-                            <td class="border-top border-primary">{{$m->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$t->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$w->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$th->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$f->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$s->pdqreception}}</td>
-                            <td class="border-top border-primary">{{$su->pdqreception}}</td>
-                            <td class="border-top border-primary"></td>
+                            @foreach ($daysofweek as $day)
+                            <td class="border-top border-primary">{{$day[0]->pdqreception}}</td>
+                            @endforeach
+                            <td class="border-top border-primary align-bottom" rowspan="3">{{number_format($day[0]->sum('pdqreception') + $day[0]->sum('pdqbar') + $day[0]->sum('pdqrestaurant'),2)}}</td>
                         </tr>
                         <tr>
                             <td>Bar</td>
-                            <td>{{$m->pdqbar}}</td>
-                            <td>{{$t->pdqbar}}</td>
-                            <td>{{$w->pdqbar}}</td>
-                            <td>{{$th->pdqbar}}</td>
-                            <td>{{$f->pdqbar}}</td>
-                            <td>{{$s->pdqbar}}</td>
-                            <td>{{$su->pdqbar}}</td>
-                            <td></td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->pdqbar}}</td>
+                            @endforeach
+
                         </tr>
                         <tr>
                             <td>Restaurant</td>
-                            <td>{{$m->pdqrestaurant}}</td>
-                            <td>{{$t->pdqrestaurant}}</td>
-                            <td>{{$w->pdqrestaurant}}</td>
-                            <td>{{$th->pdqrestaurant}}</td>
-                            <td>{{$f->pdqrestaurant}}</td>
-                            <td>{{$s->pdqrestaurant}}</td>
-                            <td>{{$su->pdqrestaurant}}</td>
-                            <td></td>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->pdqrestaurant}}</td>
+                            @endforeach
+
                         </tr>
 
                         <tr>
                             <td class="border-top border-primary">Till Cash</td>
-                            <td class="border-top border-primary">{{$m->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$t->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$w->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$th->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$f->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$s->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$su->cashtotal}}</td>
-                            <td class="border-top border-primary">{{$m->cashtotal + $t->cashtotal + $w->cashtotal + $th->cashtotal + $f->cashtotal + $s->cashtotal + $su->cashtotal}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td class="border-top border-primary">{{$day[0]->cashtotal}}</td>
+                            @endforeach
+                            <td>{{number_format($day[0]->sum('cashtotal'),2)}}</td>
+
                         </tr>
                         <tr>
                             <td class="border-top border-primary">Gpos</td>
-                            <td class="border-top border-primary">{{$m->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$t->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$w->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$th->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$f->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$s->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$su->gpostotal}}</td>
-                            <td class="border-top border-primary">{{$m->gpostotal + $t->gpostotal + $w->gpostotal + $th->gpostotal + $f->gpostotal + $s->gpostotal + $su->gpostotal}}</td>
+                            @foreach ($daysofweek as $day)
+                            <td class="border-top border-primary">{{$day[0]->gpostotal}}</td>
+                            @endforeach
+                            <td>{{number_format($day[0]->sum('gpostotal'),2)}}</td>
+
                         </tr>
                         <tr>
                             <td>Cash for Safe</td>
-                            <td>{{$m->cashsafe}}</td>
-                            <td>{{$t->cashsafe}}</td>
-                            <td>{{$w->cashsafe}}</td>
-                            <td>{{$th->cashsafe}}</td>
-                            <td>{{$f->cashsafe}}</td>
-                            <td>{{$s->cashsafe}}</td>
-                            <td>{{$su->cashsafe}}</td>
-                            <td>{{$m->cashsafe + $t->cashsafe + $w->cashsafe + $th->cashsafe + $f->cashsafe + $s->cashsafe + $su->cashsafe}}</td>
-                        </tr>
+                            @foreach ($daysofweek as $day)
+                            <td>{{$day[0]->cashsafe}}</td>
+                            @endforeach
+                            <td>{{number_format($day[0]->sum('cashsafe'),2)}}</td>
 
-                        @endforeach
-                        @endforeach
-                        @endforeach
-                        @endforeach
-                        @endforeach
-                        @endforeach
-                        @endforeach
+                        </tr>
 
 
                     </tbody>
