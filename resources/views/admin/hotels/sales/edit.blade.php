@@ -9,8 +9,10 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-sm-6">
-                <form action="{{route('hotels.store')}}" method="post" class="form-horizontal">
+                <form action="{{route('admin.hotels.sales.update', $sales->id)}}" method="post" class="form-horizontal">
                     @csrf
+                    @method('PUT')
+
                             <input type="hidden" class="form-control" name="user_id" id="user_id" value="{{auth()->user()->id}}"
                                            aria-describedby="helpId">
 
@@ -22,7 +24,7 @@
                                         <input type="date"
                                                class="form-control text-right @error('date') is-invalid @enderror"
                                                name="date" id="date"
-                                               aria-describedby="helpId" value="{{ now()->format('Y-m-d') }}">
+                                               aria-describedby="helpId" value="{{$sales->date}}">
                                         @error('date')
                                         <div class="invalid-feedback">{{$message}}</div>
                                         @enderror
@@ -38,8 +40,11 @@
                                     <label for="hotel" class="col-form-label col-sm-4">Hotel</label>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="hotel" id="hotel">
+                                            @if($sales->hotel=="Shard")
                                             <option value="Shard">Shard</option>
+                                            @else
                                             <option value="The Mill">The Mill</option>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -59,8 +64,8 @@
                                                     <td><input type="number"
                                                     class="form-control text-right @error('iou') is-invalid @enderror input ious"
                                                     name="iou" step="0.01" min="0"
-                                                    id="iou" aria-describedby="helpId" value="0"
-                                                    value="{{ old('iou') }}">
+                                                    id="iou" aria-describedby="helpId"
+                                                    value="{{$sales->iou}}">
                                                 @error('iou')
                                                 <div class="invalid-feedback">{{$message}}</div>
                                                 @enderror</td>
@@ -70,8 +75,8 @@
                                                     <td><input type="number"
                                                     class="form-control text-right @error('bacs') is-invalid @enderror input bacs"
                                                     name="bacs" step="0.01" min="0"
-                                                    id="bacs" aria-describedby="helpId" value="0"
-                                                    value="{{ old('bacs') }}">
+                                                    id="bacs" aria-describedby="helpId"
+                                                    value="{{ $sales->bacs }}">
                                                 @error('bacs')
                                                 <div class="invalid-feedback">{{$message}}</div>
                                                 @enderror</td>
@@ -81,8 +86,8 @@
                                                     <td><input type="number"
                                                         class="form-control text-right @error('cheque') is-invalid @enderror input cheque"
                                                         name="cheque" step="0.01" min="0"
-                                                        id="cheque" aria-describedby="helpId" value="0"
-                                                        value="{{ old('cheque') }}">
+                                                        id="cheque" aria-describedby="helpId"
+                                                        value="{{ $sales->cheque }}">
                                                     @error('cheque')
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror
@@ -108,8 +113,8 @@
                                                     <td><input type="number"
                                                         class="form-control text-right @error('pdqreception') is-invalid @enderror input card1"
                                                         name="pdqreception" step="0.01" min="0"
-                                                        id="pdqreception" aria-describedby="helpId" value="0"
-                                                        value="{{ old('pdqreception') }}">
+                                                        id="pdqreception" aria-describedby="helpId"
+                                                        value="{{ $sales->pdqreception }}">
                                                     @error('pdqreception')
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror</td>
@@ -120,8 +125,8 @@
                                                     <td><input type="number"
                                                         class="form-control text-right @error('pdqbar') is-invalid @enderror input card2"
                                                         name="pdqbar" step="0.01" min="0"
-                                                        id="pdqbar" aria-describedby="helpId" value="0"
-                                                        value="{{ old('pdqbar') }}">
+                                                        id="pdqbar" aria-describedby="helpId"
+                                                        value="{{ $sales->pdqbar }}">
                                                     @error('pdqbar')
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror</td>
@@ -131,8 +136,8 @@
                                                     <td><input type="number"
                                                         class="form-control text-right @error('pdqrestaurant') is-invalid @enderror input card3"
                                                         name="pdqrestaurant" step="0.01" min="0"
-                                                        id="pdqrestaurant" aria-describedby="helpId" value="0"
-                                                        value="{{ old('pdqrestaurant') }}">
+                                                        id="pdqrestaurant" aria-describedby="helpId"
+                                                        value="{{ $sales->pdqrestaurant }}">
                                                     @error('pdqrestaurant')
                                                     <div class="invalid-feedback">{{$message}}</div>
                                                     @enderror</td>
@@ -167,8 +172,8 @@
                                     <td><input type="number"
                                         class="form-control text-right @error('notefifty') is-invalid @enderror input notesfifty"
                                         name="notefifty" min="0"
-                                        id="notefifty" aria-describedby="helpId" value="0"
-                                        value="{{ old('notefifty') }}">
+                                        id="notefifty" aria-describedby="helpId"
+                                        value="{{ $sales->notefifty }}">
                                         @error('notefifty')
                                         <div class="invalid-feedback">{{$message}}</div>
                                         @enderror
@@ -180,8 +185,8 @@
                                     <td> <input type="number"
                                         class="form-control text-right @error('notetwenty') is-invalid @enderror input notestwenty"
                                         name="notetwenty" min="0"
-                                        id="notetwenty" aria-describedby="helpId" value="0"
-                                        value="{{ old('notetwenty') }}">
+                                        id="notetwenty" aria-describedby="helpId"
+                                        value="{{ $sales->notetwenty }}">
                                 @error('notetwenty')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -193,8 +198,8 @@
                                     <td> <input type="number"
                                         class="form-control text-right @error('noteten') is-invalid @enderror input notesten"
                                         name="noteten" min="0"
-                                        id="noteten" aria-describedby="helpId" value="0"
-                                        value="{{ old('noteten') }}">
+                                        id="noteten" aria-describedby="helpId"
+                                        value="{{ $sales->noteten }}">
                                 @error('noteten')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -206,8 +211,8 @@
                                     <td><input type="number"
                                         class="form-control text-right @error('notefive') is-invalid @enderror input notesfive"
                                         name="notefive" min="0"
-                                        id="notefive" aria-describedby="helpId" value="0"
-                                        value="{{ old('notefive') }}">
+                                        id="notefive" aria-describedby="helpId"
+                                        value="{{ $sales->notefive }}">
                                 @error('notefive')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -219,8 +224,8 @@
                                     <td><input type="number"
                                         class="form-control text-right @error('coinonepound') is-invalid @enderror input coinsonepound"
                                         name="coinonepound"  min="0"
-                                        id="coinonepound" aria-describedby="helpId" value="0"
-                                        value="{{ old('coinonepound') }}">
+                                        id="coinonepound" aria-describedby="helpId"
+                                        value="{{ $sales->coinonepound }}">
                                 @error('coinonepound')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -230,10 +235,10 @@
                                 <tr>
                                     <td><label for="coinfifty" class="col-form-label">50p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinsfifty"
+                                        class="form-control text-right @error('coinfifty') is-invalid @enderror input coinsfifty"
                                         name="coinfifty"  min="0"
-                                        id="coinfifty" aria-describedby="helpId" value="0"
-                                        value="{{ old('coinfifty') }}">
+                                        id="coinfifty" aria-describedby="helpId"
+                                        value="{{ $sales->coinfifty }}">
                                 @error('coinfifty')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -243,10 +248,10 @@
                                 <tr>
                                     <td><label for="cointwenty" class="col-form-label">20p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinstwenty"
+                                        class="form-control text-right @error('cointwenty') is-invalid @enderror input coinstwenty"
                                         name="cointwenty" min="0"
-                                        id="cointwenty" aria-describedby="helpId" value="0"
-                                        value="{{ old('cointwenty') }}">
+                                        id="cointwenty" aria-describedby="helpId"
+                                        value="{{ $sales->cointwenty }}">
                                 @error('cointwenty')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -256,10 +261,10 @@
                                 <tr>
                                     <td><label for="cointen" class="col-form-label">10p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinsten"
+                                        class="form-control text-right @error('cointen') is-invalid @enderror input coinsten"
                                         name="cointen" min="0"
-                                        id="cointen" aria-describedby="helpId" value="0"
-                                        value="{{ old('cointen') }}">
+                                        id="cointen" aria-describedby="helpId"
+                                        value="{{ $sales->cointen }}">
                                 @error('cointen')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -269,10 +274,10 @@
                                 <tr>
                                     <td><label for="coinfive" class="col-form-label">5p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinsfive"
+                                        class="form-control text-right @error('coinfive') is-invalid @enderror input coinsfive"
                                         name="coinfive" min="0"
-                                        id="coinfive" aria-describedby="helpId" value="0"
-                                        value="{{ old('coinfive') }}">
+                                        id="coinfive" aria-describedby="helpId"
+                                        value="{{ $sales->coinfive }}">
                                 @error('coinfive')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -282,10 +287,10 @@
                                 <tr>
                                     <td><label for="cointwo" class="col-form-label">2p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinstwo"
+                                        class="form-control text-right @error('cointwo') is-invalid @enderror input coinstwo"
                                         name="cointwo" min="0"
-                                        id="cointwo" aria-describedby="helpId" value="0"
-                                        value="{{ old('cointwo') }}">
+                                        id="cointwo" aria-describedby="helpId"
+                                        value="{{ $sales->cointwo }}">
                                 @error('cointwo')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -295,10 +300,10 @@
                                 <tr>
                                     <td><label for="coinone" class="col-form-label">1p</label></td>
                                     <td><input type="number"
-                                        class="form-control text-right @error('coinonepound') is-invalid @enderror input coinsone"
+                                        class="form-control text-right @error('coinone') is-invalid @enderror input coinsone"
                                         name="coinone" min="0"
-                                        id="coinone" aria-describedby="helpId" value="0"
-                                        value="{{ old('coinone') }}">
+                                        id="coinone" aria-describedby="helpId"
+                                        value="{{ $sales->coinone }}">
                                 @error('coinone')
                                 <div class="invalid-feedback">{{$message}}</div>
                                 @enderror
@@ -338,8 +343,8 @@
                                     <td><input type="number"
                                         class="form-control text-right @error('gpostotal') is-invalid @enderror input gpos"
                                         name="gpostotal" step="0.01" min="0"
-                                        id="gpostotal" aria-describedby="helpId" value="0"
-                                        value="{{ old('gpostotal') }}">
+                                        id="gpostotal" aria-describedby="helpId"
+                                        value="{{ $sales->gpostotal }}">
                                     @error('gpostotal')
                                     <div class="invalid-feedback">{{$message}}</div>
                                     @enderror</td>
@@ -368,8 +373,8 @@
                             <td><input type="number"
                             class="form-control text-right @error('roomssold') is-invalid @enderror"
                             name="roomssold" min="0"
-                            id="roomssold" aria-describedby="helpId" value="0"
-                            value="{{ old('roomssold') }}">
+                            id="roomssold" aria-describedby="helpId"
+                            value="{{ $sales->roomssold }}">
                         @error('roomssold')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror</td>
@@ -378,9 +383,9 @@
                             <td><label for="roomsoccupied" class="col-form-label">Occupied</label></td>
                             <td><input type="number"
                             class="form-control text-right @error('roomsoccupied') is-invalid @enderror"
-                            name="roomsoccupied" min="0"
-                            id="roomsoccupied" aria-describedby="helpId" value="0"
-                            value="{{ old('roomsoccupied') }}">
+                            name="roomsoccupied" min="0" max="24"
+                            id="roomsoccupied" aria-describedby="helpId"
+                            value="{{ $sales->roomsoccupied }}">
                         @error('roomsoccupied')
                         <div class="invalid-feedback">{{$message}}</div>
                         @enderror</td>
@@ -390,8 +395,8 @@
                             <td><input type="number"
                                 class="form-control text-right @error('residents') is-invalid @enderror"
                                 name="residents" min="0"
-                                id="residents" aria-describedby="helpId" value="0"
-                                value="{{ old('residents') }}">
+                                id="residents" aria-describedby="helpId"
+                                value="{{ $sales->residents }}">
                             @error('residents')
                             <div class="invalid-feedback">{{$message}}</div>
                             @enderror
@@ -401,7 +406,7 @@
             </div>
         </div>
         <hr>
-        <button type="submit" class="btn btn-success btn-block">Finish Submission</button>
+        <button type="submit" class="btn btn-success btn-block">Edit</button>
 </form>
             </div>
 
@@ -478,7 +483,70 @@
           $("#cashforsafe").val(cashforsafe.toFixed(2));
 
     });
+    $(".input").change(function(){
+          var card1 = +$(".card1").val();
+          var card2 = +$(".card2").val();
+          var card3 = +$(".card3").val();
+          var totalcards = card1 + card2 + card3;
 
+          $("#result").val(totalcards.toFixed(2));
+
+          var ious = +$(".ious").val();
+          var bacs = +$(".bacs").val();
+          var cheques = +$(".cheque").val();
+          var totalmisc = ious+bacs+cheques
+          $("#miscresult").val(totalmisc.toFixed(2));
+
+          var notesfifty = +$(".notesfifty").val()*50;
+          $("#totalnotesfifty").val(notesfifty);
+
+          var notestwenty = +$(".notestwenty").val()*20;
+          $("#totalnotestwenty").val(notestwenty);
+
+          var notesten = +$(".notesten").val()*10;
+          $("#totalnotesten").val(notesten);
+
+          var notesfive = +$(".notesfive").val()*5;
+          $("#totalnotesfive").val(notesfive);
+
+          var coinsonepound = +$(".coinsonepound").val()*1;
+          $("#totalcoinsonepound").val(coinsonepound);
+
+          var coinsfifty = +$(".coinsfifty").val()*.5;
+          $("#totalcoinsfifty").val(coinsfifty.toFixed(2));
+
+          var coinstwenty = +$(".coinstwenty").val()*.2;
+          $("#totalcoinstwenty").val(coinstwenty.toFixed(2));
+
+          var coinsten = +$(".coinsten").val()*.1;
+          $("#totalcoinsten").val(coinsten.toFixed(2));
+
+          var coinsfive = +$(".coinsfive").val()*.05;
+          $("#totalcoinsfive").val(coinsfive.toFixed(2));
+
+          var coinstwo = +$(".coinstwo").val()*.02;
+          $("#totalcoinstwo").val(coinstwo.toFixed(2));
+
+          var coinsone = +$(".coinsone").val()*.01;
+          $("#totalcoinsone").val(coinsone.toFixed(2));
+
+
+          var totalcash = notesfifty + notestwenty + notesten + notesfive + coinsonepound + coinsfifty + coinstwenty + coinsten + coinsfive + coinstwo + coinsone;
+          $("#totalcash").val(totalcash.toFixed(2));
+
+          // Cash and Cards
+          var candc =+ ious + bacs + cheques + totalcards + totalcash;
+          $("#candc").val(candc.toFixed(2));
+
+
+          var gpos = +$(".gpos").val();
+          var tillfloat = + candc - gpos;
+          $("#tillfloat").val(tillfloat.toFixed(2));
+
+          var cashforsafe = gpos - (bacs + totalcards);
+          $("#cashforsafe").val(cashforsafe.toFixed(2));
+
+    });
 
 });
 </script>

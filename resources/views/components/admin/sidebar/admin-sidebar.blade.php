@@ -67,6 +67,12 @@
           <span>End of Days</span></a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('admin.hotels.sales.allmoneysales')}}">
+          <i class="fas fa-highlighter"></i>
+          <span>All Money Sales</span></a>
+      </li>
+
         <x-admin.sidebar.admin-sidebar-shard></x-admin.sidebar.admin-sidebar-shard>
         <x-admin.sidebar.admin-sidebar-themill></x-admin.sidebar.admin-sidebar-themill>
         <x-admin.sidebar.admin-sidebar-staff></x-admin.sidebar.admin-sidebar-staff>

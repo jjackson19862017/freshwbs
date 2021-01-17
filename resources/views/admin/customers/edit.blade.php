@@ -7,7 +7,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        Enter New Customer Details
+                        Edit Customer Details
                     </div>
                     <div class="card-body">
                         <form action="{{route('customers.update', $customer->id)}}" method="post" class="form-horizontal">
