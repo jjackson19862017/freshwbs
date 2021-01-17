@@ -52,6 +52,9 @@ class CreateDailySalesTable extends Migration
             $table->decimal('gpostotal',$precision = 8, $scale = 2)->nullable();
             $table->decimal('cashsafe',$precision = 8, $scale = 2)->nullable();
             $table->decimal('total',$precision = 8, $scale = 2)->nullable();
+            $table->integer('roomssold')->unsigned();
+            $table->integer('roomsoccupied')->unsigned();
+            $table->integer('residents')->unsigned();
             $table->timestamps();
         });
     }

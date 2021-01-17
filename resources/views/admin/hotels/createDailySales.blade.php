@@ -357,8 +357,51 @@
                     </div>
                 </div>
         <hr>
+        <div class="card">
+            <div class="card-header bg-gradient-primary text-white">Room Details</div>
+            <div class="card-body">
 
-        <button type="submit" class="btn btn-primary float-right">Insert</button>
+                <table class="table table-sm table-borderless">
+                    <tbody>
+                        <tr>
+                            <td><label for="roomssold" class="col-form-label">Sold</label></td>
+                            <td><input type="number"
+                            class="form-control text-right @error('roomssold') is-invalid @enderror"
+                            name="roomssold" min="0"
+                            id="roomssold" aria-describedby="helpId" value="0"
+                            value="{{ old('roomssold') }}">
+                        @error('roomssold')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror</td>
+                        </tr>
+                        <tr>
+                            <td><label for="roomsoccupied" class="col-form-label">Occupied</label></td>
+                            <td><input type="number"
+                            class="form-control text-right @error('roomsoccupied') is-invalid @enderror"
+                            name="roomsoccupied" min="0"
+                            id="roomsoccupied" aria-describedby="helpId" value="0"
+                            value="{{ old('roomsoccupied') }}">
+                        @error('roomsoccupied')
+                        <div class="invalid-feedback">{{$message}}</div>
+                        @enderror</td>
+                        </tr>
+                        <tr>
+                            <td><label for="residents" class="col-form-label">Residents</label></td>
+                            <td><input type="number"
+                                class="form-control text-right @error('residents') is-invalid @enderror"
+                                name="residents" min="0"
+                                id="residents" aria-describedby="helpId" value="0"
+                                value="{{ old('residents') }}">
+                            @error('residents')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+                        </tr>
+                    </tbody>
+            </table>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-success btn-block">Finish Submission</button>
 </form>
             </div>
 

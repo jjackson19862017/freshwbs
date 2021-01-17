@@ -42,6 +42,9 @@ class DailySalesController extends Controller
             'cointwo' => 'numeric',
             'coinone' => 'numeric',
             'gpostotal' => 'required|numeric',
+            'roomssold' => 'numeric',
+            'roomsoccupied' => 'numeric',
+            'residents' => 'numeric',
         ]);
 
         if ($validator->fails()) {
@@ -73,6 +76,9 @@ class DailySalesController extends Controller
             'cointwo' => $request->input('cointwo'),
             'coinone' => $request->input('coinone'),
             'gpostotal' => $request->input('gpostotal'),
+            'roomssold' => $request->input('roomssold'),
+            'roomsoccupied' => $request->input('roomsoccupied'),
+            'residents' => $request->input('residents'),
 
             // Card Total
             'cardtotal' => $request->pdqreception + $request->pdqbar + $request->pdqrestaurant,
@@ -135,28 +141,15 @@ class DailySalesController extends Controller
         //dd($data['weeklysales']);
 
         foreach ($days as $day => $val) {
-            # code...
+
             $data['daysofweek'][$val] = DailySales::where('date', $startOfWeek)->get();
 
-           $startOfWeek = $startOfWeek->addDay();
+            $startOfWeek = $startOfWeek->addDay();
 
         }
 
 
-        $data['currentweek'] = $data['currentweek']->map(function($item, $key){
-            return Carbon::create($item)->format('d m y');
-        });
 
-        $data['monday'] = DailySales::where('date','=',$startOfWeek)->get();
-        $data['tuesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-        $data['wednesday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-        $data['thursday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-        $data['friday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-        $data['saturday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-        $data['sunday'] = DailySales::where('date','=',$startOfWeek->addDay())->get();
-
-
-//dd($data['daysofweek']);
         return view('admin.hotels.salessheet', $data);
     }
 
