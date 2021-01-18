@@ -22,8 +22,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/sales/{sales}/edit', [App\Http\Controllers\DailySalesController::class, 'edit'])->name('admin.hotels.sales.edit');
     Route::put('/sales/{sales}/update', [App\Http\Controllers\DailySalesController::class, 'update'])->name('admin.hotels.sales.update');
 
+    Route::get('/sales/yearlysetup', [App\Http\Controllers\DailySalesController::class, 'yearlysetup'])->name('sales.yearlysetup');
 
-
+    Route::get('/sales/mondays', [App\Http\Controllers\DailySalesController::class, 'mondays'])->name('sales.mondays');
 
 
 });

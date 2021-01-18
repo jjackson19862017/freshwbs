@@ -20,54 +20,56 @@
 
                     <div class="row">
                         <div class="col-sm-12">
+                            @if($sales->isNotEmpty())
 
-<table class="table table-sm">
-    <thead class="table-dark">
-        <tr>
-            <th>Date</th>
-            <th>Cards</th>
-            <th>Cash</th>
-            <th>Gpos</th>
-            <th>Total</th>
-            <th>Float</th>
-            <th>Safe</th>
-            <th>Edit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($sales as $s)
-        <tr>
-<td>{{date('D d/m/y', strtotime($s->date))}}</td>
-<td>£{{number_format($s->cardtotal,2)}}</td>
-<td>£{{number_format($s->cashtotal,2)}}</td>
-<td>£{{number_format($s->gpostotal,2)}}</td>
-<td>£{{number_format($s->total,2)}}</td>
-<td>£{{number_format($s->float,2)}}</td>
-<td>£{{number_format($s->cashsafe,2)}}</td>
-<td><a name="" id="" class="btn btn-primary btn-sm"
-    href="{{route('admin.hotels.sales.edit', $s->id)}}"
-    role="button">Edit</a></span></td>
-        </tr>
-        @endforeach
+                            <table class="table table-sm">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Cards</th>
+                                        <th>Cash</th>
+                                        <th>Gpos</th>
+                                        <th>Total</th>
+                                        <th>Float</th>
+                                        <th>Safe</th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($sales as $s)
+                                    <tr>
+                            <td>{{date('D d/m/y', strtotime($s->date))}}</td>
+                            <td>£{{number_format($s->cardtotal,2)}}</td>
+                            <td>£{{number_format($s->cashtotal,2)}}</td>
+                            <td>£{{number_format($s->gpostotal,2)}}</td>
+                            <td>£{{number_format($s->total,2)}}</td>
+                            <td class="@if($s->float < 200) text-danger @endif ">£{{number_format($s->float,2)}}</td>
+                            <td>£{{number_format($s->cashsafe,2)}}</td>
+                            <td><a name="" id="" class="btn btn-primary btn-sm"
+                                href="{{route('admin.hotels.sales.edit', $s->id)}}"
+                                role="button">Edit</a></span></td>
+                                    </tr>
+                                    @endforeach
 
-
-    </tbody>
-    <tfoot class="table-dark">
-        <tr>
-            <td>Totals</td>
-            <td>£{{number_format($s->sum('cardtotal'),2)}}</td>
-            <td>£{{number_format($s->sum('cashtotal'),2)}}</td>
-            <td>£{{number_format($s->sum('gpostotal'),2)}}</td>
-            <td>£{{number_format($s->sum('total'),2)}}</td>
-            <td>£{{number_format($s->sum('float'),2)}}</td>
-            <td>£{{number_format($s->sum('cashsafe'),2)}}</td>
-                    </tr>
-    </tfoot>
-</table>
-
+                                </tbody>
+                                <tfoot class="table-dark">
+                                    <tr>
+                                        <td>Totals</td>
+                                        <td>£{{number_format($s->sum('cardtotal'),2)}}</td>
+                                        <td>£{{number_format($s->sum('cashtotal'),2)}}</td>
+                                        <td>£{{number_format($s->sum('gpostotal'),2)}}</td>
+                                        <td>£{{number_format($s->sum('total'),2)}}</td>
+                                        <td>£{{number_format($s->sum('float'),2)}}</td>
+                                        <td>£{{number_format($s->sum('cashsafe'),2)}}</td>
+                                                </tr>
+                                </tfoot>
 
 
+                            </table>
 
+@else
+<h3>No Data</h3>
+@endif
 
                         </div>
                     </div>

@@ -23,8 +23,48 @@ class DailySalesController extends Controller
     public function allmoneysales(){
         $data = [];
         $data['sales'] = DailySales::orderBy('date')->get();
-
+//dd($data['sales']);
         return view('admin.hotels.sales.allmoneysales', $data);
+    }
+
+    public function yearlysetup(){
+        $currentYear = Carbon::createFromDate(null)->format('Y');
+        $startDate = Carbon::createFromDate($currentYear,1,1);
+        $endDate = Carbon::createFromDate($currentYear,12,31);
+        while($startDate <= $endDate){
+            $insert = DailySales::insert(['date'=>$startDate->format('Y-m-d'), 'user_id'=>0, 'hotel' =>'Shard']);
+            //array_push($arrayYear,$startDate->format('Y-m-d'));
+            $startDate->addDay();
+        }
+
+        return redirect()->route('admin.hotels.sales.allmoneysales');
+    }
+    public function mondays(){
+
+    $arrayMondays = [];
+        $i = 1;
+        $recordCount = DailySales::all()->count(); // Returns number of records in Table
+        $n = 0;
+        while($i <= $recordCount)
+        {
+            if(is_null($item = DailySales::find($n)))
+            { // Checks to see if the record exists
+                $n++; // if it doesnt add one and try again.
+            } else {
+
+                $item = DailySales::find($n)->where('id', '=', $n)->value('Date'); // Returns the date value.
+
+                $n++;
+                $isMonday = Carbon::parse($item)->isDayOfWeek(Carbon::MONDAY); // Checks the Date to see it equals Monday
+                if($isMonday)
+                {
+                    array_push($arrayMondays, $item); // Add to array table
+                };
+            $i++;
+            };
+        };
+        $mondaySelection = array_reverse($arrayMondays);
+        return $mondaySelection;
     }
 
 
