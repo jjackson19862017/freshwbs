@@ -273,9 +273,19 @@ class DailySalesController extends Controller
     }
 
     public function salessheet(){
-        $startOfWeek = Carbon::create(2021,1,11);
 
-        $days = [
+        $testDate = Carbon::now();
+        while($testDate != Carbon::parse($testDate)->isDayOfWeek(Carbon::MONDAY)){
+            $testDate = $testDate->subDay();
+            //echo $testDate;
+        }
+
+        $startOfWeek = $testDate;
+        $testDate = $testDate->format('Y-m-d'); // returns Today
+
+$startOfWeek = $startOfWeek->subDay();
+        $data = [];
+        $data['days'] = [
             'Monday',
             'Tuesday',
             'Wednesday',
@@ -284,23 +294,47 @@ class DailySalesController extends Controller
             'Saturday',
             'Sunday'
             ];
-
-        $data = [];
-        $data['dailysales'] = DailySales::orderBy('date','asc')->get();
-        $data['currentweek'] = DailySales::pluck('date');
+        //$data['dailysales'] = DailySales::orderBy('date','asc')->get();
+        //$data['currentweek'] = DailySales::pluck('date');
 
         $data['weeklysales'] = DailySales::orderBy('date','asc')->where('date','>=',$startOfWeek)->limit(7)->get();
         //dd($data['weeklysales']);
 
-        foreach ($days as $day => $val) {
+        //foreach ($data['weeklysales'] as $day) {
 
-            $data['daysofweek'][$val] = DailySales::where('date', $startOfWeek)->get();
+            //$data['daysofweek'] = $data['weeklysales'];
 
-            $startOfWeek = $startOfWeek->addDay();
+            //$startOfWeek = $startOfWeek->addDay();
+            //echo $data['daysofweek'];
+        //}
+        //dd($day);
+        //dd($data['daysofweek']);
 
-        }
+        $arrayMondays = [];
+        $i = 1;
+        $recordCount = DailySales::all()->count(); // Returns number of records in Table
+        $n = 0;
+        while($i <= $recordCount)
+        {
+            if(is_null($item = DailySales::find($n)))
+            { // Checks to see if the record exists
+                $n++; // if it doesnt add one and try again.
+            } else {
 
+                $item = DailySales::find($n)->where('id', '=', $n)->value('Date'); // Returns the date value.
 
+                $n++;
+                $isMonday = Carbon::parse($item)->isDayOfWeek(Carbon::MONDAY); // Checks the Date to see it equals Monday
+                if($isMonday)
+                {
+                    array_push($arrayMondays, $item); // Add to array table
+                };
+            $i++;
+            };
+        };
+        $data['mondaySelection'] = array_reverse($arrayMondays);  // Orders it so the latest date is at the top of the list.
+
+//dd($data['daysofweek']);
 
         return view('admin.hotels.salessheet', $data);
     }

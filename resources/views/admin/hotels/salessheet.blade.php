@@ -25,7 +25,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Week commencing: </span>
                             </div>
-                            <input type="date" name="weekcommencing" class="form-control" id="">
+                            <select name="mondayselector" id="mondayselector" style="width:150px;">
+                                @foreach ($mondaySelection as $item)
+                                <option value="$item">{{date('d M y', strtotime($item))}}</option>
+                                @endforeach
+                            </select>
                             <div class="input-group-append">
                             <button type="submit" class=" inbtn btn-primary">Find</button>
                             </div>
@@ -35,14 +39,15 @@
         </div>
 
         <div class="row">
+
             <!-- Staff Table Area -->
             <div class="col-sm-12">
                 <table class="table table-inverse table-sm">
                     <thead class="thead-dark text-center">
                     <tr>
                         <th></th>
-                        @foreach ($daysofweek as $day => $days)
-                        <th>{{$day ?? 0}}</th>
+                        @foreach ($days as $day)
+                        <th>{{$day}}</th>
                         @endforeach
                         <th>Totals</th>
                     </tr>
@@ -51,79 +56,79 @@
 
                         <tr>
                             <td>Date</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{date('d/m/y', strtotime($day[0]->date)) ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{date('d/m/y', strtotime($day->date))}}</td>
                             @endforeach
                             <td></td>
                         </tr>
 
                         <tr>
                             <td>Ious</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->iou ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->iou}}</td>
                             @endforeach
                             <td></td>
                         </tr>
                         <tr>
                             <td>Bacs</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->bacs ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->bacs}}</td>
                             @endforeach
-                            <td>£{{number_format($day[0]->sum('bacs'),2) ?? 0}}</td>
+                            <td>£{{number_format($day->sum('bacs'),2)}}</td>
 
                         </tr>
                         <tr>
                             <td>Cheque</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->cheque ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->cheque}}</td>
                             @endforeach
                             <td></td>
                         </tr>
 
                         <tr>
                             <td class="border-top border-primary">Reception</td>
-                            @foreach ($daysofweek as $day)
-                            <td class="border-top border-primary">{{$day[0]->pdqreception ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td class="border-top border-primary">{{$day->pdqreception}}</td>
                             @endforeach
-                            <td class="border-top border-primary align-bottom" rowspan="3">£{{number_format($day[0]->sum('pdqreception') + $day[0]->sum('pdqbar') + $day[0]->sum('pdqrestaurant'),2) ?? 0}}</td>
+                            <td class="border-top border-primary align-bottom" rowspan="3">£{{number_format($day->sum('pdqreception') + $day->sum('pdqbar') + $day->sum('pdqrestaurant'),2)}}</td>
                         </tr>
                         <tr>
                             <td>Bar</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->pdqbar ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->pdqbar}}</td>
                             @endforeach
 
                         </tr>
                         <tr>
                             <td>Restaurant</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->pdqrestaurant ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->pdqrestaurant}}</td>
                             @endforeach
 
                         </tr>
 
                         <tr>
                             <td class="border-top border-primary">Till Cash</td>
-                            @foreach ($daysofweek as $day)
-                            <td class="border-top border-primary">{{$day[0]->cashtotal ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td class="border-top border-primary">{{$day->cashtotal}}</td>
                             @endforeach
-                            <td class="border-top border-primary">£{{number_format($day[0]->sum('cashtotal'),2) ?? 0}}</td>
+                            <td class="border-top border-primary">£{{number_format($day->sum('cashtotal'),2)}}</td>
 
                         </tr>
                         <tr>
                             <td class="border-top border-primary">Gpos</td>
-                            @foreach ($daysofweek as $day)
-                            <td class="border-top border-primary">{{$day[0]->gpostotal ?? 0}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td class="border-top border-primary">{{$day->gpostotal}}</td>
                             @endforeach
-                            <td class="border-top border-primary">£{{number_format($day[0]->sum('gpostotal'),2) ?? 0}}</td>
+                            <td class="border-top border-primary">£{{number_format($day->sum('gpostotal'),2)}}</td>
 
                         </tr>
                         <tr>
                             <td>Cash for Safe</td>
-                            @foreach ($daysofweek as $day)
-                            <td>{{$day[0]->cashsafe ?? '0'}}</td>
+                            @foreach ($weeklysales as $day)
+                            <td>{{$day->cashsafe ?? '0'}}</td>
                             @endforeach
-                            <td>£{{number_format($day[0]->sum('cashsafe'),2) ?? 0}}</td>
+                            <td>£{{number_format($day->sum('cashsafe'),2)}}</td>
 
                         </tr>
 
@@ -132,6 +137,7 @@
                 </table>
 
             </div>
+
         </div>
         <!-- Content Row -->
 
