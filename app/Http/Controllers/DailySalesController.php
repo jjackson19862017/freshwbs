@@ -273,17 +273,16 @@ class DailySalesController extends Controller
     }
 
     public function salessheet(){
-
+        // Configure the Date Find Drop Box
         $testDate = Carbon::now();
         while($testDate != Carbon::parse($testDate)->isDayOfWeek(Carbon::MONDAY)){
             $testDate = $testDate->subDay();
             //echo $testDate;
         }
-
         $startOfWeek = $testDate;
         $testDate = $testDate->format('Y-m-d'); // returns Today
 
-$startOfWeek = $startOfWeek->subDay();
+        $startOfWeek = $startOfWeek->subDay();
         $data = [];
         $data['days'] = [
             'Monday',
@@ -294,21 +293,16 @@ $startOfWeek = $startOfWeek->subDay();
             'Saturday',
             'Sunday'
             ];
-        //$data['dailysales'] = DailySales::orderBy('date','asc')->get();
-        //$data['currentweek'] = DailySales::pluck('date');
 
-        $data['weeklysales'] = DailySales::orderBy('date','asc')->where('date','>=',$startOfWeek)->limit(7)->get();
-        //dd($data['weeklysales']);
+        $data['shardweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get();
+        $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
+        //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
 
-        //foreach ($data['weeklysales'] as $day) {
+        $data['shardweeklytotalcards'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cardtotal')->sum();
 
-            //$data['daysofweek'] = $data['weeklysales'];
-
-            //$startOfWeek = $startOfWeek->addDay();
-            //echo $data['daysofweek'];
-        //}
-        //dd($day);
-        //dd($data['daysofweek']);
+        $data['shardweeklytotalcash'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashtotal')->sum();
+        $data['shardweeklytotalgpos'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('gpostotal')->sum();
+        $data['shardweeklytotalsafe'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashsafe')->sum();
 
         $arrayMondays = [];
         $i = 1;
@@ -321,7 +315,72 @@ $startOfWeek = $startOfWeek->subDay();
                 $n++; // if it doesnt add one and try again.
             } else {
 
-                $item = DailySales::find($n)->where('id', '=', $n)->value('Date'); // Returns the date value.
+                $item = DailySales::find($n)->where('hotel','=','Shard')->where('id', '=', $n)->value('Date'); // Returns the date value.
+
+                $n++;
+                $isMonday = Carbon::parse($item)->isDayOfWeek(Carbon::MONDAY); // Checks the Date to see it equals Monday
+                if($isMonday)
+                {
+                    array_push($arrayMondays, $item); // Add to array table
+                };
+            $i++;
+            };
+        };
+        $data['mondaySelection'] = array_reverse($arrayMondays);  // Orders it so the latest date is at the top of the list.
+
+//dd($data['daysofweek']);
+
+        return view('admin.hotels.salessheet', $data);
+    }
+
+    public function salessheetfind(Request $request){
+        // Configure the Date Find Drop Box
+
+        $testDate = $request->input('mondayselector');
+        $testDate = Carbon::parse($testDate);
+
+        while($testDate != Carbon::parse($testDate)->isDayOfWeek(Carbon::MONDAY)){
+            $testDate = $testDate->subDay();
+            //echo $testDate;
+        }
+        $startOfWeek = $testDate;
+        $testDate = $testDate->format('Y-m-d'); // returns Today
+
+        //$startOfWeek = $startOfWeek->subDay();
+        $data = [];
+        $data['days'] = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+            ];
+
+        $data['shardweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get();
+        $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
+        //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
+
+        $data['shardweeklytotalcards'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cardtotal')->sum();
+
+        $data['shardweeklytotalcash'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashtotal')->sum();
+        $data['shardweeklytotalgpos'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('gpostotal')->sum();
+        $data['shardweeklytotalsafe'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashsafe')->sum();
+
+
+        $arrayMondays = [];
+        $i = 1;
+        $recordCount = DailySales::all()->count(); // Returns number of records in Table
+        $n = 0;
+        while($i <= $recordCount)
+        {
+            if(is_null($item = DailySales::find($n)))
+            { // Checks to see if the record exists
+                $n++; // if it doesnt add one and try again.
+            } else {
+
+                $item = DailySales::find($n)->where('hotel','=','Shard')->where('id', '=', $n)->value('Date'); // Returns the date value.
 
                 $n++;
                 $isMonday = Carbon::parse($item)->isDayOfWeek(Carbon::MONDAY); // Checks the Date to see it equals Monday

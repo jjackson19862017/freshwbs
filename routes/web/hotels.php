@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/hotels/endofdaysales', [App\Http\Controllers\DailySalesController::class, 'endofdaysales'])->name('admin.hotels.createDailySales');
     Route::post('/hotels/endofdaysales/store', [App\Http\Controllers\DailySalesController::class, 'store'])->name('hotels.store');
     Route::get('/hotels/salessheet', [App\Http\Controllers\DailySalesController::class, 'salessheet'])->name('admin.hotels.salessheet');
+    Route::post('/hotels/salessheetfind', [App\Http\Controllers\DailySalesController::class, 'salessheetfind'])->name('admin.hotels.sales.salessheetfind');
 
     Route::get('/sales/', [App\Http\Controllers\DailySalesController::class, 'allmoneysales'])->name('admin.hotels.sales.allmoneysales');
     Route::get('/sales/{sales}/edit', [App\Http\Controllers\DailySalesController::class, 'edit'])->name('admin.hotels.sales.edit');
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/sales/yearlysetup', [App\Http\Controllers\DailySalesController::class, 'yearlysetup'])->name('sales.yearlysetup');
 
     Route::get('/sales/mondays', [App\Http\Controllers\DailySalesController::class, 'mondays'])->name('sales.mondays');
+
+
+
 
 
 });

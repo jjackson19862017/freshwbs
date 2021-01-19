@@ -3,7 +3,7 @@
     <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-                <h1>Daily Sales Report</h1>
+                <h1>Shard Daily Sales Report</h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -19,19 +19,20 @@
         <!-- Content Row -->
         <div class="row">
             <div class="col-sm-6">
-            <form action="" method="post">
+            <form action="{{route('admin.hotels.sales.salessheetfind', $targetDate)}}" method="post">
                 @csrf
+                @method("PUT")
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Week commencing: </span>
                             </div>
-                            <select name="mondayselector" id="mondayselector" style="width:150px;">
+                            <select name="mondayselector" id="mondayselector" style="width:150px;" >
                                 @foreach ($mondaySelection as $item)
                                 <option value="$item">{{date('d M y', strtotime($item))}}</option>
                                 @endforeach
                             </select>
                             <div class="input-group-append">
-                            <button type="submit" class=" inbtn btn-primary">Find</button>
+                            <button type="submit" class="btn btn-primary" id="ajax-submit">Find</button>
                             </div>
                         </div>
             </form>
@@ -143,4 +144,5 @@
 
 
     @endsection
+
 </x-admin-master>
