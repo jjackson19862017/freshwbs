@@ -12,6 +12,8 @@ use function PHPUnit\Framework\isEmpty;
 
 class DailySalesController extends Controller
 {
+
+
     //
     public function endofdaysales(){
         $data = [];
@@ -398,5 +400,58 @@ class DailySalesController extends Controller
         return view('admin.hotels.salessheet', $data);
     }
 
+    public function occreport(){
+        $data = [];
+        $data['CurrentYearArray']= []; // Will be used to track number of days in that month
+        $data['CurrentYearDaysArray']= []; // Will be used to calculate the number of days in that month
+        $data['BackOneYearArray']= []; // Will be used to track number of days in that month
+        $data['BackOneYearDaysArray']= [];// Will be used to calculate the number of days in that month
+        $data['BackTwoYearArray']= []; // Will be used to track number of days in that month
+        $data['BackTwoYearDaysArray']= [];// Will be used to calculate the number of days in that month
+        $data['CurrentYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackOneYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackTwoYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['CurrentYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackOneYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackTwoYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $roomsShard = 23; // Number of Rooms the Shard has
+        // Formula for Occ Report
+        // Occ Rate = (Rooms Sold / (days of the month x 23)) * 100
+        $data['currentYear'] = Carbon::createFromDate(null)->format('Y');
+        $data['backOneYear'] = $data['currentYear'] - 1;
+        $data['backTwoYear'] = $data['currentYear'] - 2;
+        $i = 1; // Counter
+        while($i<=12){
+            array_push($data['CurrentYearArray'], Carbon::createFromDate(null, $i)->daysInMonth); // Counts days in each month and puts it into an array
+            array_push($data['BackOneYearArray'], Carbon::createFromDate($data['backOneYear'], $i)->daysInMonth); // Counts days in each month and puts it into an array
+            array_push($data['BackTwoYearArray'], Carbon::createFromDate($data['backTwoYear'], $i)->daysInMonth); // Counts days in each month and puts it into an array
+            $i++;
+        }
 
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['CurrentYearArray'] as $M){
+            array_push($data['CurrentYearDaysArray'], $M * $roomsShard);
+            array_push($data['CurrentYearRoomsSold'], rand(100,700));
+        }
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['BackOneYearArray'] as $M){
+            array_push($data['BackOneYearDaysArray'], $M * $roomsShard);
+            array_push($data['BackOneYearRoomsSold'], rand(100,700));
+        }
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['BackTwoYearArray'] as $M){
+            array_push($data['BackTwoYearDaysArray'], $M * $roomsShard);
+            array_push($data['BackTwoYearRoomsSold'], rand(100,700));
+        }
+
+        $c = 0;
+        while($c < 12){
+            array_push($data['CurrentYearOcc'] ,number_format(($data['CurrentYearRoomsSold'][$c] / $data['CurrentYearDaysArray'][$c])*100,1));
+            array_push($data['BackOneYearOcc'] ,number_format(($data['BackOneYearRoomsSold'][$c] / $data['BackOneYearDaysArray'][$c])*100,1));
+            array_push($data['BackTwoYearOcc'] ,number_format(($data['BackTwoYearRoomsSold'][$c] / $data['BackTwoYearDaysArray'][$c])*100,1));
+            $c++;
+        }
+
+        dd($data['CurrentYearOcc']);
+    }
 }
