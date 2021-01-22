@@ -30,7 +30,7 @@ class DailySalesController extends Controller
     }
 
     public function yearlysetup(){
-        $currentYear = Carbon::createFromDate(2020)->format('Y');
+        $currentYear = Carbon::createFromDate(null)->format('Y');
         $startDate = Carbon::createFromDate($currentYear,1,1);
         $endDate = Carbon::createFromDate($currentYear,12,31);
         while($startDate <= $endDate){

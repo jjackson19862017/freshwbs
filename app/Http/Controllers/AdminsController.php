@@ -20,7 +20,7 @@ class AdminsController extends Controller
         $data['wedevents'] = WedEvents::orderBy('weddingdate','asc')->get(); // Returns all the information back from the wedevent Table
         $data['users'] = User::all(); // Returns all the information back from the Users Table
         $data['staff'] = Staff::all(); // Returns all the information back from the Staff Table
-        $data['booked'] = Wedevents::has('customer')->orderBy('weddingdate','asc')->get(); // Asks the Wedevents Table to see if customers have booked an event
+        $data['booked'] = Wedevents::has('customer')->where('completed','=','No')->orderBy('weddingdate','asc')->get(); // Asks the Wedevents Table to see if customers have booked an event
         $data['event_active'] = WedEvents::where('completed', 'No')->count(); // Counts all Not Completed Events in the Events table.
         $data['event_complete'] = WedEvents::where('completed', 'Yes')->count(); // Counts all Completed Events in the Events table.
         $data['event_onhold'] = WedEvents::where('onhold', 'No')->count(); // Counts all Completed Events in the Events table.
@@ -48,7 +48,6 @@ class AdminsController extends Controller
         foreach($data['booked'] as &$booker){
             $booker=Customer::where('id','=',$booker->customer->id)->get();
         }
-
         return view('admin.index', $data);
     }
 }
