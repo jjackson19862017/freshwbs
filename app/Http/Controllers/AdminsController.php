@@ -49,13 +49,6 @@ class AdminsController extends Controller
             $booker=Customer::where('id','=',$booker->customer->id)->get();
         }
 
-
-
-
-
-
-
-
         return view('admin.index', $data);
     }
 }

@@ -8,6 +8,8 @@
 @section('content')
         <div class="row mb-3">
             <div class="col-sm-12">
+                @if(count($CurrentYearArray)!=0 || count($BackOneYearRoomsSold)!=0 || count($BackTwoYearRoomsSold)!=0)
+
                 <div class="card vh-33">
                     <div class="card-header text-center">
                         Shard - Three Year Monthly Occupancy Report
@@ -43,9 +45,10 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
+                        @if(count($CurrentYearArray)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$currentYear}}</td>
-                        @foreach ($CurrentYearRoomsSold as $item)
+                        @foreach ($CurrentYearArray as $item)
                             <td>{{$item}}</td>
                         @endforeach
                         <td rowspan="2" class="align-middle">{{$CurrentYearTotal}} <br>Rooms</td>
@@ -55,7 +58,10 @@
                         <td>{{$item}}%</td>
                         @endforeach
                     </tr>
+                    @else
+                    @endif
 
+                    @if(count($BackOneYearRoomsSold)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$backOneYear}}</td>
                         @foreach ($BackOneYearRoomsSold as $item)
@@ -68,7 +74,11 @@
                         <td>{{$item}}%</td>
                         @endforeach
                     </tr>
+                    @else
+                    @endif
 
+
+                    @if(count($BackTwoYearRoomsSold)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$backTwoYear}}</td>
                         @foreach ($BackTwoYearRoomsSold as $item)
@@ -81,8 +91,13 @@
                         <td>{{$item}}%</td>
                         @endforeach
                     </tr>
+                    @else
+                    @endif
                     </tbody>
                 </table>
+                @else
+                <h1>No Data</h1>
+                @endif
             </div>
         </div>
 

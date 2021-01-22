@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class CardsController extends Controller
 {
-    //
     // Shows the Create New cards Page
     public function create(Customer $Card, WedEvents $Wed){
         $customer = $Card;
