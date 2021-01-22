@@ -452,6 +452,11 @@ class DailySalesController extends Controller
             $c++;
         }
 
-        dd($data['CurrentYearOcc']);
+        $data['CurrentYearTotal'] = array_sum($data['CurrentYearRoomsSold']); // Replace with totals from the table
+        $data['BackOneYearTotal'] = array_sum($data['BackOneYearRoomsSold']); // Replace with totals from the table
+        $data['BackTwoYearTotal'] = array_sum($data['BackTwoYearRoomsSold']); // Replace with totals from the table
+
+        //dd($data['CurrentYearOcc'],$data['BackOneYearOcc'],$data['BackTwoYearOcc'],);
+        return view('admin.hotels.occupancy', $data);
     }
 }

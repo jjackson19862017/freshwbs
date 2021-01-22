@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/sales/yearlysetup', [App\Http\Controllers\DailySalesController::class, 'yearlysetup'])->name('sales.yearlysetup');
 
-    Route::get('/sales/occreport', [App\Http\Controllers\DailySalesController::class, 'occreport'])->name('sales.occreport');
+    Route::get('/hotels/occreport', [App\Http\Controllers\DailySalesController::class, 'occreport'])->name('hotels.occupancy');
 
 
 

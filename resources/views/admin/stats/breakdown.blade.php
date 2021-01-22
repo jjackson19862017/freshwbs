@@ -416,6 +416,6 @@
 
     @endsection
     @section('js')
-        =
+
     @endsection
 </x-admin-master>
