@@ -133,7 +133,13 @@
                                 <td>£{{number_format($shardweeklytotalsafe,2)}}</td>
 
                             </tr>
-
+                            <tr>
+                                <td>Rooms Sold</td>
+                                @foreach ($shardweeklysales as $day)
+                                <td>{{$day->roomssold ?? '0'}}</td>
+                                @endforeach
+                                <td>{{$shardweeklytotalrooms}}</td>
+                            </tr>
 
                         </tbody>
                     </table>

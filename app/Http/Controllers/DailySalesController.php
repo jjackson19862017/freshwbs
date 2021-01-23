@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use PhpParser\Node\Stmt\Foreach_;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -298,6 +299,16 @@ class DailySalesController extends Controller
             ];
 
         $data['shardweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get();
+        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->count();
+        //dd($data['days']);
+        $data['tablesize'] = [];
+
+        // Only displays the days that exist for the week
+        for ($r=0; $r < $data['shardweeklycount']; $r++) {
+        array_push($data['tablesize'],$data['days'][$r]);
+        }
+
+
         $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
         //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
 
@@ -306,6 +317,7 @@ class DailySalesController extends Controller
         $data['shardweeklytotalcash'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashtotal')->sum();
         $data['shardweeklytotalgpos'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('gpostotal')->sum();
         $data['shardweeklytotalsafe'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashsafe')->sum();
+        $data['shardweeklytotalrooms'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('roomssold')->sum();
 
         $arrayMondays = [];
         $i = 1;
@@ -362,6 +374,7 @@ class DailySalesController extends Controller
             ];
 
         $data['shardweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get();
+
         $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
         //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
 
@@ -370,6 +383,7 @@ class DailySalesController extends Controller
         $data['shardweeklytotalcash'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashtotal')->sum();
         $data['shardweeklytotalgpos'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('gpostotal')->sum();
         $data['shardweeklytotalsafe'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cashsafe')->sum();
+        $data['shardweeklytotalrooms'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('roomssold')->sum();
 
 
         $arrayMondays = [];
