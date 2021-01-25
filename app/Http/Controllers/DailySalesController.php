@@ -299,7 +299,7 @@ class DailySalesController extends Controller
             ];
 
         $data['shardweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get();
-        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->count();
+        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get()->count();
         //dd($data['days']);
         $data['tablesize'] = [];
 
@@ -341,9 +341,10 @@ class DailySalesController extends Controller
             $i++;
             };
         };
-        $data['mondaySelection'] = array_reverse($arrayMondays);  // Orders it so the latest date is at the top of the list.
+        //dd($arrayMondays);
+        $data['mondaySelection'] = $arrayMondays;  // Orders it so the latest date is at the top of the list.
 
-//dd($data['daysofweek']);
+//dd($data['arrayMondays']);
 
         return view('admin.hotels.salessheet', $data);
     }
@@ -377,13 +378,14 @@ class DailySalesController extends Controller
 
         $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
         //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
-        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->count();
-
+        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->get()->count();
+        //dd($data['shardweeklycount']);
         $data['tablesize'] = [];
 
         // Only displays the days that exist for the week
         for ($r=0; $r < $data['shardweeklycount']; $r++) {
         array_push($data['tablesize'],$data['days'][$r]);
+        echo $data['tablesize'][$r];
         }
 
 
@@ -406,7 +408,7 @@ class DailySalesController extends Controller
                 $n++; // if it doesnt add one and try again.
             } else {
 
-                $item = DailySales::find($n)->where('hotel','=','Shard')->where('id', '=', $n)->value('Date'); // Returns the date value.
+                $item = DailySales::find($n)->where('hotel','=','Shard')->where('id', '=', $n)->orderBy('date', 'desc')->value('Date'); // Returns the date value.
 
                 $n++;
                 $isMonday = Carbon::parse($item)->isDayOfWeek(Carbon::MONDAY); // Checks the Date to see it equals Monday
@@ -417,9 +419,9 @@ class DailySalesController extends Controller
             $i++;
             };
         };
-        $data['mondaySelection'] = array_reverse($arrayMondays);  // Orders it so the latest date is at the top of the list.
+        $data['mondaySelection'] = $arrayMondays;  // Orders it so the latest date is at the top of the list.
 
-//dd($data['daysofweek']);
+        //dd($data['mondaySelection']);
 
         return view('admin.hotels.salessheet', $data);
     }
