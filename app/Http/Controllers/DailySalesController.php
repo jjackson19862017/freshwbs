@@ -31,7 +31,7 @@ class DailySalesController extends Controller
     }
 
     public function yearlysetup(){
-        $currentYear = Carbon::createFromDate(null)->format('Y');
+        $currentYear = Carbon::createFromDate(2019)->format('Y');
         $startDate = Carbon::createFromDate($currentYear,1,1);
         $endDate = Carbon::createFromDate($currentYear,12,31);
         while($startDate <= $endDate){
@@ -66,8 +66,8 @@ class DailySalesController extends Controller
             $i++;
             };
         };
-        $mondaySelection = array_reverse($arrayMondays);
-        return $mondaySelection;
+        $RoomsSoldondaySelection = array_reverse($arrayMondays);
+        return $RoomsSoldondaySelection;
     }
 
 
@@ -377,6 +377,15 @@ class DailySalesController extends Controller
 
         $data['shardweeklytotalbacs'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('bacs')->sum();
         //$data['themillweeklysales'] = DailySales::orderBy('date','asc')->where('hotel','=','The Mill')->where('date','>=',$startOfWeek)->limit(7)->get();
+        $data['shardweeklycount'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->count();
+
+        $data['tablesize'] = [];
+
+        // Only displays the days that exist for the week
+        for ($r=0; $r < $data['shardweeklycount']; $r++) {
+        array_push($data['tablesize'],$data['days'][$r]);
+        }
+
 
         $data['shardweeklytotalcards'] = DailySales::orderBy('date','asc')->where('hotel','=','Shard')->where('date','>=',$startOfWeek)->limit(7)->pluck('cardtotal')->sum();
 
@@ -446,6 +455,7 @@ class DailySalesController extends Controller
             array_push($data['BackTwoYearArray'], Carbon::createFromDate($data['backTwoYear'], $i)->daysInMonth); // Counts days in each month and puts it into an array
             $i++;
         }
+        //dd($data['BackOneYearArray']);
         // Finds All Room Sales This Year for the Shard
         //dd($data['CurrentYearRoomsSold'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',date('Y'))->pluck('roomsoccupied')) ;
 
@@ -475,7 +485,7 @@ class DailySalesController extends Controller
         $currentNovEnd = Carbon::create($data['currentYear'],11)->endOfMonth();
         $currentDecEnd = Carbon::create($data['currentYear'],12)->endOfMonth();
 
-        $data['CurrentYearArray'] = [
+        $data['CurrentYearArraySold'] = [
         $data['janThisYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $currentJanStart)->where('date', '<=',$currentJanEnd)->sum('roomsoccupied'),
         $data['febThisYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $currentFebStart)->where('date', '<=',$currentFebEnd)->sum('roomsoccupied'),
         $data['marThisYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $currentMarStart)->where('date', '<=',$currentMarEnd)->sum('roomsoccupied'),
@@ -515,7 +525,7 @@ class DailySalesController extends Controller
         $backOneNovEnd = Carbon::create($data['backOneYear'],11)->endOfMonth();
         $backOneDecEnd = Carbon::create($data['backOneYear'],12)->endOfMonth();
 
-        $data['BackOneYearArray'] = [
+        $data['BackOneYearArraySold'] = [
         $data['janBackOneYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backOneJanStart)->where('date', '<=',$backOneJanEnd)->sum('roomsoccupied'),
         $data['febBackOneYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backOneFebStart)->where('date', '<=',$backOneFebEnd)->sum('roomsoccupied'),
         $data['marBackOneYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backOneMarStart)->where('date', '<=',$backOneMarEnd)->sum('roomsoccupied'),
@@ -555,7 +565,7 @@ class DailySalesController extends Controller
         $backTwoNovEnd = Carbon::create($data['backTwoYear'],11)->endOfMonth();
         $backTwoDecEnd = Carbon::create($data['backTwoYear'],12)->endOfMonth();
 
-        $data['BackTwoYearArray'] = [
+        $data['BackTwoYearArraySold'] = [
         $data['janBackTwoYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backTwoJanStart)->where('date', '<=',$backTwoJanEnd)->sum('roomsoccupied'),
         $data['febBackTwoYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backTwoFebStart)->where('date', '<=',$backTwoFebEnd)->sum('roomsoccupied'),
         $data['marBackTwoYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backTwoMarStart)->where('date', '<=',$backTwoMarEnd)->sum('roomsoccupied'),
@@ -569,22 +579,25 @@ class DailySalesController extends Controller
         $data['novBackTwoYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backTwoNovStart)->where('date', '<=',$backTwoNovEnd)->sum('roomsoccupied'),
         $data['decBackTwoYearRooms'] = DailySales::where('hotel','=','Shard')->where('date', '>=', $backTwoDecStart)->where('date', '<=',$backTwoDecEnd)->sum('roomsoccupied')];
 
+
+
         // Calculates the number of rooms that could be sold each month
-        foreach($data['CurrentYearArray'] as $M){
-            array_push($data['CurrentYearDaysArray'], $M * $roomsShard);
+        foreach($data['CurrentYearArray'] as $DaysInEachMonth){
+            array_push($data['CurrentYearDaysArray'], $DaysInEachMonth * $roomsShard);
          //   array_push($data['CurrentYearRoomsSold'], rand(100,700)); Random Number Generator
             $data['CurrentYearArray'];
         }
 
         // Calculates the number of rooms that could be sold each month
-        foreach($data['BackOneYearArray'] as $M){
-            array_push($data['BackOneYearDaysArray'], $M * $roomsShard);
+        foreach($data['BackOneYearArray'] as $DaysInEachMonth){
+            array_push($data['BackOneYearDaysArray'], $DaysInEachMonth * $roomsShard);
+          //  echo $DaysInEachMonth ." <- Days Each Month | Rooms at the Shard -> " . $roomsShard . "=" . $DaysInEachMonth * $roomsShard . "<br>";
          //   array_push($data['BackOneYearRoomsSold'], rand(100,700)); Random Number Generator
-         $data['BackOneYearArray'];
         }
+        //dd($data['BackOneYearDaysArray']);
         // Calculates the number of rooms that could be sold each month
-        foreach($data['BackTwoYearArray'] as $M){
-            array_push($data['BackTwoYearDaysArray'], $M * $roomsShard);
+        foreach($data['BackTwoYearArray'] as $DaysInEachMonth){
+            array_push($data['BackTwoYearDaysArray'], $DaysInEachMonth * $roomsShard);
          //   array_push($data['BackTwoYearRoomsSold'], rand(100,700)); Random Number Generator
          $data['BackTwoYearArray'];
         }
@@ -592,19 +605,20 @@ class DailySalesController extends Controller
         $c = 0;
         while($c < 12){
             if($data['CurrentYearArray'][$c] != 0){
-                array_push($data['CurrentYearOcc'] , number_format(($data['CurrentYearArray'][$c] / $data['CurrentYearDaysArray'][$c])*100,1));
+                array_push($data['CurrentYearOcc'] , number_format(($data['CurrentYearArraySold'][$c] / $data['CurrentYearDaysArray'][$c])*100,1));
                 } else {
                     array_push($data['CurrentYearOcc'] , 0);
                 }
 
             if($data['BackOneYearArray'][$c] != 0){
-                array_push($data['BackOneYearOcc'] , number_format(($data['BackOneYearArray'][$c] / $data['BackOneYearDaysArray'][$c])*100,1));
+                array_push($data['BackOneYearOcc'] , number_format(($data['BackOneYearArraySold'][$c] / $data['BackOneYearDaysArray'][$c])*100,1));
+                //    echo $data['BackOneYearArray'][$c] . "/" .  $data['BackOneYearDaysArray'][$c] . "=" . (($data['BackOneYearArray'][$c] / $data['BackOneYearDaysArray'][$c])*100) . "<br>";
                 } else {
                     array_push($data['BackOneYearOcc'] , 0);
                 }
 
             if($data['BackTwoYearArray'][$c] != 0){
-                array_push($data['BackTwoYearOcc'] , number_format(($data['BackTwoYearArray'][$c] / $data['BackTwoYearDaysArray'][$c])*100,1));
+                array_push($data['BackTwoYearOcc'] , number_format(($data['BackTwoYearArraySold'][$c] / $data['BackTwoYearDaysArray'][$c])*100,1));
                 } else {
                     array_push($data['BackTwoYearOcc'] , 0);
                 }
@@ -616,7 +630,7 @@ class DailySalesController extends Controller
         $data['CurrentYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',date('Y'))->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackOneYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backOneYear'])->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackTwoYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backTwoYear'])->sum('roomsoccupied'); // Replace with totals from the table
-
+//dd($data['BackOneYearOcc']);
         return view('admin.hotels.occupancy', $data);
     }
 }

@@ -48,7 +48,7 @@
                         @if(count($CurrentYearArray)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$currentYear}}</td>
-                        @foreach ($CurrentYearArray as $item)
+                        @foreach ($CurrentYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
                         <td rowspan="2" class="align-middle">{{$CurrentYearTotal}} <br>Rooms</td>
@@ -61,10 +61,10 @@
                     @else
                     @endif
 
-                    @if(count($BackOneYearRoomsSold)!=0)
+                    @if(count($BackOneYearArray)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$backOneYear}}</td>
-                        @foreach ($BackOneYearRoomsSold as $item)
+                        @foreach ($BackOneYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
                         <td rowspan="2" class="align-middle">{{$BackOneYearTotal}} <br>Rooms</td>
@@ -78,10 +78,10 @@
                     @endif
 
 
-                    @if(count($BackTwoYearRoomsSold)!=0)
+                    @if(count($BackTwoYearArray)!=0)
                     <tr>
                         <td rowspan="2" class="align-middle">{{$backTwoYear}}</td>
-                        @foreach ($BackTwoYearRoomsSold as $item)
+                        @foreach ($BackTwoYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
                         <td rowspan="2" class="align-middle">{{$BackTwoYearTotal}} <br>Rooms</td>
@@ -158,33 +158,34 @@
                             @endforeach],
 
                             backgroundColor: [
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)',
-                                'rgba(255, 255, 0, 0.2)'
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)',
+                                'rgba(41, 48, 232, 0.2)'
+
 
                             ],
                             borderColor: [
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)',
-                                'rgba(255, 255, 0, 1)'
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)',
+                                'rgba(41, 48, 232, 1)'
 
                             ],
                             borderWidth: 1
