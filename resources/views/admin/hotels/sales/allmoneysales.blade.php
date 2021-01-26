@@ -52,20 +52,14 @@
                                     @endforeach
 
                                 </tbody>
-                                <tfoot class="table-dark">
-                                    <tr>
-                                        <td>Totals</td>
-                                        <td>£{{number_format($s->sum('cardtotal'),2)}}</td>
-                                        <td>£{{number_format($s->sum('cashtotal'),2)}}</td>
-                                        <td>£{{number_format($s->sum('gpostotal'),2)}}</td>
-                                        <td>£{{number_format($s->sum('total'),2)}}</td>
-                                        <td>£{{number_format($s->sum('float'),2)}}</td>
-                                        <td>£{{number_format($s->sum('cashsafe'),2)}}</td>
-                                                </tr>
-                                </tfoot>
 
 
                             </table>
+                            <div class="d-flex">
+                                <div class="mx-auto">
+                                    {{ $sales->links() }}
+                                </div>
+                            </div>
 
 @else
 <h3>No Data</h3>

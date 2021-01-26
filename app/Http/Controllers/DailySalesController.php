@@ -25,7 +25,7 @@ class DailySalesController extends Controller
 
     public function allmoneysales(){
         $data = [];
-        $data['sales'] = DailySales::orderBy('date')->get();
+        $data['sales'] = DailySales::where('hotel','=','Shard')->orderBy('date','desc')->paginate(15);
 //dd($data['sales']);
         return view('admin.hotels.sales.allmoneysales', $data);
     }
