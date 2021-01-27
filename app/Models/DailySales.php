@@ -17,4 +17,6 @@ class DailySales extends Model
         return $this->belongsTo(Staff::class);
     }
 
+
+
 }

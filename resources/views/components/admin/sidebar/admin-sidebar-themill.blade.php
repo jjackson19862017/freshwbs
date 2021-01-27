@@ -9,6 +9,7 @@
             <a class="collapse-item" href="{{route('admin.hotels.themill.index')}}">Staff</a>
             <a class="collapse-item" href="">Daily Sales</a>
             <a class="collapse-item" href="{{route('admin.hotels.themill.holidays')}}">Holidays</a>
+            <a class="collapse-item" href="{{route('hotels.themill.occupancy')}}">Occupancy Report</a>
 
         </div>
     </div>

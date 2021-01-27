@@ -13,8 +13,6 @@ use function PHPUnit\Framework\isEmpty;
 
 class DailySalesController extends Controller
 {
-
-
     //
     public function endofdaysales(){
         $data = [];
@@ -31,11 +29,11 @@ class DailySalesController extends Controller
     }
 
     public function yearlysetup(){
-        $currentYear = Carbon::createFromDate(2019)->format('Y');
+        $currentYear = Carbon::createFromDate(null)->format('Y');
         $startDate = Carbon::createFromDate($currentYear,1,1);
         $endDate = Carbon::createFromDate($currentYear,12,31);
         while($startDate <= $endDate){
-            $insert = DailySales::insert(['date'=>$startDate->format('Y-m-d'), 'user_id'=>0, 'hotel' =>'Shard']);
+            $insert = DailySales::insert(['date'=>$startDate->format('Y-m-d'), 'user_id'=>0, 'hotel' =>'The Mill']);
             //array_push($arrayYear,$startDate->format('Y-m-d'));
             $startDate->addDay();
         }
@@ -426,7 +424,7 @@ class DailySalesController extends Controller
         return view('admin.hotels.salessheet', $data);
     }
 
-    public function occreport(){
+    public function occreportshard(){
         $data = [];
         $data['CurrentYearArray']= []; // Will be used to track number of days in that month
         $data['CurrentYearDaysArray']= []; // Will be used to calculate the number of days in that month
@@ -440,8 +438,8 @@ class DailySalesController extends Controller
         $data['CurrentYearOcc']= []; // Random Number array that will be replaced my data in the future.
         $data['BackOneYearOcc']= []; // Random Number array that will be replaced my data in the future.
         $data['BackTwoYearOcc']= []; // Random Number array that will be replaced my data in the future.
-        $roomsShard = 23; // Number of Rooms the Shard has
-        $roomsTheMill = 23; // Number of Rooms the Mill has
+        $rooms = 23; // Number of Rooms the Shard has
+
 
         // Formula for Occ Report
         // Occ Rate = (Rooms Sold / (days of the month x 23)) * 100
@@ -585,21 +583,21 @@ class DailySalesController extends Controller
 
         // Calculates the number of rooms that could be sold each month
         foreach($data['CurrentYearArray'] as $DaysInEachMonth){
-            array_push($data['CurrentYearDaysArray'], $DaysInEachMonth * $roomsShard);
+            array_push($data['CurrentYearDaysArray'], $DaysInEachMonth * $rooms);
          //   array_push($data['CurrentYearRoomsSold'], rand(100,700)); Random Number Generator
             $data['CurrentYearArray'];
         }
 
         // Calculates the number of rooms that could be sold each month
         foreach($data['BackOneYearArray'] as $DaysInEachMonth){
-            array_push($data['BackOneYearDaysArray'], $DaysInEachMonth * $roomsShard);
-          //  echo $DaysInEachMonth ." <- Days Each Month | Rooms at the Shard -> " . $roomsShard . "=" . $DaysInEachMonth * $roomsShard . "<br>";
+            array_push($data['BackOneYearDaysArray'], $DaysInEachMonth * $rooms);
+          //  echo $DaysInEachMonth ." <- Days Each Month | Rooms at the Shard -> " . $rooms . "=" . $DaysInEachMonth * $rooms . "<br>";
          //   array_push($data['BackOneYearRoomsSold'], rand(100,700)); Random Number Generator
         }
         //dd($data['BackOneYearDaysArray']);
         // Calculates the number of rooms that could be sold each month
         foreach($data['BackTwoYearArray'] as $DaysInEachMonth){
-            array_push($data['BackTwoYearDaysArray'], $DaysInEachMonth * $roomsShard);
+            array_push($data['BackTwoYearDaysArray'], $DaysInEachMonth * $rooms);
          //   array_push($data['BackTwoYearRoomsSold'], rand(100,700)); Random Number Generator
          $data['BackTwoYearArray'];
         }
@@ -633,6 +631,216 @@ class DailySalesController extends Controller
         $data['BackOneYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backOneYear'])->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackTwoYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backTwoYear'])->sum('roomsoccupied'); // Replace with totals from the table
 //dd($data['BackOneYearOcc']);
-        return view('admin.hotels.occupancy', $data);
+        return view('admin.hotels.shard.occupancy', $data);
+    }
+
+    public function occreportthemill(){
+        $data = [];
+        $data['CurrentYearArray']= []; // Will be used to track number of days in that month
+        $data['CurrentYearDaysArray']= []; // Will be used to calculate the number of days in that month
+        $data['BackOneYearArray']= []; // Will be used to track number of days in that month
+        $data['BackOneYearDaysArray']= [];// Will be used to calculate the number of days in that month
+        $data['BackTwoYearArray']= []; // Will be used to track number of days in that month
+        $data['BackTwoYearDaysArray']= [];// Will be used to calculate the number of days in that month
+        $data['CurrentYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackOneYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackTwoYearRoomsSold']= []; // Random Number array that will be replaced my data in the future.
+        $data['CurrentYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackOneYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $data['BackTwoYearOcc']= []; // Random Number array that will be replaced my data in the future.
+        $rooms = 21; // Number of Rooms the Mill has
+
+
+        // Formula for Occ Report
+        // Occ Rate = (Rooms Sold / (days of the month x 23)) * 100
+        $data['currentYear'] = Carbon::createFromDate(null)->format('Y');
+        $data['backOneYear'] = $data['currentYear'] - 1;
+        $data['backTwoYear'] = $data['currentYear'] - 2;
+
+        // Works out Days in each Month for Current Year and going back two.
+        $i = 1; // Counter
+        while($i<=12){
+            array_push($data['CurrentYearArray'], Carbon::createFromDate(null, $i)->daysInMonth); // Counts days in each month and puts it into an array
+            array_push($data['BackOneYearArray'], Carbon::createFromDate($data['backOneYear'], $i)->daysInMonth); // Counts days in each month and puts it into an array
+            array_push($data['BackTwoYearArray'], Carbon::createFromDate($data['backTwoYear'], $i)->daysInMonth); // Counts days in each month and puts it into an array
+            $i++;
+        }
+        //dd($data['BackOneYearArray']);
+        // Finds All Room Sales This Year for the Shard
+        //dd($data['CurrentYearRoomsSold'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',date('Y'))->pluck('roomsoccupied')) ;
+
+        //Current Year Query Variables
+        $currentJanStart = Carbon::create($data['currentYear'],1)->startOfMonth();
+        $currentFebStart = Carbon::create($data['currentYear'],2)->startOfMonth();
+        $currentMarStart = Carbon::create($data['currentYear'],3)->startOfMonth();
+        $currentAprStart = Carbon::create($data['currentYear'],4)->startOfMonth();
+        $currentMayStart = Carbon::create($data['currentYear'],5)->startOfMonth();
+        $currentJunStart = Carbon::create($data['currentYear'],6)->startOfMonth();
+        $currentJulStart = Carbon::create($data['currentYear'],7)->startOfMonth();
+        $currentAugStart = Carbon::create($data['currentYear'],8)->startOfMonth();
+        $currentSepStart = Carbon::create($data['currentYear'],9)->startOfMonth();
+        $currentOctStart = Carbon::create($data['currentYear'],10)->startOfMonth();
+        $currentNovStart = Carbon::create($data['currentYear'],11)->startOfMonth();
+        $currentDecStart = Carbon::create($data['currentYear'],12)->startOfMonth();
+        $currentJanEnd = Carbon::create($data['currentYear'],1)->endOfMonth();
+        $currentFebEnd = Carbon::create($data['currentYear'],2)->endOfMonth();
+        $currentMarEnd = Carbon::create($data['currentYear'],3)->endOfMonth();
+        $currentAprEnd = Carbon::create($data['currentYear'],4)->endOfMonth();
+        $currentMayEnd = Carbon::create($data['currentYear'],5)->endOfMonth();
+        $currentJunEnd = Carbon::create($data['currentYear'],6)->endOfMonth();
+        $currentJulEnd = Carbon::create($data['currentYear'],7)->endOfMonth();
+        $currentAugEnd = Carbon::create($data['currentYear'],8)->endOfMonth();
+        $currentSepEnd = Carbon::create($data['currentYear'],9)->endOfMonth();
+        $currentOctEnd = Carbon::create($data['currentYear'],10)->endOfMonth();
+        $currentNovEnd = Carbon::create($data['currentYear'],11)->endOfMonth();
+        $currentDecEnd = Carbon::create($data['currentYear'],12)->endOfMonth();
+
+        $data['CurrentYearArraySold'] = [
+        $data['janThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentJanStart)->where('date', '<=',$currentJanEnd)->sum('roomsoccupied'),
+        $data['febThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentFebStart)->where('date', '<=',$currentFebEnd)->sum('roomsoccupied'),
+        $data['marThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentMarStart)->where('date', '<=',$currentMarEnd)->sum('roomsoccupied'),
+        $data['aprThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentAprStart)->where('date', '<=',$currentAprEnd)->sum('roomsoccupied'),
+        $data['mayThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentMayStart)->where('date', '<=',$currentMayEnd)->sum('roomsoccupied'),
+        $data['junThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentJunStart)->where('date', '<=',$currentJunEnd)->sum('roomsoccupied'),
+        $data['julThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentJulStart)->where('date', '<=',$currentJulEnd)->sum('roomsoccupied'),
+        $data['augThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentAugStart)->where('date', '<=',$currentAugEnd)->sum('roomsoccupied'),
+        $data['sepThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentSepStart)->where('date', '<=',$currentSepEnd)->sum('roomsoccupied'),
+        $data['octThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentOctStart)->where('date', '<=',$currentOctEnd)->sum('roomsoccupied'),
+        $data['novThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentNovStart)->where('date', '<=',$currentNovEnd)->sum('roomsoccupied'),
+        $data['decThisYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $currentDecStart)->where('date', '<=',$currentDecEnd)->sum('roomsoccupied')];
+
+        //Last Year Query Variables
+        $backOneJanStart = Carbon::create($data['backOneYear'],1)->startOfMonth();
+        $backOneFebStart = Carbon::create($data['backOneYear'],2)->startOfMonth();
+        $backOneMarStart = Carbon::create($data['backOneYear'],3)->startOfMonth();
+        $backOneAprStart = Carbon::create($data['backOneYear'],4)->startOfMonth();
+        $backOneMayStart = Carbon::create($data['backOneYear'],5)->startOfMonth();
+        $backOneJunStart = Carbon::create($data['backOneYear'],6)->startOfMonth();
+        $backOneJulStart = Carbon::create($data['backOneYear'],7)->startOfMonth();
+        $backOneAugStart = Carbon::create($data['backOneYear'],8)->startOfMonth();
+        $backOneSepStart = Carbon::create($data['backOneYear'],9)->startOfMonth();
+        $backOneOctStart = Carbon::create($data['backOneYear'],10)->startOfMonth();
+        $backOneNovStart = Carbon::create($data['backOneYear'],11)->startOfMonth();
+        $backOneDecStart = Carbon::create($data['backOneYear'],12)->startOfMonth();
+        $backOneJanEnd = Carbon::create($data['backOneYear'],1)->endOfMonth();
+        $backOneFebEnd = Carbon::create($data['backOneYear'],2)->endOfMonth();
+        $backOneMarEnd = Carbon::create($data['backOneYear'],3)->endOfMonth();
+        $backOneAprEnd = Carbon::create($data['backOneYear'],4)->endOfMonth();
+        $backOneMayEnd = Carbon::create($data['backOneYear'],5)->endOfMonth();
+        $backOneJunEnd = Carbon::create($data['backOneYear'],6)->endOfMonth();
+        $backOneJulEnd = Carbon::create($data['backOneYear'],7)->endOfMonth();
+        $backOneAugEnd = Carbon::create($data['backOneYear'],8)->endOfMonth();
+        $backOneSepEnd = Carbon::create($data['backOneYear'],9)->endOfMonth();
+        $backOneOctEnd = Carbon::create($data['backOneYear'],10)->endOfMonth();
+        $backOneNovEnd = Carbon::create($data['backOneYear'],11)->endOfMonth();
+        $backOneDecEnd = Carbon::create($data['backOneYear'],12)->endOfMonth();
+
+        $data['BackOneYearArraySold'] = [
+        $data['janBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneJanStart)->where('date', '<=',$backOneJanEnd)->sum('roomsoccupied'),
+        $data['febBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneFebStart)->where('date', '<=',$backOneFebEnd)->sum('roomsoccupied'),
+        $data['marBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneMarStart)->where('date', '<=',$backOneMarEnd)->sum('roomsoccupied'),
+        $data['aprBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneAprStart)->where('date', '<=',$backOneAprEnd)->sum('roomsoccupied'),
+        $data['mayBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneMayStart)->where('date', '<=',$backOneMayEnd)->sum('roomsoccupied'),
+        $data['junBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneJunStart)->where('date', '<=',$backOneJunEnd)->sum('roomsoccupied'),
+        $data['julBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneJulStart)->where('date', '<=',$backOneJulEnd)->sum('roomsoccupied'),
+        $data['augBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneAugStart)->where('date', '<=',$backOneAugEnd)->sum('roomsoccupied'),
+        $data['sepBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneSepStart)->where('date', '<=',$backOneSepEnd)->sum('roomsoccupied'),
+        $data['octBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneOctStart)->where('date', '<=',$backOneOctEnd)->sum('roomsoccupied'),
+        $data['novBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneNovStart)->where('date', '<=',$backOneNovEnd)->sum('roomsoccupied'),
+        $data['decBackOneYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backOneDecStart)->where('date', '<=',$backOneDecEnd)->sum('roomsoccupied')];
+
+        //Last Year Query Variables
+        $backTwoJanStart = Carbon::create($data['backTwoYear'],1)->startOfMonth();
+        $backTwoFebStart = Carbon::create($data['backTwoYear'],2)->startOfMonth();
+        $backTwoMarStart = Carbon::create($data['backTwoYear'],3)->startOfMonth();
+        $backTwoAprStart = Carbon::create($data['backTwoYear'],4)->startOfMonth();
+        $backTwoMayStart = Carbon::create($data['backTwoYear'],5)->startOfMonth();
+        $backTwoJunStart = Carbon::create($data['backTwoYear'],6)->startOfMonth();
+        $backTwoJulStart = Carbon::create($data['backTwoYear'],7)->startOfMonth();
+        $backTwoAugStart = Carbon::create($data['backTwoYear'],8)->startOfMonth();
+        $backTwoSepStart = Carbon::create($data['backTwoYear'],9)->startOfMonth();
+        $backTwoOctStart = Carbon::create($data['backTwoYear'],10)->startOfMonth();
+        $backTwoNovStart = Carbon::create($data['backTwoYear'],11)->startOfMonth();
+        $backTwoDecStart = Carbon::create($data['backTwoYear'],12)->startOfMonth();
+        $backTwoJanEnd = Carbon::create($data['backTwoYear'],1)->endOfMonth();
+        $backTwoFebEnd = Carbon::create($data['backTwoYear'],2)->endOfMonth();
+        $backTwoMarEnd = Carbon::create($data['backTwoYear'],3)->endOfMonth();
+        $backTwoAprEnd = Carbon::create($data['backTwoYear'],4)->endOfMonth();
+        $backTwoMayEnd = Carbon::create($data['backTwoYear'],5)->endOfMonth();
+        $backTwoJunEnd = Carbon::create($data['backTwoYear'],6)->endOfMonth();
+        $backTwoJulEnd = Carbon::create($data['backTwoYear'],7)->endOfMonth();
+        $backTwoAugEnd = Carbon::create($data['backTwoYear'],8)->endOfMonth();
+        $backTwoSepEnd = Carbon::create($data['backTwoYear'],9)->endOfMonth();
+        $backTwoOctEnd = Carbon::create($data['backTwoYear'],10)->endOfMonth();
+        $backTwoNovEnd = Carbon::create($data['backTwoYear'],11)->endOfMonth();
+        $backTwoDecEnd = Carbon::create($data['backTwoYear'],12)->endOfMonth();
+
+        $data['BackTwoYearArraySold'] = [
+        $data['janBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoJanStart)->where('date', '<=',$backTwoJanEnd)->sum('roomsoccupied'),
+        $data['febBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoFebStart)->where('date', '<=',$backTwoFebEnd)->sum('roomsoccupied'),
+        $data['marBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoMarStart)->where('date', '<=',$backTwoMarEnd)->sum('roomsoccupied'),
+        $data['aprBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoAprStart)->where('date', '<=',$backTwoAprEnd)->sum('roomsoccupied'),
+        $data['mayBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoMayStart)->where('date', '<=',$backTwoMayEnd)->sum('roomsoccupied'),
+        $data['junBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoJunStart)->where('date', '<=',$backTwoJunEnd)->sum('roomsoccupied'),
+        $data['julBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoJulStart)->where('date', '<=',$backTwoJulEnd)->sum('roomsoccupied'),
+        $data['augBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoAugStart)->where('date', '<=',$backTwoAugEnd)->sum('roomsoccupied'),
+        $data['sepBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoSepStart)->where('date', '<=',$backTwoSepEnd)->sum('roomsoccupied'),
+        $data['octBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoOctStart)->where('date', '<=',$backTwoOctEnd)->sum('roomsoccupied'),
+        $data['novBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoNovStart)->where('date', '<=',$backTwoNovEnd)->sum('roomsoccupied'),
+        $data['decBackTwoYearRooms'] = DailySales::where('hotel','=','The Mill')->where('date', '>=', $backTwoDecStart)->where('date', '<=',$backTwoDecEnd)->sum('roomsoccupied')];
+
+
+
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['CurrentYearArray'] as $DaysInEachMonth){
+            array_push($data['CurrentYearDaysArray'], $DaysInEachMonth * $rooms);
+         //   array_push($data['CurrentYearRoomsSold'], rand(100,700)); Random Number Generator
+            $data['CurrentYearArray'];
+        }
+
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['BackOneYearArray'] as $DaysInEachMonth){
+            array_push($data['BackOneYearDaysArray'], $DaysInEachMonth * $rooms);
+          //  echo $DaysInEachMonth ." <- Days Each Month | Rooms at the Shard -> " . $rooms . "=" . $DaysInEachMonth * $rooms . "<br>";
+         //   array_push($data['BackOneYearRoomsSold'], rand(100,700)); Random Number Generator
+        }
+        //dd($data['BackOneYearDaysArray']);
+        // Calculates the number of rooms that could be sold each month
+        foreach($data['BackTwoYearArray'] as $DaysInEachMonth){
+            array_push($data['BackTwoYearDaysArray'], $DaysInEachMonth * $rooms);
+         //   array_push($data['BackTwoYearRoomsSold'], rand(100,700)); Random Number Generator
+         $data['BackTwoYearArray'];
+        }
+
+        $c = 0;
+        while($c < 12){
+            if($data['CurrentYearArray'][$c] != 0){
+                array_push($data['CurrentYearOcc'] , number_format(($data['CurrentYearArraySold'][$c] / $data['CurrentYearDaysArray'][$c])*100,1));
+                } else {
+                    array_push($data['CurrentYearOcc'] , 0);
+                }
+
+            if($data['BackOneYearArray'][$c] != 0){
+                array_push($data['BackOneYearOcc'] , number_format(($data['BackOneYearArraySold'][$c] / $data['BackOneYearDaysArray'][$c])*100,1));
+                //    echo $data['BackOneYearArray'][$c] . "/" .  $data['BackOneYearDaysArray'][$c] . "=" . (($data['BackOneYearArray'][$c] / $data['BackOneYearDaysArray'][$c])*100) . "<br>";
+                } else {
+                    array_push($data['BackOneYearOcc'] , 0);
+                }
+
+            if($data['BackTwoYearArray'][$c] != 0){
+                array_push($data['BackTwoYearOcc'] , number_format(($data['BackTwoYearArraySold'][$c] / $data['BackTwoYearDaysArray'][$c])*100,1));
+                } else {
+                    array_push($data['BackTwoYearOcc'] , 0);
+                }
+          //  array_push($data['BackOneYearOcc'] ,number_format(($data['BackOneYearRoomsSold'][$c] / $data['BackOneYearDaysArray'][$c])*100,1));
+          //  array_push($data['BackTwoYearOcc'] ,number_format(($data['BackTwoYearRoomsSold'][$c] / $data['BackTwoYearDaysArray'][$c])*100,1));
+            $c++;
+        }
+
+        $data['CurrentYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',date('Y'))->sum('roomsoccupied'); // Replace with totals from the table
+        $data['BackOneYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',$data['backOneYear'])->sum('roomsoccupied'); // Replace with totals from the table
+        $data['BackTwoYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',$data['backTwoYear'])->sum('roomsoccupied'); // Replace with totals from the table
+//dd($data['BackOneYearOcc']);
+        return view('admin.hotels.themill.occupancy', $data);
     }
 }

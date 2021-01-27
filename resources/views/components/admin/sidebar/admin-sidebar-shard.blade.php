@@ -9,7 +9,7 @@
             <a class="collapse-item" href="{{route('admin.hotels.shard.index')}}">Staff</a>
             <a class="collapse-item" href="{{route('admin.hotels.salessheet')}}">Daily Sales</a>
             <a class="collapse-item" href="{{route('admin.hotels.shard.holidays')}}">Holidays</a>
-            <a class="collapse-item" href="{{route('hotels.occupancy')}}">Occupancy Report</a>
+            <a class="collapse-item" href="{{route('hotels.shard.occupancy')}}">Occupancy Report</a>
         </div>
     </div>
 </li>
