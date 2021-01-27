@@ -51,12 +51,14 @@
                         @foreach ($CurrentYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
-                        <td rowspan="2" class="align-middle">{{$CurrentYearTotal}} <br>Rooms</td>
+                        <td>{{$CurrentYearTotal}}</td>
                     </tr>
                     <tr>
                         @foreach ($CurrentYearOcc as $item)
                         <td>{{$item}}%</td>
                         @endforeach
+                        <td>{{$CurrentYearAvg}}</td>
+
                     </tr>
                     @else
                     @endif
@@ -67,12 +69,13 @@
                         @foreach ($BackOneYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
-                        <td rowspan="2" class="align-middle">{{$BackOneYearTotal}} <br>Rooms</td>
+                        <td>{{$BackOneYearTotal}}</td>
                     </tr>
                     <tr>
                         @foreach ($BackOneYearOcc as $item)
                         <td>{{$item}}%</td>
                         @endforeach
+                        <td>{{$BackOneYearAvg}}%</td>
                     </tr>
                     @else
                     @endif
@@ -84,12 +87,13 @@
                         @foreach ($BackTwoYearArraySold as $item)
                             <td>{{$item}}</td>
                         @endforeach
-                        <td rowspan="2" class="align-middle">{{$BackTwoYearTotal}} <br>Rooms</td>
+                        <td>{{$BackTwoYearTotal}}</td>
                     </tr>
                     <tr>
                         @foreach ($BackTwoYearOcc as $item)
                         <td>{{$item}}%</td>
                         @endforeach
+                        <td>{{$BackTwoYearAvg}}%</td>
                     </tr>
                     @else
                     @endif

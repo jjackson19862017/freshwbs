@@ -630,6 +630,11 @@ class DailySalesController extends Controller
         $data['CurrentYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',date('Y'))->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackOneYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backOneYear'])->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackTwoYearTotal'] = DailySales::where('hotel','=','Shard')->whereYear('date','=',$data['backTwoYear'])->sum('roomsoccupied'); // Replace with totals from the table
+
+        $data['CurrentYearAvg'] = number_format($data['CurrentYearTotal'] / (array_sum($data['CurrentYearArray'])*23) * 100,1);
+        $data['BackOneYearAvg'] = number_format($data['BackOneYearTotal'] / (array_sum($data['BackOneYearArray'])*23) * 100,1);
+        $data['BackTwoYearAvg'] = number_format($data['BackTwoYearTotal']/ (array_sum($data['BackTwoYearArray'])*23) * 100,1);
+        //dd(array_sum($data['CurrentYearArray']));
 //dd($data['BackOneYearOcc']);
         return view('admin.hotels.shard.occupancy', $data);
     }
@@ -840,6 +845,10 @@ class DailySalesController extends Controller
         $data['CurrentYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',date('Y'))->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackOneYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',$data['backOneYear'])->sum('roomsoccupied'); // Replace with totals from the table
         $data['BackTwoYearTotal'] = DailySales::where('hotel','=','The Mill')->whereYear('date','=',$data['backTwoYear'])->sum('roomsoccupied'); // Replace with totals from the table
+
+        $data['CurrentYearAvg'] = number_format($data['CurrentYearTotal'] / (array_sum($data['CurrentYearArray'])*23) * 100,1);
+        $data['BackOneYearAvg'] = number_format($data['BackOneYearTotal'] / (array_sum($data['BackOneYearArray'])*23) * 100,1);
+        $data['BackTwoYearAvg'] = number_format($data['BackTwoYearTotal']/ (array_sum($data['BackTwoYearArray'])*23) * 100,1);
 //dd($data['BackOneYearOcc']);
         return view('admin.hotels.themill.occupancy', $data);
     }
