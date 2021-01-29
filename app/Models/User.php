@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class User extends Authenticatable
 {
@@ -63,7 +65,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    
+
 
     // Checks to see if a user has a certain role, see admin
     public function userHasRole($role_name){
@@ -81,4 +83,6 @@ class User extends Authenticatable
         }
         return Carbon::parse($date)->diffForHumans();
     }
+
+
 }

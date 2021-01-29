@@ -38,4 +38,9 @@ class Staff extends Model
         }
         return $value;
     }
+     // Creates a one to many relationship to Rotas
+     public function rotas(): HasMany
+     {
+         return $this->hasMany(Rota::class);
+     }
 }
