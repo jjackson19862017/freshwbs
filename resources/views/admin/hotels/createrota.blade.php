@@ -132,8 +132,8 @@
                                                         <label for="mondayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="mondayRoleOne" id="mondayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($mondayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('mondayRoleOne')
@@ -171,8 +171,8 @@
                                                         <label for="mondayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="mondayRoleTwo" id="mondayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($mondayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('mondayRoleTwo')
@@ -223,8 +223,8 @@
                                                         <label for="tuesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="tuesdayRoleOne" id="tuesdayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($tuesdayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('tuesdayRoleOne')
@@ -262,8 +262,8 @@
                                                         <label for="tuesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="tuesdayRoleTwo" id="tuesdayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($tuesdayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('tuesdayRoleTwo')
@@ -314,8 +314,8 @@
                                                         <label for="wednesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="wednesdayRoleOne" id="wednesdayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($wednesdayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('wednesdayRoleOne')
@@ -353,8 +353,8 @@
                                                         <label for="wednesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="wednesdayRoleTwo" id="wednesdayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($wednesdayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('wednesdayRoleTwo')
@@ -405,8 +405,8 @@
                                                         <label for="thursdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="thursdayRoleOne" id="thursdayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($thursdayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('thursdayRoleOne')
@@ -444,8 +444,8 @@
                                                         <label for="thursdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="thursdayRoleTwo" id="thursdayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($thursdayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('thursdayRoleTwo')
@@ -496,8 +496,8 @@
                                                         <label for="fridayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="fridayRoleOne" id="fridayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($fridayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('fridayRoleOne')
@@ -535,8 +535,8 @@
                                                         <label for="fridayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="fridayRoleTwo" id="fridayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($fridayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('fridayRoleTwo')
@@ -587,9 +587,9 @@
                                                         <label for="saturdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="saturdayRoleOne" id="saturdayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
-                                                                @endforeach
+                                                                @foreach ($saturdayRoleOne as $item)
+                                                                <option value="{{$item}}">{{$item}}</option>
+                                                            @endforeach
                                                             </select>
                                                             @error('saturdayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
@@ -626,9 +626,9 @@
                                                         <label for="saturdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="saturdayRoleTwo" id="saturdayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
-                                                                @endforeach
+                                                                @foreach ($saturdayRoleTwo as $item)
+                                                                <option value="{{$item}}">{{$item}}</option>
+                                                            @endforeach
                                                             </select>
                                                             @error('saturdayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
@@ -678,8 +678,8 @@
                                                         <label for="sundayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="sundayRoleOne" id="sundayRoleOne">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($sundayRoleOne as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('sundayRoleOne')
@@ -717,8 +717,8 @@
                                                         <label for="sundayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="sundayRoleTwo" id="sundayRoleTwo">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}}</option>
+                                                                @foreach ($sundayRoleTwo as $item)
+                                                                    <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
                                                             @error('sundayRoleTwo')
