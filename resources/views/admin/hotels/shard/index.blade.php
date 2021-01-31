@@ -23,6 +23,7 @@
                 <table class="table table-hover table-inverse table-sm">
                     <thead class="thead-dark text-center">
                     <tr>
+                        <th>New</th>
                         <th>Name</th>
                         <th>Telephone</th>
                         <th>Personal License</th>
@@ -41,6 +42,13 @@
                             @else
                             class="alert-danger"
                             @endif>
+                            <td>
+
+                                <a class="btn btn-outline-primary btn-sm" href="{{route('hotels.createrota',$staff->id)}}">Rota</a>
+
+
+
+                            </td>
                             <td>@if(!auth()->user()->userHasRole('Staff'))
                                     <a href="{{route('staffs.profile', $staff)}}">{{$staff->forename}} {{$staff->surname}}</a>
                                 @else

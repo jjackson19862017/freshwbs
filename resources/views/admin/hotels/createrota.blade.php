@@ -3,7 +3,7 @@
     <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-                <h1>Rota - Shard - Date</h1>
+                <h1>Rota - {{now()->format('D d M Y')}}</h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -25,30 +25,27 @@
                         Rota Creation
                     </div>
                     <div class="card-body">
-                        <form action="" method="post" class="form-horizontal">
+                        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+                        <form action="{{route('hotels.rota.store')}}" method="post" class="form-horizontal">
                             @csrf
                             <div class="row mb-1">
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Staff
+                                            {{$staff->forename}} {{$staff->surname}}
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label for="staffmember" class="col-form-label col-sm-3">Staff Member</label>
-                                                        <div class="col-sm-9">
-                                                            <select class="form-control" name="staffmember" id="staffmember">
-                                                                @foreach ($staffMember as $staff)
-                                                                    <option value="{{$staff->id}}">{{$staff->forename}} {{$staff->surname}} - {{$staff->hotel}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('staffmember')
-                                                            <div class="invalid-feedback">{{$message}}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+                                                    <input type="hidden" class="form-control" name="staffid" id="staffid" value="{{$staff->id}}">
                                                     <div class="form-group row">
                                                         <label for="hotel" class="col-form-label col-sm-3">Hotel</label>
                                                         <div class="col-sm-9">
@@ -66,6 +63,20 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    <div class="form-group row">
+                                                        <label for="availableDates" class="col-form-label col-sm-3">Week Start</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" name="availableDates" id="availableDates">
+                                                                @foreach ($availableDates as $item)
+                                                                <option value={{$item}}>{{$item}}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                            @error('availableDates')
+                                                            <div class="invalid-feedback">{{$message}}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
@@ -73,7 +84,7 @@
                                                         <div class="col-sm-9">
                                                             <input type="number" class="form-control @error('sickDays') is-invalid @enderror"
                                                                 name="sickDays" id="sickDays" aria-describedby="helpId"
-                                                                placeholder="Enter Sick Days" value="{{old('sickDays')}}">
+                                                                placeholder="Enter Sick Days" value="0">
                                                             @error('sickDays')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
@@ -84,7 +95,7 @@
                                                         <div class="col-sm-9">
                                                             <input type="number" class="form-control @error('sickDays') is-invalid @enderror"
                                                                 name="holidays" id="holidays" aria-describedby="helpId"
-                                                                placeholder="Enter Holidays Taken" value="{{old('holidays')}}">
+                                                                placeholder="Enter Holidays Taken" value="0">
                                                             @error('holidays')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
@@ -101,42 +112,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Monday - <span><input type="number" id="mondayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Monday - <span><input type="number" id="MondayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="mondayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="MondayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('mondayStartOne') is-invalid @enderror"
-                                                                   name="mondayStartOne" id="mondayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('mondayStartOne')}}">
-                                                            @error('mondayStartOne')
+                                                            <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror"
+                                                                   name="MondayStartOne" id="MondayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('MondayStartOne')}}">
+                                                            @error('MondayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="mondayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="MondayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('mondayFinishOne') is-invalid @enderror"
-                                                                   name="mondayFinishOne" id="mondayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('mondayFinishOne')}}">
-                                                            @error('mondayFinishOne')
+                                                            <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror"
+                                                                   name="MondayFinishOne" id="MondayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('MondayFinishOne')}}">
+                                                            @error('MondayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="mondayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="MondayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="mondayRoleOne" id="mondayRoleOne">
-                                                                @foreach ($mondayRoleOne as $item)
+                                                            <select class="form-control" name="MondayRoleOne" id="MondayRoleOne">
+                                                                @foreach ($MondayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('mondayRoleOne')
+                                                            @error('MondayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -145,37 +156,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="mondayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="MondayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('mondayStartTwo') is-invalid @enderror"
-                                                                   name="mondayStartTwo" id="mondayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('mondayStartTwo')}}">
-                                                            @error('mondayStartTwo')
+                                                            <input type="time" class="form-control @error('MondayStartTwo') is-invalid @enderror"
+                                                                   name="MondayStartTwo" id="MondayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('MondayStartTwo')}}">
+                                                            @error('MondayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="mondayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="MondayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('mondayFinishTwo') is-invalid @enderror"
-                                                                   name="mondayFinishTwo" id="mondayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('mondayFinishTwo')}}">
-                                                            @error('mondayFinishTwo')
+                                                            <input type="time" class="form-control @error('MondayFinishTwo') is-invalid @enderror"
+                                                                   name="MondayFinishTwo" id="MondayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('MondayFinishTwo')}}">
+                                                            @error('MondayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="mondayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="MondayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="mondayRoleTwo" id="mondayRoleTwo">
-                                                                @foreach ($mondayRoleTwo as $item)
+                                                            <select class="form-control" name="MondayRoleTwo" id="MondayRoleTwo">
+                                                                @foreach ($MondayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('mondayRoleTwo')
+                                                            @error('MondayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -192,42 +203,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Tuesday - <span><input type="number" id="tuesdayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Tuesday - <span><input type="number" id="TuesdayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="tuesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="TuesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('tuesdayStartOne') is-invalid @enderror"
-                                                                   name="tuesdayStartOne" id="tuesdayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('tuesdayStartOne')}}">
-                                                            @error('tuesdayStartOne')
+                                                            <input type="time" class="form-control @error('TuesdayStartOne') is-invalid @enderror"
+                                                                   name="TuesdayStartOne" id="TuesdayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('TuesdayStartOne')}}">
+                                                            @error('TuesdayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="tuesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="TuesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('tuesdayFinishOne') is-invalid @enderror"
-                                                                   name="tuesdayFinishOne" id="tuesdayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('tuesdayFinishOne')}}">
-                                                            @error('tuesdayFinishOne')
+                                                            <input type="time" class="form-control @error('TuesdayFinishOne') is-invalid @enderror"
+                                                                   name="TuesdayFinishOne" id="TuesdayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('TuesdayFinishOne')}}">
+                                                            @error('TuesdayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="tuesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="TuesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="tuesdayRoleOne" id="tuesdayRoleOne">
-                                                                @foreach ($tuesdayRoleOne as $item)
+                                                            <select class="form-control" name="TuesdayRoleOne" id="TuesdayRoleOne">
+                                                                @foreach ($TuesdayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('tuesdayRoleOne')
+                                                            @error('TuesdayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -236,37 +247,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="tuesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="TuesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('tuesdayStartTwo') is-invalid @enderror"
-                                                                   name="tuesdayStartTwo" id="tuesdayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('tuesdayStartTwo')}}">
-                                                            @error('tuesdayStartTwo')
+                                                            <input type="time" class="form-control @error('TuesdayStartTwo') is-invalid @enderror"
+                                                                   name="TuesdayStartTwo" id="TuesdayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('TuesdayStartTwo')}}">
+                                                            @error('TuesdayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="tuesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="TuesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('tuesdayFinishTwo') is-invalid @enderror"
-                                                                   name="tuesdayFinishTwo" id="tuesdayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('tuesdayFinishTwo')}}">
-                                                            @error('tuesdayFinishTwo')
+                                                            <input type="time" class="form-control @error('TuesdayFinishTwo') is-invalid @enderror"
+                                                                   name="TuesdayFinishTwo" id="TuesdayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('TuesdayFinishTwo')}}">
+                                                            @error('TuesdayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="tuesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="TuesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="tuesdayRoleTwo" id="tuesdayRoleTwo">
-                                                                @foreach ($tuesdayRoleTwo as $item)
+                                                            <select class="form-control" name="TuesdayRoleTwo" id="TuesdayRoleTwo">
+                                                                @foreach ($TuesdayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('tuesdayRoleTwo')
+                                                            @error('TuesdayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -283,42 +294,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Wednesday - <span><input type="number" id="wednesdayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Wednesday - <span><input type="number" id="WednesdayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="wednesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="WednesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('wednesdayStartOne') is-invalid @enderror"
-                                                                   name="wednesdayStartOne" id="wednesdayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('wednesdayStartOne')}}">
-                                                            @error('wednesdayStartOne')
+                                                            <input type="time" class="form-control @error('WednesdayStartOne') is-invalid @enderror"
+                                                                   name="WednesdayStartOne" id="WednesdayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('WednesdayStartOne')}}">
+                                                            @error('WednesdayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="wednesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="WednesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('wednesdayFinishOne') is-invalid @enderror"
-                                                                   name="wednesdayFinishOne" id="wednesdayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('wednesdayFinishOne')}}">
-                                                            @error('wednesdayFinishOne')
+                                                            <input type="time" class="form-control @error('WednesdayFinishOne') is-invalid @enderror"
+                                                                   name="WednesdayFinishOne" id="WednesdayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('WednesdayFinishOne')}}">
+                                                            @error('WednesdayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="wednesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="WednesdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="wednesdayRoleOne" id="wednesdayRoleOne">
-                                                                @foreach ($wednesdayRoleOne as $item)
+                                                            <select class="form-control" name="WednesdayRoleOne" id="WednesdayRoleOne">
+                                                                @foreach ($WednesdayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('wednesdayRoleOne')
+                                                            @error('WednesdayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -327,37 +338,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="wednesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="WednesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('wednesdayStartTwo') is-invalid @enderror"
-                                                                   name="wednesdayStartTwo" id="wednesdayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('wednesdayStartTwo')}}">
-                                                            @error('wednesdayStartTwo')
+                                                            <input type="time" class="form-control @error('WednesdayStartTwo') is-invalid @enderror"
+                                                                   name="WednesdayStartTwo" id="WednesdayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('WednesdayStartTwo')}}">
+                                                            @error('WednesdayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="wednesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="WednesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('wednesdayFinishTwo') is-invalid @enderror"
-                                                                   name="wednesdayFinishTwo" id="wednesdayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('wednesdayFinishTwo')}}">
-                                                            @error('wednesdayFinishTwo')
+                                                            <input type="time" class="form-control @error('WednesdayFinishTwo') is-invalid @enderror"
+                                                                   name="WednesdayFinishTwo" id="WednesdayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('WednesdayFinishTwo')}}">
+                                                            @error('WednesdayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="wednesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="WednesdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="wednesdayRoleTwo" id="wednesdayRoleTwo">
-                                                                @foreach ($wednesdayRoleTwo as $item)
+                                                            <select class="form-control" name="WednesdayRoleTwo" id="WednesdayRoleTwo">
+                                                                @foreach ($WednesdayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('wednesdayRoleTwo')
+                                                            @error('WednesdayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -374,42 +385,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Thursday - <span><input type="number" id="thursdayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Thursday - <span><input type="number" id="ThursdayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="thursdayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="ThursdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('thursdayStartOne') is-invalid @enderror"
-                                                                   name="thursdayStartOne" id="thursdayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('thursdayStartOne')}}">
-                                                            @error('thursdayStartOne')
+                                                            <input type="time" class="form-control @error('ThursdayStartOne') is-invalid @enderror"
+                                                                   name="ThursdayStartOne" id="ThursdayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('ThursdayStartOne')}}">
+                                                            @error('ThursdayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="thursdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="ThursdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('thursdayFinishOne') is-invalid @enderror"
-                                                                   name="thursdayFinishOne" id="thursdayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('thursdayFinishOne')}}">
-                                                            @error('thursdayFinishOne')
+                                                            <input type="time" class="form-control @error('ThursdayFinishOne') is-invalid @enderror"
+                                                                   name="ThursdayFinishOne" id="ThursdayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('ThursdayFinishOne')}}">
+                                                            @error('ThursdayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="thursdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="ThursdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="thursdayRoleOne" id="thursdayRoleOne">
-                                                                @foreach ($thursdayRoleOne as $item)
+                                                            <select class="form-control" name="ThursdayRoleOne" id="ThursdayRoleOne">
+                                                                @foreach ($ThursdayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('thursdayRoleOne')
+                                                            @error('ThursdayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -418,37 +429,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="thursdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="ThursdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('thursdayStartTwo') is-invalid @enderror"
-                                                                   name="thursdayStartTwo" id="thursdayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('thursdayStartTwo')}}">
-                                                            @error('thursdayStartTwo')
+                                                            <input type="time" class="form-control @error('ThursdayStartTwo') is-invalid @enderror"
+                                                                   name="ThursdayStartTwo" id="ThursdayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('ThursdayStartTwo')}}">
+                                                            @error('ThursdayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="thursdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="ThursdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('thursdayFinishTwo') is-invalid @enderror"
-                                                                   name="thursdayFinishTwo" id="thursdayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('thursdayFinishTwo')}}">
-                                                            @error('thursdayFinishTwo')
+                                                            <input type="time" class="form-control @error('ThursdayFinishTwo') is-invalid @enderror"
+                                                                   name="ThursdayFinishTwo" id="ThursdayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('ThursdayFinishTwo')}}">
+                                                            @error('ThursdayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="thursdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="ThursdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="thursdayRoleTwo" id="thursdayRoleTwo">
-                                                                @foreach ($thursdayRoleTwo as $item)
+                                                            <select class="form-control" name="ThursdayRoleTwo" id="ThursdayRoleTwo">
+                                                                @foreach ($ThursdayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('thursdayRoleTwo')
+                                                            @error('ThursdayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -465,42 +476,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Friday - <span><input type="number" id="fridayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Friday - <span><input type="number" id="FridayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="fridayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="FridayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('fridayStartOne') is-invalid @enderror"
-                                                                   name="fridayStartOne" id="fridayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('fridayStartOne')}}">
-                                                            @error('fridayStartOne')
+                                                            <input type="time" class="form-control @error('FridayStartOne') is-invalid @enderror"
+                                                                   name="FridayStartOne" id="FridayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('FridayStartOne')}}">
+                                                            @error('FridayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="fridayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="FridayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('fridayFinishOne') is-invalid @enderror"
-                                                                   name="fridayFinishOne" id="fridayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('fridayFinishOne')}}">
-                                                            @error('fridayFinishOne')
+                                                            <input type="time" class="form-control @error('FridayFinishOne') is-invalid @enderror"
+                                                                   name="FridayFinishOne" id="FridayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('FridayFinishOne')}}">
+                                                            @error('FridayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="fridayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="FridayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="fridayRoleOne" id="fridayRoleOne">
-                                                                @foreach ($fridayRoleOne as $item)
+                                                            <select class="form-control" name="FridayRoleOne" id="FridayRoleOne">
+                                                                @foreach ($FridayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('fridayRoleOne')
+                                                            @error('FridayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -509,37 +520,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="fridayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="FridayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('fridayStartTwo') is-invalid @enderror"
-                                                                   name="fridayStartTwo" id="fridayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('fridayStartTwo')}}">
-                                                            @error('fridayStartTwo')
+                                                            <input type="time" class="form-control @error('FridayStartTwo') is-invalid @enderror"
+                                                                   name="FridayStartTwo" id="FridayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('FridayStartTwo')}}">
+                                                            @error('FridayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="fridayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="FridayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('fridayFinishTwo') is-invalid @enderror"
-                                                                   name="fridayFinishTwo" id="fridayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('fridayFinishTwo')}}">
-                                                            @error('fridayFinishTwo')
+                                                            <input type="time" class="form-control @error('FridayFinishTwo') is-invalid @enderror"
+                                                                   name="FridayFinishTwo" id="FridayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('FridayFinishTwo')}}">
+                                                            @error('FridayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="fridayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="FridayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="fridayRoleTwo" id="fridayRoleTwo">
-                                                                @foreach ($fridayRoleTwo as $item)
+                                                            <select class="form-control" name="FridayRoleTwo" id="FridayRoleTwo">
+                                                                @foreach ($FridayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('fridayRoleTwo')
+                                                            @error('FridayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -556,42 +567,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Saturday - <span><input type="number" id="saturdayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Saturday - <span><input type="number" id="SaturdayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="saturdayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="SaturdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('saturdayStartOne') is-invalid @enderror"
-                                                                   name="saturdayStartOne" id="saturdayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('saturdayStartOne')}}">
-                                                            @error('saturdayStartOne')
+                                                            <input type="time" class="form-control @error('SaturdayStartOne') is-invalid @enderror"
+                                                                   name="SaturdayStartOne" id="SaturdayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('SaturdayStartOne')}}">
+                                                            @error('SaturdayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="saturdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="SaturdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('saturdayFinishOne') is-invalid @enderror"
-                                                                   name="saturdayFinishOne" id="saturdayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('saturdayFinishOne')}}">
-                                                            @error('saturdayFinishOne')
+                                                            <input type="time" class="form-control @error('SaturdayFinishOne') is-invalid @enderror"
+                                                                   name="SaturdayFinishOne" id="SaturdayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('SaturdayFinishOne')}}">
+                                                            @error('SaturdayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="saturdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="SaturdayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="saturdayRoleOne" id="saturdayRoleOne">
-                                                                @foreach ($saturdayRoleOne as $item)
+                                                            <select class="form-control" name="SaturdayRoleOne" id="SaturdayRoleOne">
+                                                                @foreach ($SaturdayRoleOne as $item)
                                                                 <option value="{{$item}}">{{$item}}</option>
                                                             @endforeach
                                                             </select>
-                                                            @error('saturdayRoleOne')
+                                                            @error('SaturdayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -600,37 +611,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="saturdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="SaturdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('saturdayStartTwo') is-invalid @enderror"
-                                                                   name="saturdayStartTwo" id="saturdayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('saturdayStartTwo')}}">
-                                                            @error('saturdayStartTwo')
+                                                            <input type="time" class="form-control @error('SaturdayStartTwo') is-invalid @enderror"
+                                                                   name="SaturdayStartTwo" id="SaturdayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('SaturdayStartTwo')}}">
+                                                            @error('SaturdayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="saturdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="SaturdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('saturdayFinishTwo') is-invalid @enderror"
-                                                                   name="saturdayFinishTwo" id="saturdayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('saturdayFinishTwo')}}">
-                                                            @error('saturdayFinishTwo')
+                                                            <input type="time" class="form-control @error('SaturdayFinishTwo') is-invalid @enderror"
+                                                                   name="SaturdayFinishTwo" id="SaturdayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('SaturdayFinishTwo')}}">
+                                                            @error('SaturdayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="saturdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="SaturdayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="saturdayRoleTwo" id="saturdayRoleTwo">
-                                                                @foreach ($saturdayRoleTwo as $item)
+                                                            <select class="form-control" name="SaturdayRoleTwo" id="SaturdayRoleTwo">
+                                                                @foreach ($SaturdayRoleTwo as $item)
                                                                 <option value="{{$item}}">{{$item}}</option>
                                                             @endforeach
                                                             </select>
-                                                            @error('saturdayRoleTwo')
+                                                            @error('SaturdayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -647,42 +658,42 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Sunday - <span><input type="number" id="sundayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Sunday - <span><input type="number" id="SundayHoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="sundayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                        <label for="SundayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('sundayStartOne') is-invalid @enderror"
-                                                                   name="sundayStartOne" id="sundayStartOne" aria-describedby="helpId"
-                                                                   value="{{old('sundayStartOne')}}">
-                                                            @error('sundayStartOne')
+                                                            <input type="time" class="form-control @error('SundayStartOne') is-invalid @enderror"
+                                                                   name="SundayStartOne" id="SundayStartOne" aria-describedby="helpId"
+                                                                   value="{{old('SundayStartOne')}}">
+                                                            @error('SundayStartOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="sundayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                        <label for="SundayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('sundayFinishOne') is-invalid @enderror"
-                                                                   name="sundayFinishOne" id="sundayFinishOne" aria-describedby="helpId"
-                                                                   value="{{old('sundayFinishOne')}}">
-                                                            @error('sundayFinishOne')
+                                                            <input type="time" class="form-control @error('SundayFinishOne') is-invalid @enderror"
+                                                                   name="SundayFinishOne" id="SundayFinishOne" aria-describedby="helpId"
+                                                                   value="{{old('SundayFinishOne')}}">
+                                                            @error('SundayFinishOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="sundayRoleOne" class="col-form-label col-sm-3">1st Role</label>
+                                                        <label for="SundayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="sundayRoleOne" id="sundayRoleOne">
-                                                                @foreach ($sundayRoleOne as $item)
+                                                            <select class="form-control" name="SundayRoleOne" id="SundayRoleOne">
+                                                                @foreach ($SundayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('sundayRoleOne')
+                                                            @error('SundayRoleOne')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -691,37 +702,37 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label for="sundayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
+                                                        <label for="SundayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('sundayStartTwo') is-invalid @enderror"
-                                                                   name="sundayStartTwo" id="sundayStartTwo" aria-describedby="helpId"
-                                                                   value="{{old('sundayStartTwo')}}">
-                                                            @error('sundayStartTwo')
+                                                            <input type="time" class="form-control @error('SundayStartTwo') is-invalid @enderror"
+                                                                   name="SundayStartTwo" id="SundayStartTwo" aria-describedby="helpId"
+                                                                   value="{{old('SundayStartTwo')}}">
+                                                            @error('SundayStartTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="sundayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
+                                                        <label for="SundayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('sundayFinishTwo') is-invalid @enderror"
-                                                                   name="sundayFinishTwo" id="sundayFinishTwo" aria-describedby="helpId"
-                                                                   value="{{old('sundayFinishTwo')}}">
-                                                            @error('sundayFinishTwo')
+                                                            <input type="time" class="form-control @error('SundayFinishTwo') is-invalid @enderror"
+                                                                   name="SundayFinishTwo" id="SundayFinishTwo" aria-describedby="helpId"
+                                                                   value="{{old('SundayFinishTwo')}}">
+                                                            @error('SundayFinishTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="sundayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
+                                                        <label for="SundayRoleTwo" class="col-form-label col-sm-3">2nd Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="sundayRoleTwo" id="sundayRoleTwo">
-                                                                @foreach ($sundayRoleTwo as $item)
+                                                            <select class="form-control" name="SundayRoleTwo" id="SundayRoleTwo">
+                                                                @foreach ($SundayRoleTwo as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('sundayRoleTwo')
+                                                            @error('SundayRoleTwo')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>

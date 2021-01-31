@@ -28,8 +28,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/hotels/shard/occreport', [App\Http\Controllers\DailySalesController::class, 'occreportshard'])->name('hotels.shard.occupancy');
     Route::get('/hotels/themill/occreport', [App\Http\Controllers\DailySalesController::class, 'occreportthemill'])->name('hotels.themill.occupancy');
 
-    Route::get('/hotels/shard/rota', [App\Http\Controllers\RotaController::class, 'rotashard'])->name('hotels.shard.rota');
-    Route::get('/hotels/shard/rota/create', [App\Http\Controllers\RotaController::class, 'createrota'])->name('hotels.createrota');
+    Route::get('/hotels/rota', [App\Http\Controllers\RotaController::class, 'rotashard'])->name('hotels.shard.rota');
+    Route::get('/hotels/rota/create/{staff}', [App\Http\Controllers\RotaController::class, 'createrota'])->name('hotels.createrota');
+    Route::post('/hotels/rota/store', [App\Http\Controllers\RotaController::class, 'storerota'])->name('hotels.rota.store');
 
 
 

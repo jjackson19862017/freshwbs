@@ -11,7 +11,6 @@
             <a class="collapse-item" href="{{route('admin.hotels.shard.holidays')}}">Holidays</a>
             <a class="collapse-item" href="{{route('hotels.shard.occupancy')}}">Occupancy Report</a>
             <a class="collapse-item" href="{{route('hotels.shard.rota')}}">Rota</a>
-            <a class="collapse-item" href="{{route('hotels.createrota')}}">New Rota</a>
         </div>
     </div>
 </li>
