@@ -9,6 +9,7 @@ use App\Models\Rota;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 
 class RotaController extends Controller
 {
@@ -24,8 +25,19 @@ class RotaController extends Controller
         'Saturday',
         'Sunday'
         ];
+        $datevar = Carbon::now(); // Gets current date
+        while($datevar != Carbon::parse($datevar)->isDayOfWeek(Carbon::MONDAY)){
+            $datevar = $datevar->subDay(); // While the date isnt a Monday subtract a day till it is Monday
+        }
+        $data['thisweekdate'] = $datevar;
+        $data['thisweekdate'] = $data['thisweekdate']->format('Y-m-d');
+        $data['nextweekdate'] = $datevar->addWeek()->format('Y-m-d');
 
 
+
+        $data['thisWeeksRota'] = Rota::where('WeekCommencing','=',$data['thisweekdate'])->get();
+
+        //dd($data['thisWeeksRota']);
 
         return view('admin.hotels.shard.rota',$data);
     }
@@ -56,6 +68,11 @@ class RotaController extends Controller
                 $datevar = $datevar->addWeek();
             }
 
+            //if Mondays can only be allowed to be on the list if the staff_id doesnt have a date record.
+
+
+
+
         $data['staff'] = Staff::find($staff)->first();
         //dd($data['staff']);
         $data['MondayRoleOne']      = General::getEnumValues('rotas','MondayRoleOne') ;
@@ -81,13 +98,55 @@ class RotaController extends Controller
         $validator = Validator::make($request->all(),[
             'staffid' => 'required|numeric',
             'hotel' => 'required',
-            'availableDates' => 'date',
-            'MondayStartOne' => 'bail|required_unless:MondayRoleOne,Off',
-            'MondayFinishOne' => 'bail|required_unless:MondayRoleOne,Off',
+            'WeekCommencing' => ['date', Rule::unique('rotas')->where('WeekCommencing', $request->input('WeekCommencing'))->where('Staff_Id', $request->input('staffid'))],
+            'MondayStartOne' => 'bail|required_unless:MondayRoleOne,Off,Sick,Holiday',
+            'MondayFinishOne' => 'bail|required_unless:MondayRoleOne,Off,Sick,Holiday',
             'MondayRoleOne' => 'required',
-            //'mondayStartTwo' => 'required_if:mondayRoleTwo,not(off)|date_format:H:i',
-            //'mondayFinishTwo' => 'required_if:mondayRoleTwo,not(off)|date_format:H:i',
-            //'mondayRoleTwo' => 'required',
+            'MondayStartTwo' => 'bail|required_unless:MondayRoleTwo,Off,Sick,Holiday',
+            'MondayFinishTwo' => 'bail|required_unless:MondayRoleTwo,Off,Sick,Holiday',
+            'MondayRoleTwo' => 'required',
+            'MondayStartOne' => 'bail|required_unless:MondayRoleOne,Off,Sick,Holiday',
+            'MondayFinishOne' => 'bail|required_unless:MondayRoleOne,Off,Sick,Holiday',
+            'MondayRoleOne' => 'required',
+            'MondayStartTwo' => 'bail|required_unless:MondayRoleTwo,Off,Sick,Holiday',
+            'MondayFinishTwo' => 'bail|required_unless:MondayRoleTwo,Off,Sick,Holiday',
+            'MondayRoleTwo' => 'required',
+            'TuesdayStartOne' => 'bail|required_unless:TuesdayRoleOne,Off,Sick,Holiday',
+            'TuesdayFinishOne' => 'bail|required_unless:TuesdayRoleOne,Off,Sick,Holiday',
+            'TuesdayRoleOne' => 'required',
+            'TuesdayStartTwo' => 'bail|required_unless:TuesdayRoleTwo,Off,Sick,Holiday',
+            'TuesdayFinishTwo' => 'bail|required_unless:TuesdayRoleTwo,Off,Sick,Holiday',
+            'TuesdayRoleTwo' => 'required',
+            'WednesdayStartOne' => 'bail|required_unless:WednesdayRoleOne,Off,Sick,Holiday',
+            'WednesdayFinishOne' => 'bail|required_unless:WednesdayRoleOne,Off,Sick,Holiday',
+            'WednesdayRoleOne' => 'required',
+            'WednesdayStartTwo' => 'bail|required_unless:WednesdayRoleTwo,Off,Sick,Holiday',
+            'WednesdayFinishTwo' => 'bail|required_unless:WednesdayRoleTwo,Off,Sick,Holiday',
+            'WednesdayRoleTwo' => 'required',
+            'ThursdayStartOne' => 'bail|required_unless:ThursdayRoleOne,Off,Sick,Holiday',
+            'ThursdayFinishOne' => 'bail|required_unless:ThursdayRoleOne,Off,Sick,Holiday',
+            'ThursdayRoleOne' => 'required',
+            'ThursdayStartTwo' => 'bail|required_unless:ThursdayRoleTwo,Off,Sick,Holiday',
+            'ThursdayFinishTwo' => 'bail|required_unless:ThursdayRoleTwo,Off,Sick,Holiday',
+            'ThursdayRoleTwo' => 'required',
+            'FridayStartOne' => 'bail|required_unless:FridayRoleOne,Off,Sick,Holiday',
+            'FridayFinishOne' => 'bail|required_unless:FridayRoleOne,Off,Sick,Holiday',
+            'FridayRoleOne' => 'required',
+            'FridayStartTwo' => 'bail|required_unless:FridayRoleTwo,Off,Sick,Holiday',
+            'FridayFinishTwo' => 'bail|required_unless:FridayRoleTwo,Off,Sick,Holiday',
+            'FridayRoleTwo' => 'required',
+            'SaturdayStartOne' => 'bail|required_unless:SaturdayRoleOne,Off,Sick,Holiday',
+            'SaturdayFinishOne' => 'bail|required_unless:SaturdayRoleOne,Off,Sick,Holiday',
+            'SaturdayRoleOne' => 'required',
+            'SaturdayStartTwo' => 'bail|required_unless:SaturdayRoleTwo,Off,Sick,Holiday',
+            'SaturdayFinishTwo' => 'bail|required_unless:SaturdayRoleTwo,Off,Sick,Holiday',
+            'SaturdayRoleTwo' => 'required',
+            'SundayStartOne' => 'bail|required_unless:SundayRoleOne,Off,Sick,Holiday',
+            'SundayFinishOne' => 'bail|required_unless:SundayRoleOne,Off,Sick,Holiday',
+            'SundayRoleOne' => 'required',
+            'SundayStartTwo' => 'bail|required_unless:SundayRoleTwo,Off,Sick,Holiday',
+            'SundayFinishTwo' => 'bail|required_unless:SundayRoleTwo,Off,Sick,Holiday',
+            'SundayRoleTwo' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -99,7 +158,7 @@ class RotaController extends Controller
         //dd($validator);
         $input = [
             'Staff_Id' => $request->input('staffid'),
-            'WeekCommencing' => $request->input('availableDates'),
+            'WeekCommencing' => $request->input('WeekCommencing'),
             'Hotel' => $request->input('hotel'),
             'SickDays' => $request->input('sickDays'),
             'HolidayDays' => $request->input('holidays'),
@@ -166,5 +225,6 @@ class RotaController extends Controller
         $request->session()->flash('message', 'Rota was Created... ');
         $request->session()->flash('text-class', 'text-success');
         //return redirect()->route('admin.hotels.shard.rota');
+        return back();
     }
 }

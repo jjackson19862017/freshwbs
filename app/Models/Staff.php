@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Staff extends Model
 {
@@ -39,8 +40,8 @@ class Staff extends Model
         return $value;
     }
      // Creates a one to many relationship to Rotas
-     public function rotas(): HasMany
+     public function rotas(): HasOne
      {
-         return $this->hasMany(Rota::class);
+         return $this->hasOne(Rota::class);
      }
 }

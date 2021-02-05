@@ -3,7 +3,7 @@
     <!-- Top Row -->
         <div class="row">
             <div class="col-sm-7">
-                <h1>Rota - Shard - Date</h1>
+                <h1>Rota - Shard - {{$thisweekdate}}</h1>
             </div>
             <div class="col-sm-5">
                 <h3 class="font-weight-bold @if (Session::has('text-class'))
@@ -34,59 +34,117 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($thisWeeksRota as $rota)
                         <tr>
-                            <td rowspan="3" class="align-middle">Forename<br>Surname</td>
-                            <td>M S 1</td>
-                            <td>M F 1</td>
-                            <td>T S 1</td>
-                            <td>T F 1</td>
-                            <td>W S 1</td>
-                            <td>W F 1</td>
-                            <td>T S 1</td>
-                            <td>T F 1</td>
-                            <td>F S 1</td>
-                            <td>F F 1</td>
-                            <td>S S 1</td>
-                            <td>S F 1</td>
-                            <td>S S 1</td>
-                            <td>S F 1</td>
+                            <td rowspan="3" class="align-middle">{{$rota->Staff_Id}}<br>Surname</td>
+                            <td>{{$rota->MondayStartOne}}</td>
+                            <td>{{$rota->MondayFinishOne}}</td>
+                            <td>{{$rota->TuesdayStartOne}}</td>
+                            <td>{{$rota->TuesdayFinishOne}}</td>
+                            <td>{{$rota->WednesdayStartOne}}</td>
+                            <td>{{$rota->WednesdayFinishOne}}</td>
+                            <td>{{$rota->ThursdayStartOne}}</td>
+                            <td>{{$rota->ThursdayFinishOne}}</td>
+                            <td>{{$rota->FridayStartOne}}</td>
+                            <td>{{$rota->FridayFinishOne}}</td>
+                            <td>{{$rota->SaturdayStartOne}}</td>
+                            <td>{{$rota->SaturdayFinishOne}}</td>
+                            <td>{{$rota->SundayStartOne}}</td>
+                            <td>{{$rota->SundayFinishOne}}</td>
                             <td rowspan="3" class="align-middle">Total</td>
                             <td rowspan="3" class="align-middle">Zero</td>
                             <td rowspan="3" class="align-middle">Zero</td>
                             <td rowspan="3" class="align-middle">Zero</td>
                         </tr>
                         <tr>
-                            <td>M S 2</td>
-                            <td>M F 2</td>
-                            <td>T S 2</td>
-                            <td>T F 2</td>
-                            <td>W S 2</td>
-                            <td>W F 2</td>
-                            <td>T S 2</td>
-                            <td>T F 2</td>
-                            <td>F S 2</td>
-                            <td>F F 2</td>
-                            <td>S S 2</td>
-                            <td>S F 2</td>
-                            <td>S S 2</td>
-                            <td>S F 2</td>
+                            <td>{{$rota->MondayStartTwo}}</td>
+                            <td>{{$rota->MondayFinishTwo}}</td>
+                            <td>{{$rota->TuesdayStartTwo}}</td>
+                            <td>{{$rota->TuesdayFinishTwo}}</td>
+                            <td>{{$rota->WednesdayStartTwo}}</td>
+                            <td>{{$rota->WednesdayFinishTwo}}</td>
+                            <td>{{$rota->ThursdayStartTwo}}</td>
+                            <td>{{$rota->ThursdayFinishTwo}}</td>
+                            <td>{{$rota->FridayStartTwo}}</td>
+                            <td>{{$rota->FridayFinishTwo}}</td>
+                            <td>{{$rota->SaturdayStartTwo}}</td>
+                            <td>{{$rota->SaturdayFinishTwo}}</td>
+                            <td>{{$rota->SundayStartTwo}}</td>
+                            <td>{{$rota->SundayFinishTwo}}</td>
                         </tr>
                         <tr>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->MondayRoleOne == $rota->MondayRoleTwo)
+                                {{$rota->MondayRoleOne}}
+                                @elseif($rota->MondayRoleTwo == "Off")
+                                {{$rota->MondayRoleOne}}
+                                @else
+                                {{$rota->MondayRoleOne}} / {{$rota->MondayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->TuesdayRoleOne == $rota->TuesdayRoleTwo)
+                                {{$rota->TuesdayRoleOne}}
+                                @elseif($rota->TuesdayRoleTwo == "Off")
+                                {{$rota->TuesdayRoleOne}}
+                                @else
+                                {{$rota->TuesdayRoleOne}} / {{$rota->TuesdayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->WednesdayRoleOne == $rota->WednesdayRoleTwo)
+                                {{$rota->WednesdayRoleOne}}
+                                @elseif($rota->WednesdayRoleTwo == "Off")
+                                {{$rota->WednesdayRoleOne}}
+                                @else
+                                {{$rota->WednesdayRoleOne}} / {{$rota->WednesdayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->ThursdayRoleOne == $rota->ThursdayRoleTwo)
+                                {{$rota->ThursdayRoleOne}}
+                                @elseif($rota->ThursdayRoleTwo == "Off")
+                                {{$rota->ThursdayRoleOne}}
+                                @else
+                                {{$rota->ThursdayRoleOne}} / {{$rota->ThursdayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->FridayRoleOne == $rota->FridayRoleTwo)
+                                {{$rota->FridayRoleOne}}
+                                @elseif($rota->FridayRoleTwo == "Off")
+                                {{$rota->FridayRoleOne}}
+                                @else
+                                {{$rota->FridayRoleOne}} / {{$rota->FridayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->SaturdayRoleOne == $rota->SaturdayRoleTwo)
+                                {{$rota->SaturdayRoleOne}}
+                                @elseif($rota->SaturdayRoleTwo == "Off")
+                                {{$rota->SaturdayRoleOne}}
+                                @else
+                                {{$rota->SaturdayRoleOne}} / {{$rota->SaturdayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
-                            <td>Role</td>
+                            <td>
+                                @if($rota->SundayRoleOne == $rota->SundayRoleTwo)
+                                {{$rota->SundayRoleOne}}
+                                @elseif($rota->SundayRoleTwo == "Off")
+                                {{$rota->SundayRoleOne}}
+                                @else
+                                {{$rota->SundayRoleOne}} / {{$rota->SundayRoleTwo}}
+                                @endif
+                            </td>
                             <td>Time</td>
                         </tr>
+                        @endforeach
                     </tbody>
                     <tfoot>
                         <tr class="table-primary">

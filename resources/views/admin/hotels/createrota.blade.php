@@ -1,4 +1,9 @@
 <x-admin-master>
+    @section('scripts')
+    <!-- Time -->
+    <script src="{{asset('js/moment.js')}}"></script>
+@endsection
+
 @section('content')
     <!-- Top Row -->
         <div class="row">
@@ -64,15 +69,15 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="availableDates" class="col-form-label col-sm-3">Week Start</label>
+                                                        <label for="WeekCommencing" class="col-form-label col-sm-3">Week Start</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="availableDates" id="availableDates">
+                                                            <select class="form-control" name="WeekCommencing" id="WeekCommencing">
                                                                 @foreach ($availableDates as $item)
                                                                 <option value={{$item}}>{{$item}}</option>
                                                                 @endforeach
 
                                                             </select>
-                                                            @error('availableDates')
+                                                            @error('WeekCommencing')
                                                             <div class="invalid-feedback">{{$message}}</div>
                                                             @enderror
                                                         </div>
@@ -112,7 +117,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Monday - <span><input type="number" id="MondayHoursOne" disabled="disabled" class="text-right"></span>
+                                            Monday - <span><input type="number" id="HoursOne" disabled="disabled" class="text-right"></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -120,7 +125,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror"
+                                                            <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror input MondayStartOne"
                                                                    name="MondayStartOne" id="MondayStartOne" aria-describedby="helpId"
                                                                    value="{{old('MondayStartOne')}}">
                                                             @error('MondayStartOne')
@@ -131,7 +136,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror"
+                                                            <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror input MondayFinishOne"
                                                                    name="MondayFinishOne" id="MondayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('MondayFinishOne')}}">
                                                             @error('MondayFinishOne')
@@ -764,5 +769,41 @@
 
         </div>
 
+    @endsection
+    @section('js')
+<script>
+ $(document).ready(function(){
+    $(".input").keyup(function(){
+        var MondayStartOne = $(".MondayStartOne").val();
+        var MondayFinishOne = $(".MondayFinishOne").val();
+    // Convert hh:mm[am/pm] to minutes
+    function timeStringToMins(s) {
+        s = s.split(':');
+        s[0] = /m$/i.test(s[1]) && s[0] == 12? 0 : s[0];
+        return s[0]*60 + parseInt(s[1]) + (/pm$/i.test(s[1])? 720 : 0);
+        }
+
+        // Return difference between two times in hh:mm[am/pm] format as hh:mm
+        function getTimeDifference(t0, t1) {
+
+        // Small helper function to padd single digits
+        function z(n){return (n<10?'0':'') + n;}
+
+        // Get difference in minutes
+        var diff = timeStringToMins(t1) - timeStringToMins(t0);
+
+        // Format difference as hh:mm and return
+        return   z(diff/60 | 0) + ':' + z(diff % 60);
+        }
+
+        var t0 = MondayStartOne;
+        var t1 = MondayFinishOne;
+        var result = getTimeDifference(t0, t1);
+
+        console.log(result);
+        $("#HoursOne").val(result);
+    });
+});
+</script>
     @endsection
 </x-admin-master>
