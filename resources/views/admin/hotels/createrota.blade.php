@@ -122,8 +122,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label for="MondayStartOne" class="col-form-label col-sm-3">1st Start</label>
+                                                    <div class="form-group row" >
+                                                        <label for="MondayStartOne" class="col-form-label col-sm-3" id="MS1">1st Start</label>
                                                         <div class="col-sm-9">
                                                             <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror monday MondayStartOne"
                                                                    name="MondayStartOne" id="MondayStartOne" aria-describedby="helpId"
@@ -133,8 +133,8 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row">
-                                                        <label for="MondayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
+                                                    <div class="form-group row" >
+                                                        <label for="MondayFinishOne" class="col-form-label col-sm-3" id="MS2">1st Finish</label>
                                                         <div class="col-sm-9">
                                                             <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror monday MondayFinishOne"
                                                                    name="MondayFinishOne" id="MondayFinishOne" aria-describedby="helpId"
@@ -147,7 +147,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayRoleOne" class="col-form-label col-sm-3">1st Role</label>
                                                         <div class="col-sm-9">
-                                                            <select class="form-control" name="MondayRoleOne" id="MondayRoleOne">
+                                                            <select class="form-control" name="MondayRoleOne" id="MondayRoleOne" onchange="MOV('MondayRoleOne','MS1','MondayStartOne','MS2','MondayFinishOne')">
                                                                 @foreach ($MondayRoleOne as $item)
                                                                     <option value="{{$item}}">{{$item}}</option>
                                                                 @endforeach
@@ -160,7 +160,7 @@
 
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" id="MS3">
                                                         <label for="MondayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
                                                             <input type="time" class="form-control @error('MondayStartTwo') is-invalid @enderror monday MondayStartTwo"
@@ -171,7 +171,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row">
+                                                    <div class="form-group row" id="MS4">
                                                         <label for="MondayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
                                                             <input type="time" class="form-control @error('MondayFinishTwo') is-invalid @enderror monday MondayFinishTwo"
@@ -772,7 +772,43 @@
     @endsection
     @section('js')
 <script>
+function MOV(i,n,o,p,q) {
+    var i = document.getElementById(i).value;
+    //console.log(i, n);
+    switch (i) {
+        case 'Off':
+        case 'Sick':
+        case 'Holiday':
+            document.getElementById(n).style.display = "none";
+            document.getElementById(o).style.display = "none";
+            document.getElementById(p).style.display = "none";
+            document.getElementById(q).style.display = "none";
+        break;
+        default:
+            document.getElementById(n).style.display = "inline-block";
+            document.getElementById(o).style.display = "block";
+            document.getElementById(p).style.display = "inline-block";
+            document.getElementById(q).style.display = "block";
+    }
+}
+
  $(document).ready(function(){
+
+    document.getElementById("MS1").style.display = "none";
+    document.getElementById("MondayStartOne").style.display = "none";
+    document.getElementById("MS2").style.display = "none";
+    document.getElementById("MondayFinishOne").style.display = "none";
+
+
+
+
+
+
+
+
+
+
+
      function CalcHours(start1,finish1,start2,finish2){
         var S1 = moment.utc(start1.val(), 'hh:mm'); // Takes Start Time 1
         var F1 = moment.utc(finish1.val(), 'hh:mm'); // Takes Finish Time 1
