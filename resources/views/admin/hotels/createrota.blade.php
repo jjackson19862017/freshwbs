@@ -125,7 +125,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror input MondayStartOne"
+                                                            <input type="time" class="form-control @error('MondayStartOne') is-invalid @enderror monday MondayStartOne"
                                                                    name="MondayStartOne" id="MondayStartOne" aria-describedby="helpId"
                                                                    value="{{old('MondayStartOne')}}">
                                                             @error('MondayStartOne')
@@ -136,7 +136,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror input MondayFinishOne"
+                                                            <input type="time" class="form-control @error('MondayFinishOne') is-invalid @enderror monday MondayFinishOne"
                                                                    name="MondayFinishOne" id="MondayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('MondayFinishOne')}}">
                                                             @error('MondayFinishOne')
@@ -163,7 +163,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayStartTwo') is-invalid @enderror input MondayStartTwo"
+                                                            <input type="time" class="form-control @error('MondayStartTwo') is-invalid @enderror monday MondayStartTwo"
                                                                    name="MondayStartTwo" id="MondayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('MondayStartTwo')}}">
                                                             @error('MondayStartTwo')
@@ -174,7 +174,7 @@
                                                     <div class="form-group row">
                                                         <label for="MondayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('MondayFinishTwo') is-invalid @enderror input MondayFinishTwo"
+                                                            <input type="time" class="form-control @error('MondayFinishTwo') is-invalid @enderror monday MondayFinishTwo"
                                                                    name="MondayFinishTwo" id="MondayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('MondayFinishTwo')}}">
                                                             @error('MondayFinishTwo')
@@ -216,7 +216,7 @@
                                                     <div class="form-group row">
                                                         <label for="TuesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('TuesdayStartOne') is-invalid @enderror input TuesdayStartOne"
+                                                            <input type="time" class="form-control @error('TuesdayStartOne') is-invalid @enderror tuesday TuesdayStartOne"
                                                                    name="TuesdayStartOne" id="TuesdayStartOne" aria-describedby="helpId"
                                                                    value="{{old('TuesdayStartOne')}}">
                                                             @error('TuesdayStartOne')
@@ -227,7 +227,7 @@
                                                     <div class="form-group row">
                                                         <label for="TuesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('TuesdayFinishOne') is-invalid @enderror input TuesdayFinishOne"
+                                                            <input type="time" class="form-control @error('TuesdayFinishOne') is-invalid @enderror tuesday TuesdayFinishOne"
                                                                    name="TuesdayFinishOne" id="TuesdayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('TuesdayFinishOne')}}">
                                                             @error('TuesdayFinishOne')
@@ -254,7 +254,7 @@
                                                     <div class="form-group row">
                                                         <label for="TuesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('TuesdayStartTwo') is-invalid @enderror input TuesdayStartTwo"
+                                                            <input type="time" class="form-control @error('TuesdayStartTwo') is-invalid @enderror tuesday TuesdayStartTwo"
                                                                    name="TuesdayStartTwo" id="TuesdayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('TuesdayStartTwo')}}">
                                                             @error('TuesdayStartTwo')
@@ -265,7 +265,7 @@
                                                     <div class="form-group row">
                                                         <label for="TuesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('TuesdayFinishTwo') is-invalid @enderror input TuesdayFinishTwo"
+                                                            <input type="time" class="form-control @error('TuesdayFinishTwo') is-invalid @enderror tuesday TuesdayFinishTwo"
                                                                    name="TuesdayFinishTwo" id="TuesdayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('TuesdayFinishTwo')}}">
                                                             @error('TuesdayFinishTwo')
@@ -307,7 +307,7 @@
                                                     <div class="form-group row">
                                                         <label for="WednesdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('WednesdayStartOne') is-invalid @enderror input WednesdayStartOne"
+                                                            <input type="time" class="form-control @error('WednesdayStartOne') is-invalid @enderror wednesday WednesdayStartOne"
                                                                    name="WednesdayStartOne" id="WednesdayStartOne" aria-describedby="helpId"
                                                                    value="{{old('WednesdayStartOne')}}">
                                                             @error('WednesdayStartOne')
@@ -318,7 +318,7 @@
                                                     <div class="form-group row">
                                                         <label for="WednesdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('WednesdayFinishOne') is-invalid @enderror input WednesdayFinishOne"
+                                                            <input type="time" class="form-control @error('WednesdayFinishOne') is-invalid @enderror wednesday WednesdayFinishOne"
                                                                    name="WednesdayFinishOne" id="WednesdayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('WednesdayFinishOne')}}">
                                                             @error('WednesdayFinishOne')
@@ -345,7 +345,7 @@
                                                     <div class="form-group row">
                                                         <label for="WednesdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('WednesdayStartTwo') is-invalid @enderror input WednesdayStartTwo"
+                                                            <input type="time" class="form-control @error('WednesdayStartTwo') is-invalid @enderror wednesday WednesdayStartTwo"
                                                                    name="WednesdayStartTwo" id="WednesdayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('WednesdayStartTwo')}}">
                                                             @error('WednesdayStartTwo')
@@ -356,7 +356,7 @@
                                                     <div class="form-group row">
                                                         <label for="WednesdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('WednesdayFinishTwo') is-invalid @enderror input WednesdayFinishTwo"
+                                                            <input type="time" class="form-control @error('WednesdayFinishTwo') is-invalid @enderror wednesday WednesdayFinishTwo"
                                                                    name="WednesdayFinishTwo" id="WednesdayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('WednesdayFinishTwo')}}">
                                                             @error('WednesdayFinishTwo')
@@ -398,7 +398,7 @@
                                                     <div class="form-group row">
                                                         <label for="ThursdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('ThursdayStartOne') is-invalid @enderror input ThursdayStartOne"
+                                                            <input type="time" class="form-control @error('ThursdayStartOne') is-invalid @enderror thursday ThursdayStartOne"
                                                                    name="ThursdayStartOne" id="ThursdayStartOne" aria-describedby="helpId"
                                                                    value="{{old('ThursdayStartOne')}}">
                                                             @error('ThursdayStartOne')
@@ -409,7 +409,7 @@
                                                     <div class="form-group row">
                                                         <label for="ThursdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('ThursdayFinishOne') is-invalid @enderror input ThursdayFinishOne"
+                                                            <input type="time" class="form-control @error('ThursdayFinishOne') is-invalid @enderror thursday ThursdayFinishOne"
                                                                    name="ThursdayFinishOne" id="ThursdayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('ThursdayFinishOne')}}">
                                                             @error('ThursdayFinishOne')
@@ -436,7 +436,7 @@
                                                     <div class="form-group row">
                                                         <label for="ThursdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('ThursdayStartTwo') is-invalid @enderror input ThursdayStartTwo"
+                                                            <input type="time" class="form-control @error('ThursdayStartTwo') is-invalid @enderror thursday ThursdayStartTwo"
                                                                    name="ThursdayStartTwo" id="ThursdayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('ThursdayStartTwo')}}">
                                                             @error('ThursdayStartTwo')
@@ -447,7 +447,7 @@
                                                     <div class="form-group row">
                                                         <label for="ThursdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('ThursdayFinishTwo') is-invalid @enderror input ThursdayFinishTwo"
+                                                            <input type="time" class="form-control @error('ThursdayFinishTwo') is-invalid @enderror thursday ThursdayFinishTwo"
                                                                    name="ThursdayFinishTwo" id="ThursdayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('ThursdayFinishTwo')}}">
                                                             @error('ThursdayFinishTwo')
@@ -489,7 +489,7 @@
                                                     <div class="form-group row">
                                                         <label for="FridayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('FridayStartOne') is-invalid @enderror input FridayStartOne"
+                                                            <input type="time" class="form-control @error('FridayStartOne') is-invalid @enderror friday FridayStartOne"
                                                                    name="FridayStartOne" id="FridayStartOne" aria-describedby="helpId"
                                                                    value="{{old('FridayStartOne')}}">
                                                             @error('FridayStartOne')
@@ -500,7 +500,7 @@
                                                     <div class="form-group row">
                                                         <label for="FridayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('FridayFinishOne') is-invalid @enderror input FridayFinishOne"
+                                                            <input type="time" class="form-control @error('FridayFinishOne') is-invalid @enderror friday FridayFinishOne"
                                                                    name="FridayFinishOne" id="FridayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('FridayFinishOne')}}">
                                                             @error('FridayFinishOne')
@@ -527,7 +527,7 @@
                                                     <div class="form-group row">
                                                         <label for="FridayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('FridayStartTwo') is-invalid @enderror input FridayStartTwo"
+                                                            <input type="time" class="form-control @error('FridayStartTwo') is-invalid @enderror friday FridayStartTwo"
                                                                    name="FridayStartTwo" id="FridayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('FridayStartTwo')}}">
                                                             @error('FridayStartTwo')
@@ -538,7 +538,7 @@
                                                     <div class="form-group row">
                                                         <label for="FridayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('FridayFinishTwo') is-invalid @enderror input FridayFinishTwo"
+                                                            <input type="time" class="form-control @error('FridayFinishTwo') is-invalid @enderror friday FridayFinishTwo"
                                                                    name="FridayFinishTwo" id="FridayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('FridayFinishTwo')}}">
                                                             @error('FridayFinishTwo')
@@ -580,7 +580,7 @@
                                                     <div class="form-group row">
                                                         <label for="SaturdayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SaturdayStartOne') is-invalid @enderror input SaturdayStartOne"
+                                                            <input type="time" class="form-control @error('SaturdayStartOne') is-invalid @enderror saturday SaturdayStartOne"
                                                                    name="SaturdayStartOne" id="SaturdayStartOne" aria-describedby="helpId"
                                                                    value="{{old('SaturdayStartOne')}}">
                                                             @error('SaturdayStartOne')
@@ -591,7 +591,7 @@
                                                     <div class="form-group row">
                                                         <label for="SaturdayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SaturdayFinishOne') is-invalid @enderror input SaturdayFinishOne"
+                                                            <input type="time" class="form-control @error('SaturdayFinishOne') is-invalid @enderror saturday SaturdayFinishOne"
                                                                    name="SaturdayFinishOne" id="SaturdayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('SaturdayFinishOne')}}">
                                                             @error('SaturdayFinishOne')
@@ -618,7 +618,7 @@
                                                     <div class="form-group row">
                                                         <label for="SaturdayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SaturdayStartTwo') is-invalid @enderror input SaturdayStartTwo"
+                                                            <input type="time" class="form-control @error('SaturdayStartTwo') is-invalid @enderror saturday SaturdayStartTwo"
                                                                    name="SaturdayStartTwo" id="SaturdayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('SaturdayStartTwo')}}">
                                                             @error('SaturdayStartTwo')
@@ -629,7 +629,7 @@
                                                     <div class="form-group row">
                                                         <label for="SaturdayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SaturdayFinishTwo') is-invalid @enderror input SaturdayFinishTwo"
+                                                            <input type="time" class="form-control @error('SaturdayFinishTwo') is-invalid @enderror saturday SaturdayFinishTwo"
                                                                    name="SaturdayFinishTwo" id="SaturdayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('SaturdayFinishTwo')}}">
                                                             @error('SaturdayFinishTwo')
@@ -671,7 +671,7 @@
                                                     <div class="form-group row">
                                                         <label for="SundayStartOne" class="col-form-label col-sm-3">1st Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SundayStartOne') is-invalid @enderror input SundayStartOne"
+                                                            <input type="time" class="form-control @error('SundayStartOne') is-invalid @enderror sunday SundayStartOne"
                                                                    name="SundayStartOne" id="SundayStartOne" aria-describedby="helpId"
                                                                    value="{{old('SundayStartOne')}}">
                                                             @error('SundayStartOne')
@@ -682,7 +682,7 @@
                                                     <div class="form-group row">
                                                         <label for="SundayFinishOne" class="col-form-label col-sm-3">1st Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SundayFinishOne') is-invalid @enderror input SundayFinishOne"
+                                                            <input type="time" class="form-control @error('SundayFinishOne') is-invalid @enderror sunday SundayFinishOne"
                                                                    name="SundayFinishOne" id="SundayFinishOne" aria-describedby="helpId"
                                                                    value="{{old('SundayFinishOne')}}">
                                                             @error('SundayFinishOne')
@@ -709,7 +709,7 @@
                                                     <div class="form-group row">
                                                         <label for="SundayStartTwo" class="col-form-label col-sm-3">2nd Start</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SundayStartTwo') is-invalid @enderror input SundayStartTwo"
+                                                            <input type="time" class="form-control @error('SundayStartTwo') is-invalid @enderror sunday SundayStartTwo"
                                                                    name="SundayStartTwo" id="SundayStartTwo" aria-describedby="helpId"
                                                                    value="{{old('SundayStartTwo')}}">
                                                             @error('SundayStartTwo')
@@ -720,7 +720,7 @@
                                                     <div class="form-group row">
                                                         <label for="SundayFinishTwo" class="col-form-label col-sm-3">2nd Finish</label>
                                                         <div class="col-sm-9">
-                                                            <input type="time" class="form-control @error('SundayFinishTwo') is-invalid @enderror input SundayFinishTwo"
+                                                            <input type="time" class="form-control @error('SundayFinishTwo') is-invalid @enderror sunday SundayFinishTwo"
                                                                    name="SundayFinishTwo" id="SundayFinishTwo" aria-describedby="helpId"
                                                                    value="{{old('SundayFinishTwo')}}">
                                                             @error('SundayFinishTwo')
@@ -773,22 +773,56 @@
     @section('js')
 <script>
  $(document).ready(function(){
+     function CalcHours(start1,finish1,start2,finish2){
+        var S1 = moment.utc(start1.val(), 'hh:mm'); // Takes Start Time 1
+        var F1 = moment.utc(finish1.val(), 'hh:mm'); // Takes Finish Time 1
+        var S2 = moment.utc(start2.val(), 'hh:mm'); // Takes Start Time 2
+        var F2 = moment.utc(finish2.val(), 'hh:mm'); // Takes Finsh Time 2
+        var H1 = parseFloat(((F1 - S1) / 60 / 60 / 1000).toFixed(1)); // Converts Result to Hours
+        var H2 = parseFloat(((F2 - S2) / 60 / 60 / 1000).toFixed(1)); // Converts Result to Hours
+        // Runs a check to see if the second time is a Number or Not
+        if(isNaN(H2)){
+            var TH = H1;
+        } else { var TH = H1 + H2;}
+        return TH; // Returns Total Hours
+     }
 
-    $(".input").keyup(function(){
-        var MondayStartOne = moment.utc($(".MondayStartOne").val(), 'hh:mm');
-        var MondayFinishOne = moment.utc($(".MondayFinishOne").val(), 'hh:mm');
-        var MondayStartTwo = moment.utc($(".MondayStartTwo").val(), 'hh:mm');
-        var MondayFinishTwo = moment.utc($(".MondayFinishTwo").val(), 'hh:mm');
-        var MondayHours = parseFloat(((MondayFinishOne - MondayStartOne) / 60 / 60 / 1000).toFixed(1));
-        var MondayHours2 = parseFloat(((MondayFinishTwo - MondayStartTwo) / 60 / 60 / 1000).toFixed(1));
-        if(isNaN(MondayHours2)){
-            var MH = MondayHours;
-        } else { var MH = MondayHours + MondayHours2;}
-
-        console.log(MH);
-        //console.log(MondayHours2);
-       $("#MondayHours").val(MH);
+    $(".monday").keyup(function(){
+        //console.log(CalcHours($(".MondayStartOne"),$(".MondayFinishOne"),$(".MondayStartTwo"),$(".MondayFinishTwo")));
+        $("#MondayHours").val(CalcHours($(".MondayStartOne"),$(".MondayFinishOne"),$(".MondayStartTwo"),$(".MondayFinishTwo")));
     });
+
+    $(".tuesday").keyup(function(){
+        //console.log(CalcHours($(".TuesdayStartOne"),$(".TuesdayFinishOne"),$(".TuesdayStartTwo"),$(".TuesdayFinishTwo")));
+        $("#TuesdayHours").val(CalcHours($(".TuesdayStartOne"),$(".TuesdayFinishOne"),$(".TuesdayStartTwo"),$(".TuesdayFinishTwo")));
+    });
+
+    $(".wednesday").keyup(function(){
+        //console.log(CalcHours($(".WednesdayStartOne"),$(".WednesdayFinishOne"),$(".WednesdayStartTwo"),$(".WednesdayFinishTwo")));
+        $("#WednesdayHours").val(CalcHours($(".WednesdayStartOne"),$(".WednesdayFinishOne"),$(".WednesdayStartTwo"),$(".WednesdayFinishTwo")));
+    });
+
+    $(".thursday").keyup(function(){
+        //console.log(CalcHours($(".ThursdayStartOne"),$(".ThursdayFinishOne"),$(".ThursdayStartTwo"),$(".ThursdayFinishTwo")));
+        $("#ThursdayHours").val(CalcHours($(".ThursdayStartOne"),$(".ThursdayFinishOne"),$(".ThursdayStartTwo"),$(".ThursdayFinishTwo")));
+    });
+
+    $(".friday").keyup(function(){
+        //console.log(CalcHours($(".FridayStartOne"),$(".FridayFinishOne"),$(".FridayStartTwo"),$(".FridayFinishTwo")));
+        $("#FridayHours").val(CalcHours($(".FridayStartOne"),$(".FridayFinishOne"),$(".FridayStartTwo"),$(".FridayFinishTwo")));
+    });
+
+    $(".saturday").keyup(function(){
+        //console.log(CalcHours($(".SaturdayStartOne"),$(".SaturdayFinishOne"),$(".SaturdayStartTwo"),$(".SaturdayFinishTwo")));
+        $("#SaturdayHours").val(CalcHours($(".SaturdayStartOne"),$(".SaturdayFinishOne"),$(".SaturdayStartTwo"),$(".SaturdayFinishTwo")));
+    });
+
+    $(".sunday").keyup(function(){
+        //console.log(CalcHours($(".SundayStartOne"),$(".SundayFinishOne"),$(".SundayStartTwo"),$(".SundayFinishTwo")));
+        $("#SundayHours").val(CalcHours($(".SundayStartOne"),$(".SundayFinishOne"),$(".SundayStartTwo"),$(".SundayFinishTwo")));
+    });
+
+
 });
 </script>
     @endsection
