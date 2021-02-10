@@ -117,7 +117,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Monday - <span><input type="number" id="MondayHours" disabled="disabled" class="text-right"></span>
+                                            Monday - <span><label id="MondayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -210,7 +210,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Tuesday - <span><input type="number" id="TuesdayHours" disabled="disabled" class="text-right"></span>
+                                            Tuesday - <span><label id="TuesdayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -303,7 +303,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Wednesday - <span><input type="number" id="WednesdayHours" disabled="disabled" class="text-right"></span>
+                                            Wednesday - <span><label id="WednesdayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -396,7 +396,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Thursday - <span><input type="number" id="ThursdayHours" disabled="disabled" class="text-right"></span>
+                                            Thursday - <span><label id="ThursdayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -489,7 +489,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Friday - <span><input type="number" id="FridayHours" disabled="disabled" class="text-right"></span>
+                                            Friday - <span><label id="FridayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -582,7 +582,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Saturday - <span><input type="number" id="SaturdayHours" disabled="disabled" class="text-right"></span>
+                                            Saturday - <span><label id="SaturdayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -675,7 +675,7 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-header bg-primary text-white">
-                                            Sunday - <span><input type="number" id="SundayHours" disabled="disabled" class="text-right"></span>
+                                            Sunday - <span><label id="SundayHours" class="text-right"></label></span>
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
@@ -922,45 +922,49 @@ function MTV(a,b,c,d,e) {
         var H1 = parseFloat(((F1 - S1) / 60 / 60 / 1000).toFixed(1)); // Converts Result to Hours
         var H2 = parseFloat(((F2 - S2) / 60 / 60 / 1000).toFixed(1)); // Converts Result to Hours
         // Runs a check to see if the second time is a Number or Not
+        if(isNaN(H1)){
+            H1 = "";
+            return H1;
+        }
         if(isNaN(H2)){
-            var TH = H1;
-        } else { var TH = H1 + H2;}
+            var TH = H1 + " Hours";
+        } else { var TH = H1 + H2 + " Hours";}
         return TH; // Returns Total Hours
      }
 
     $(".monday").keyup(function(){
         //console.log(CalcHours($(".MondayStartOne"),$(".MondayFinishOne"),$(".MondayStartTwo"),$(".MondayFinishTwo")));
-        $("#MondayHours").val(CalcHours($(".MondayStartOne"),$(".MondayFinishOne"),$(".MondayStartTwo"),$(".MondayFinishTwo")));
+        $("#MondayHours").text(CalcHours($(".MondayStartOne"),$(".MondayFinishOne"),$(".MondayStartTwo"),$(".MondayFinishTwo")));
     });
 
     $(".tuesday").keyup(function(){
         //console.log(CalcHours($(".TuesdayStartOne"),$(".TuesdayFinishOne"),$(".TuesdayStartTwo"),$(".TuesdayFinishTwo")));
-        $("#TuesdayHours").val(CalcHours($(".TuesdayStartOne"),$(".TuesdayFinishOne"),$(".TuesdayStartTwo"),$(".TuesdayFinishTwo")));
+        $("#TuesdayHours").text(CalcHours($(".TuesdayStartOne"),$(".TuesdayFinishOne"),$(".TuesdayStartTwo"),$(".TuesdayFinishTwo")));
     });
 
     $(".wednesday").keyup(function(){
         //console.log(CalcHours($(".WednesdayStartOne"),$(".WednesdayFinishOne"),$(".WednesdayStartTwo"),$(".WednesdayFinishTwo")));
-        $("#WednesdayHours").val(CalcHours($(".WednesdayStartOne"),$(".WednesdayFinishOne"),$(".WednesdayStartTwo"),$(".WednesdayFinishTwo")));
+        $("#WednesdayHours").text(CalcHours($(".WednesdayStartOne"),$(".WednesdayFinishOne"),$(".WednesdayStartTwo"),$(".WednesdayFinishTwo")));
     });
 
     $(".thursday").keyup(function(){
         //console.log(CalcHours($(".ThursdayStartOne"),$(".ThursdayFinishOne"),$(".ThursdayStartTwo"),$(".ThursdayFinishTwo")));
-        $("#ThursdayHours").val(CalcHours($(".ThursdayStartOne"),$(".ThursdayFinishOne"),$(".ThursdayStartTwo"),$(".ThursdayFinishTwo")));
+        $("#ThursdayHours").text(CalcHours($(".ThursdayStartOne"),$(".ThursdayFinishOne"),$(".ThursdayStartTwo"),$(".ThursdayFinishTwo")));
     });
 
     $(".friday").keyup(function(){
         //console.log(CalcHours($(".FridayStartOne"),$(".FridayFinishOne"),$(".FridayStartTwo"),$(".FridayFinishTwo")));
-        $("#FridayHours").val(CalcHours($(".FridayStartOne"),$(".FridayFinishOne"),$(".FridayStartTwo"),$(".FridayFinishTwo")));
+        $("#FridayHours").text(CalcHours($(".FridayStartOne"),$(".FridayFinishOne"),$(".FridayStartTwo"),$(".FridayFinishTwo")));
     });
 
     $(".saturday").keyup(function(){
         //console.log(CalcHours($(".SaturdayStartOne"),$(".SaturdayFinishOne"),$(".SaturdayStartTwo"),$(".SaturdayFinishTwo")));
-        $("#SaturdayHours").val(CalcHours($(".SaturdayStartOne"),$(".SaturdayFinishOne"),$(".SaturdayStartTwo"),$(".SaturdayFinishTwo")));
+        $("#SaturdayHours").text(CalcHours($(".SaturdayStartOne"),$(".SaturdayFinishOne"),$(".SaturdayStartTwo"),$(".SaturdayFinishTwo")));
     });
 
     $(".sunday").keyup(function(){
         //console.log(CalcHours($(".SundayStartOne"),$(".SundayFinishOne"),$(".SundayStartTwo"),$(".SundayFinishTwo")));
-        $("#SundayHours").val(CalcHours($(".SundayStartOne"),$(".SundayFinishOne"),$(".SundayStartTwo"),$(".SundayFinishTwo")));
+        $("#SundayHours").text(CalcHours($(".SundayStartOne"),$(".SundayFinishOne"),$(".SundayStartTwo"),$(".SundayFinishTwo")));
     });
 
 
