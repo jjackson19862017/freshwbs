@@ -95,6 +95,16 @@ class RotaController extends Controller
 
 
     public function storerota(Request $request){
+        $days = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+            ];
+
         $validator = Validator::make($request->all(),[
             'staffid' => 'required|numeric',
             'hotel' => 'required',
@@ -162,65 +172,24 @@ class RotaController extends Controller
             'Hotel' => $request->input('hotel'),
             'SickDays' => $request->input('sickDays'),
             'HolidayDays' => $request->input('holidays'),
-            'MondayStartOne' => $request->input('MondayStartOne'),
-            'MondayFinishOne' => $request->input('MondayFinishOne'),
-            'MondayRoleOne' => $request->input('MondayRoleOne'),
-            'MondayStartTwo' => $request->input('MondayStartTwo'),
-            'MondayFinishTwo' => $request->input('MondayFinishTwo'),
-            'MondayRoleTwo' => $request->input('MondayRoleTwo'),
-            'TuesdayStartOne' => $request->input('TuesdayStartOne'),
-            'TuesdayFinishOne' => $request->input('TuesdayFinishOne'),
-            'TuesdayRoleOne' => $request->input('TuesdayRoleOne'),
-            'TuesdayStartTwo' => $request->input('TuesdayStartTwo'),
-            'TuesdayFinishTwo' => $request->input('TuesdayFinishTwo'),
-            'TuesdayRoleTwo' => $request->input('TuesdayRoleTwo'),
-            'WednesdayStartOne' => $request->input('WednesdayStartOne'),
-            'WednesdayFinishOne' => $request->input('WednesdayFinishOne'),
-            'WednesdayRoleOne' => $request->input('WednesdayRoleOne'),
-            'WednesdayStartTwo' => $request->input('WednesdayStartTwo'),
-            'WednesdayFinishTwo' => $request->input('WednesdayFinishTwo'),
-            'WednesdayRoleTwo' => $request->input('WednesdayRoleTwo'),
-            'ThursdayStartOne' => $request->input('ThursdayStartOne'),
-            'ThursdayFinishOne' => $request->input('ThursdayFinishOne'),
-            'ThursdayRoleOne' => $request->input('ThursdayRoleOne'),
-            'ThursdayStartTwo' => $request->input('ThursdayStartTwo'),
-            'ThursdayFinishTwo' => $request->input('ThursdayFinishTwo'),
-            'ThursdayRoleTwo' => $request->input('ThursdayRoleTwo'),
-            'FridayStartOne' => $request->input('FridayStartOne'),
-            'FridayFinishOne' => $request->input('FridayFinishOne'),
-            'FridayRoleOne' => $request->input('FridayRoleOne'),
-            'FridayStartTwo' => $request->input('FridayStartTwo'),
-            'FridayFinishTwo' => $request->input('FridayFinishTwo'),
-            'FridayRoleTwo' => $request->input('FridayRoleTwo'),
-            'SaturdayStartOne' => $request->input('SaturdayStartOne'),
-            'SaturdayFinishOne' => $request->input('SaturdayFinishOne'),
-            'SaturdayRoleOne' => $request->input('SaturdayRoleOne'),
-            'SaturdayStartTwo' => $request->input('SaturdayStartTwo'),
-            'SaturdayFinishTwo' => $request->input('SaturdayFinishTwo'),
-            'SaturdayRoleTwo' => $request->input('SaturdayRoleTwo'),
-            'SundayStartOne' => $request->input('SundayStartOne'),
-            'SundayFinishOne' => $request->input('SundayFinishOne'),
-            'SundayRoleOne' => $request->input('SundayRoleOne'),
-            'SundayStartTwo' => $request->input('SundayStartTwo'),
-            'SundayFinishTwo' => $request->input('SundayFinishTwo'),
-            'SundayRoleTwo' => $request->input('SundayRoleTwo'),
-            'MondayHoursOne' => $request->input('MondayHoursOne'),
-            'MondayHoursTwo' => $request->input('MondayHoursTwo'),
-            'TuesdayHoursOne' => $request->input('TuesdayHoursOne'),
-            'TuesdayHoursTwo' => $request->input('TuesdayHoursTwo'),
-            'WednesdayHoursOne' => $request->input('WednesdayHoursOne'),
-            'WednesdayHoursTwo' => $request->input('WednesdayHoursTwo'),
-            'ThursdayHoursOne' => $request->input('ThursdayHoursOne'),
-            'ThursdayHoursTwo' => $request->input('ThursdayHoursTwo'),
-            'FridayHoursOne' => $request->input('FridayHoursOne'),
-            'FridayHoursTwo' => $request->input('FridayHoursTwo'),
-            'SaturdayHoursOne' => $request->input('SaturdayHoursOne'),
-            'SaturdayHoursTwo' => $request->input('SaturdayHoursTwo'),
-            'SundayHoursOne' => $request->input('SundayHoursOne'),
-            'SundayHoursTwo' => $request->input('SundayHoursTwo'),
-            'JsHours' => 0,
         ];
-//dd('inputs');
+        $th = 0;
+            foreach ($days as $day) {
+                $input[$day . 'StartOne'] = $request->input($day .'StartOne');
+                $input[$day . 'FinishOne'] = $request->input($day .'FinishOne');
+                $input[$day . 'RoleOne'] = $request->input($day .'RoleOne');
+                $input[$day . 'StartTwo'] = $request->input($day .'StartTwo');
+                $input[$day . 'FinishTwo'] = $request->input($day .'FinishTwo');
+                $input[$day . 'RoleTwo'] = $request->input($day .'RoleTwo');
+                $input[$day . 'HoursOne'] = is_null($request->input($day .'FinishOne'))&&is_null($request->input($day .'StartOne'))?0:Carbon::parse($request->input($day .'FinishOne'))->floatDiffInHours(Carbon::parse($request->input($day .'StartOne')));
+                $input[$day . 'HoursTwo'] = is_null($request->input($day .'FinishTwo'))&&is_null($request->input($day .'StartTwo'))?0:Carbon::parse($request->input($day .'FinishTwo'))->floatDiffInHours(Carbon::parse($request->input($day .'StartTwo')));
+                $th = $th + (floatval($input[$day . 'HoursOne']) + floatval($input[$day . 'HoursTwo']));
+            }
+
+            $input['TotalHours'] = $th;
+            $input['JsHours'] = 0;
+
+        //dd($input['TotalHours']);
         $newId = Rota::create($input)->id;
         $request->session()->flash('message', 'Rota was Created... ');
         $request->session()->flash('text-class', 'text-success');
