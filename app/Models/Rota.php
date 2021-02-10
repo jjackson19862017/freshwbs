@@ -496,4 +496,53 @@ class Rota extends Model
         }
         return Carbon::parse($time)->format('H:i');
     }
+
+    public function getMondayHoursAttribute()
+    {
+        // Adds the Monday Hours together
+
+        return $this->MondayHoursOne + $this->MondayHoursTwo;
+    }
+
+    public function getTuesdayHoursAttribute()
+    {
+        // Adds the Tuesday Hours together
+
+        return $this->TuesdayHoursOne + $this->TuesdayHoursTwo;
+    }
+
+    public function getWednesdayHoursAttribute()
+    {
+        // Adds the Wednesday Hours together
+
+        return $this->WednesdayHoursOne + $this->WednesdayHoursTwo;
+    }
+
+    public function getThursdayHoursAttribute()
+    {
+        // Adds the Thursday Hours together
+
+        return $this->ThursdayHoursOne + $this->ThursdayHoursTwo;
+    }
+
+    public function getFridayHoursAttribute()
+    {
+        // Adds the Friday Hours together
+
+        return $this->FridayHoursOne + $this->FridayHoursTwo;
+    }
+
+    public function getSaturdayHoursAttribute()
+    {
+        // Adds the Saturday Hours together
+
+        return $this->SaturdayHoursOne + $this->SaturdayHoursTwo;
+    }
+
+    public function getSundayHoursAttribute()
+    {
+        // Adds the Sunday Hours together
+
+        return $this->SundayHoursOne + $this->SundayHoursTwo;
+    }
 }

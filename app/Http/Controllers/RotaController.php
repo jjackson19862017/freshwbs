@@ -32,12 +32,14 @@ class RotaController extends Controller
         $data['thisweekdate'] = $datevar;
         $data['thisweekdate'] = $data['thisweekdate']->format('Y-m-d');
         $data['nextweekdate'] = $datevar->addWeek()->format('Y-m-d');
-
-
-
         $data['thisWeeksRota'] = Rota::where('WeekCommencing','=',$data['thisweekdate'])->get();
 
-        //dd($data['thisWeeksRota']);
+
+        foreach ($data['days'] as $day) {
+            $data[$day .'Hours'] = $data['thisWeeksRota']->sum($day .'HoursOne') + $data['thisWeeksRota']->sum($day .'HoursTwo');
+            //echo $data[$day .'Hours'];
+        }
+        //dd($data['MondayHours']);
 
         return view('admin.hotels.shard.rota',$data);
     }

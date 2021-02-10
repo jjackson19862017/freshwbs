@@ -51,10 +51,10 @@
                             <td>{{$rota->SaturdayFinishOne}}</td>
                             <td>{{$rota->SundayStartOne}}</td>
                             <td>{{$rota->SundayFinishOne}}</td>
-                            <td rowspan="3" class="align-middle">Total</td>
-                            <td rowspan="3" class="align-middle">Zero</td>
-                            <td rowspan="3" class="align-middle">Zero</td>
-                            <td rowspan="3" class="align-middle">Zero</td>
+                            <td rowspan="3" class="align-middle">{{$rota->TotalHours}}</td>
+                            <td rowspan="3" class="align-middle">{{$rota->JSHours}}</td>
+                            <td rowspan="3" class="align-middle">{{$rota->SickDays}}</td>
+                            <td rowspan="3" class="align-middle">{{$rota->HolidayDays}}</td>
                         </tr>
                         <tr>
                             <td>{{$rota->MondayStartTwo}}</td>
@@ -82,7 +82,7 @@
                                 {{$rota->MondayRoleOne}} / {{$rota->MondayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->MondayHours}}</td>
                             <td>
                                 @if($rota->TuesdayRoleOne == $rota->TuesdayRoleTwo)
                                 {{$rota->TuesdayRoleOne}}
@@ -92,7 +92,7 @@
                                 {{$rota->TuesdayRoleOne}} / {{$rota->TuesdayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->TuesdayHours}}</td>
                             <td>
                                 @if($rota->WednesdayRoleOne == $rota->WednesdayRoleTwo)
                                 {{$rota->WednesdayRoleOne}}
@@ -102,7 +102,7 @@
                                 {{$rota->WednesdayRoleOne}} / {{$rota->WednesdayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->WednesdayHours}}</td>
                             <td>
                                 @if($rota->ThursdayRoleOne == $rota->ThursdayRoleTwo)
                                 {{$rota->ThursdayRoleOne}}
@@ -112,7 +112,7 @@
                                 {{$rota->ThursdayRoleOne}} / {{$rota->ThursdayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->ThursdayHours}}</td>
                             <td>
                                 @if($rota->FridayRoleOne == $rota->FridayRoleTwo)
                                 {{$rota->FridayRoleOne}}
@@ -122,7 +122,7 @@
                                 {{$rota->FridayRoleOne}} / {{$rota->FridayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->FridayHours}}</td>
                             <td>
                                 @if($rota->SaturdayRoleOne == $rota->SaturdayRoleTwo)
                                 {{$rota->SaturdayRoleOne}}
@@ -132,7 +132,7 @@
                                 {{$rota->SaturdayRoleOne}} / {{$rota->SaturdayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->SaturdayHours}}</td>
                             <td>
                                 @if($rota->SundayRoleOne == $rota->SundayRoleTwo)
                                 {{$rota->SundayRoleOne}}
@@ -142,7 +142,7 @@
                                 {{$rota->SundayRoleOne}} / {{$rota->SundayRoleTwo}}
                                 @endif
                             </td>
-                            <td>Time</td>
+                            <td>{{$rota->SundayHours}}</td>
                         </tr>
                         @endforeach
                     </tbody>
