@@ -77,20 +77,11 @@ class RotaController extends Controller
 
         $data['staff'] = Staff::find($staff)->first();
         //dd($data['staff']);
-        $data['MondayRoleOne']      = General::getEnumValues('rotas','MondayRoleOne') ;
-        $data['MondayRoleTwo']      = General::getEnumValues('rotas','MondayRoleTwo') ;
-        $data['TuesdayRoleOne']     = General::getEnumValues('rotas','TuesdayRoleOne') ;
-        $data['TuesdayRoleTwo']     = General::getEnumValues('rotas','TuesdayRoleTwo') ;
-        $data['WednesdayRoleOne']   = General::getEnumValues('rotas','WednesdayRoleOne') ;
-        $data['WednesdayRoleTwo']   = General::getEnumValues('rotas','WednesdayRoleTwo') ;
-        $data['ThursdayRoleOne']    = General::getEnumValues('rotas','ThursdayRoleOne') ;
-        $data['ThursdayRoleTwo']    = General::getEnumValues('rotas','ThursdayRoleTwo') ;
-        $data['FridayRoleOne']      = General::getEnumValues('rotas','FridayRoleOne') ;
-        $data['FridayRoleTwo']      = General::getEnumValues('rotas','FridayRoleTwo') ;
-        $data['SaturdayRoleOne']    = General::getEnumValues('rotas','SaturdayRoleOne') ;
-        $data['SaturdayRoleTwo']    = General::getEnumValues('rotas','SaturdayRoleTwo') ;
-        $data['SundayRoleOne']      = General::getEnumValues('rotas','SundayRoleOne') ;
-        $data['SundayRoleTwo']      = General::getEnumValues('rotas','SundayRoleTwo') ;
+        foreach ($data['days'] as $day) {
+            # Populates Dropdown box with Enum Values from Database
+            $data[$day . 'RoleOne'] = General::getEnumValues('rotas',$day . 'RoleOne') ;
+            $data[$day . 'RoleTwo'] = General::getEnumValues('rotas',$day . 'RoleTwo') ;
+        }
             return view('admin.hotels.createrota',$data);
         }
 

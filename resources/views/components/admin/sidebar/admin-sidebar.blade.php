@@ -10,7 +10,15 @@
 
     <x-admin.sidebar.admin-sidebar-user-information></x-admin.sidebar.admin-sidebar-user-information>
 
+<!-- Divider -->
+<hr class="sidebar-divider my-0">
 
+<!-- Nav Item - Dashboard -->
+<li class="nav-item">
+    <a class="nav-link" href="{{route('admin.index')}}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+</li>
 
 
 

@@ -130,8 +130,7 @@
                                                     <td>{{$hol->start}}</td>
                                                     <td>{{$hol->finish}}</td>
                                                     <td>{{$hol->daystaken}}</td>
-                                                    <td><form action="{{route('holidays.destroy', $hol->id)}}" method="post"
-                              enctype="multipart/form-data">
+                                                    <td><form action="{{route('holidays.destroy', $hol->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>

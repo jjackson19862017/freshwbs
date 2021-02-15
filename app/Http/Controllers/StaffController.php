@@ -33,6 +33,8 @@ class StaffController extends Controller
         return view('admin.staffs.profile', $data);
     }
 
+
+
         public function create(Staff $staff){
         $data = [];
         $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table

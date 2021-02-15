@@ -10,55 +10,119 @@ use App\Models\WedEvents;
 use App\Models\Rota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Holidays;
+use App\Models\PersonalLicense;
+use App\Models\Position;
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
+use App\Libraries\General;
+
+
 
 class AdminsController extends Controller
 {
-    // This returns the Main Dashboard of the Admin Area
+
+    // This returns the Shards Dashboard of the Admin Area
     public function index(){
 
-        $data = [];
-        $data['customers'] = Customer::orderBy('created_at','asc')->get(); // Returns all the information back from the customer Table
-        $data['wedevents'] = WedEvents::orderBy('weddingdate','asc')->get(); // Returns all the information back from the wedevent Table
-        $data['users'] = User::all(); // Returns all the information back from the Users Table
-        $data['staff'] = Staff::all(); // Returns all the information back from the Staff Table
-        $data['booked'] = Wedevents::has('customer')->where('completed','=','No')->orderBy('weddingdate','asc')->get(); // Asks the Wedevents Table to see if customers have booked an event
-        $data['event_active'] = WedEvents::where('completed', 'No')->count(); // Counts all Not Completed Events in the Events table.
-        $data['event_complete'] = WedEvents::where('completed', 'Yes')->count(); // Counts all Completed Events in the Events table.
-        $data['event_onhold'] = WedEvents::where('onhold', 'No')->count(); // Counts all Completed Events in the Events table.
+    $data = [];
 
-        $data['unbooked'] = count($data['customers']) - count($data['wedevents']);
+    // Dropdown Box Values for Staff Card
+    $data['staffList'] = Staff::whereHotel('Shard')->orderBy('surname', 'asc')->orderBy('forename', 'asc')->get();
 
-        $data['cost_total'] = WedEvents::sum('cost'); // Adds Up the Costs Column in Wed Events
+    // Holiday Table
+    $data['holidays'] = Holidays::orderBy('start','asc')->where('start', '>=', Carbon::now())->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->limit(5)->get();
 
-        $data['paid'] = Transactions::all()->sum('amount'); // Calculates the amount that everyone has paid towards the events
-        $data['outstanding'] = $data['cost_total'] - $data['paid']; // Calculates the amount still owed to the company.
+    // Dropdown Box Values for Rota Card
+    $data['weekCommencing'] = Rota::select('weekCommencing')->orderBy('weekCommencing','desc')->distinct()->limit(4)->get();
 
-        $data['pastOnHolds'] = WedEvents::where('onhold','=','No')->where('holdtilldate','<',now())->orderBy('weddingdate','asc')->get(); // Returns a Count of How many Overdue OnHolds there are
-        $data['pastQuarterlyPayments'] = WedEvents::where('quarterpaymenttaken','=','No')->where('quarterpaymentdate','<',now())->orderBy('weddingdate','asc')->get(); // Returns a Count of How many Overdue 25% Payments there are
-        $data['pastFinalTalks'] = WedEvents::where('hadfinaltalk','=','No')->where('finalweddingtalkdate','<',now())->orderBy('weddingdate','asc')->get(); // Returns a Count of How many Overdue Final Talks there are
-        $data['checkDeposits'] = WedEvents::where('deposittaken','=','No')->orderBy('weddingdate','asc')->get(); // Returns a Count of How many Deposits are outstanding.
-        $data['issues'] = count($data['pastOnHolds']) + count($data['pastQuarterlyPayments']) + count($data['pastFinalTalks']) + count($data['checkDeposits']);
-
-        //dd($data['pastOnHolds']);
-        // Return Customers that havent booked an event
-        foreach($data['customers'] as &$customer){
-            $customer->booked=WedEvents::where('customer_id','=',$customer->id)->first(); // Returns
-        }
-
-        // Return Booked Customers
-        foreach($data['booked'] as &$booker){
-            $booker=Customer::where('id','=',$booker->customer->id)->get();
-        }
-
-        $data['rotaDates'] = Rota::all();
-        dd($data['rotaDates']);
-
-
-
+//dd($data['weekCommencing']);
 
 
         return view('admin.index', $data);
     }
+
+    public function staffDashboard(Request $request){
+        $staff = $request;
+        $data = [];
+        $data['days'] = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+            ];
+        switch ($request->input('action')) {
+            case 'view':
+                $data['staff'] = Staff::find($staff)->first(); // Returns all the information back from the Staff Table
+                $data['positions'] = Position::all(); // Returns all the information back from the Staff Table
+                $data['holidays'] = Holidays::where('staff_id', '=', $staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->get(); // Returns all the holidays for the current year
+                $data['daysTaken'] = Holidays::where('staff_id', '=', $staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->pluck('daystaken')->sum(); // Adds all the Days taken for the Year
+                $data['daysLeft'] = Staff::find($staff)->pluck('holidaysleft')->first() - $data['daysTaken'];
+
+                //dd($data['staff']);
+                return view('admin.staffs.profile', $data);
+                break;
+
+            default:
+                // Allows User to add any dates that Start on a Monday from beginning of this week for the next month.
+            $datevar = Carbon::now()->subWeek(); // Gets current date and minus a week
+            $data['availableDates'] = []; // Create empty Array
+
+            while($datevar != Carbon::parse($datevar)->isDayOfWeek(Carbon::MONDAY)){
+                $datevar = $datevar->subDay(); // While the date isnt a Monday subtract a day till it is Monday
+            }
+            $datevar = $datevar->addWeek(); // Adds a week to the date
+
+            // Generates an array with 5 Mondays in it for the next month.
+            for($i=0; $i <= 4; $i++){
+                $data['availableDates'] = Arr::add($data['availableDates'],$i,$datevar->format('Y-m-d'));
+                $datevar = $datevar->addWeek();
+            }
+
+            //if Mondays can only be allowed to be on the list if the staff_id doesnt have a date record.
+
+        $data['staff'] = Staff::find($staff)->first();
+        //dd($data['staff']);
+
+            foreach ($data['days'] as $day) {
+                # Populates Dropdown box with Enum Values from Database
+                $data[$day . 'RoleOne'] = General::getEnumValues('rotas',$day . 'RoleOne') ;
+                $data[$day . 'RoleTwo'] = General::getEnumValues('rotas',$day . 'RoleTwo') ;
+            }
+            return view('admin.hotels.createrota',$data);
+
+                break;
+        }
+    }
+
+    public function rotaDashboard(Request $request){
+        $data = [];
+        $data['days'] = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday'
+            ];
+            $data['thisweekdate'] = $request->weekCommencing; // Gets selected user date
+            $data['thisWeeksRota'] = Rota::where('WeekCommencing','=',$data['thisweekdate'])->get();
+            //dd($data['thisweekdate']);
+
+
+            foreach ($data['days'] as $day) {
+                $data[$day .'Hours'] = $data['thisWeeksRota']->sum($day .'HoursOne') + $data['thisWeeksRota']->sum($day .'HoursTwo');
+                //echo $data[$day .'Hours'];
+            }
+            //dd($data['thisWeeksRota']);
+
+            return view('admin.hotels.shard.rota',$data);
+        }
 
 
 }

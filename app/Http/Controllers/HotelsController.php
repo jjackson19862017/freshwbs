@@ -105,6 +105,6 @@ class HotelsController extends Controller
 
 
 
-        return view('admin.index', $data);
+        return view('admin.hotels.themill.eventDashboard', $data);
     }
 }

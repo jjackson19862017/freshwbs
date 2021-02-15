@@ -12,9 +12,13 @@ Route::middleware('auth')->group(function(){
     Route::get('/staffs/update/{staff}/updatePL', [App\Http\Controllers\StaffController::class, 'updatePL'])->name('staff.PL');
     Route::get('/staffs/{staff}/profile', [App\Http\Controllers\StaffController::class, 'show'])->name('staffs.profile');
 
+
     Route::get('/staffs/{staff}/holiday/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.createHoliday');
     Route::post('/staffs/{staff}/holiday/store', [App\Http\Controllers\StaffController::class, 'storeHoliday'])->name('staffs.storeHoliday');
     Route::delete('/staffs/{holiday}/holiday', [App\Http\Controllers\HolidaysController::class, 'destroy'])->name('holidays.destroy'); //info This allows users to delete Holidays in the admin area
 
+    // Hotel Dashboard
+    Route::post('/staffs/profile', [App\Http\Controllers\AdminsController::class, 'staffDashboard'])->name('staffs.staffDashboard');
+    Route::post('/staffs/rota', [App\Http\Controllers\AdminsController::class, 'rotaDashboard'])->name('staffs.rotaDashboard');
 
 });
