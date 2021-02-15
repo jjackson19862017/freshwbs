@@ -10,14 +10,7 @@
 
     <x-admin.sidebar.admin-sidebar-user-information></x-admin.sidebar.admin-sidebar-user-information>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{route('admin.index')}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+
 
 
 
@@ -41,23 +34,6 @@
         <hr class="sidebar-divider">
         <!-- Heading -->
         <div class="sidebar-heading">
-            Events
-        </div>
-        <x-admin.sidebar.admin-sidebar-customers></x-admin.sidebar.admin-sidebar-customers>
-        <x-admin.sidebar.admin-sidebar-events></x-admin.sidebar.admin-sidebar-events>
-        @if(auth()->user()->userHasRole('Owner') || auth()->user()->userHasRole('Admin'))
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Statistics
-        </div>
-        <x-admin.sidebar.admin-sidebar-stats></x-admin.sidebar.admin-sidebar-stats>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-        <!-- Heading -->
-        <div class="sidebar-heading">
             Hotels
         </div>
          <!-- Nav Item - Charts -->
@@ -66,6 +42,7 @@
           <i class="fas fa-highlighter"></i>
           <span>End of Days</span></a>
       </li>
+      @if(auth()->user()->userHasRole('Owner') || auth()->user()->userHasRole('Admin'))
 
       <li class="nav-item">
         <a class="nav-link" href="{{route('admin.hotels.sales.allmoneysales')}}">

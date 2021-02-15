@@ -73,6 +73,7 @@
                             <td>{{$rota->SundayFinishTwo}}</td>
                         </tr>
                         <tr>
+
                             <td>
                                 @if($rota->MondayRoleOne == $rota->MondayRoleTwo)
                                 {{$rota->MondayRoleOne}}
