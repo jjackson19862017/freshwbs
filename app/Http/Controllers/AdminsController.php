@@ -7,6 +7,7 @@ use App\Models\Staff;
 use App\Models\Transactions;
 use App\Models\User;
 use App\Models\WedEvents;
+use App\Models\Rota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -48,6 +49,16 @@ class AdminsController extends Controller
         foreach($data['booked'] as &$booker){
             $booker=Customer::where('id','=',$booker->customer->id)->get();
         }
+
+        $data['rotaDates'] = Rota::all();
+        dd($data['rotaDates']);
+
+
+
+
+
         return view('admin.index', $data);
     }
+
+
 }

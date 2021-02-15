@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/hotels/rota/create/{staff}', [App\Http\Controllers\RotaController::class, 'createrota'])->name('hotels.createrota');
     Route::post('/hotels/rota/store', [App\Http\Controllers\RotaController::class, 'storerota'])->name('hotels.rota.store');
 
-
+    Route::get('/hotels/themill/eventDashboard', [App\Http\Controllers\HotelsController::class, 'eventDashboard'])->name('admin.hotels.themill.eventDashboard');
 
 
 });

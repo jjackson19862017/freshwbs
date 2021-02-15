@@ -6,7 +6,7 @@
     <div id="collapseTheMillArea" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Events:</h6>
-            <a class="collapse-item" href="{{route('admin.index')}}"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</a>
+            <a class="collapse-item" href="{{route('admin.hotels.themill.eventDashboard')}}"><i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</a>
             @if(auth()->user()->userHasRole('Owner') || auth()->user()->userHasRole('Admin'))
                 <h6 class="collapse-header">Stats:</h6>
                 <a class="collapse-item" href="{{route('stats.index')}}">Dashboard Stats</a>
