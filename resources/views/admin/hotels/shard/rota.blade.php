@@ -36,7 +36,16 @@
                     <tbody>
                         @foreach ($thisWeeksRota as $rota)
                         <tr>
-                            <td rowspan="3" class="align-middle">{{$rota->Staff_Id}}<br>Surname</td>
+                            <td rowspan="3" class="align-middle">
+
+                                {{$rota->getStaffDetailsAttribute()->first()->forename}} <br>
+                                {{$rota->getStaffDetailsAttribute()->first()->surname}}
+
+
+                                </td>
+
+
+
                             <td>{{$rota->MondayStartOne}}</td>
                             <td>{{$rota->MondayFinishOne}}</td>
                             <td>{{$rota->TuesdayStartOne}}</td>

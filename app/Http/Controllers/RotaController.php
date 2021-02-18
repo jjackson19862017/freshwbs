@@ -13,7 +13,7 @@ use Illuminate\Validation\Rule;
 
 class RotaController extends Controller
 {
-    //
+    // Maybe redundant
     public function rotashard(){
     $data = [];
     $data['days'] = [
@@ -39,8 +39,6 @@ class RotaController extends Controller
             $data[$day .'Hours'] = $data['thisWeeksRota']->sum($day .'HoursOne') + $data['thisWeeksRota']->sum($day .'HoursTwo');
             //echo $data[$day .'Hours'];
         }
-        //dd($data['MondayHours']);
-
         return view('admin.hotels.shard.rota',$data);
     }
 

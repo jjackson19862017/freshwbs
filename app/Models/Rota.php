@@ -15,11 +15,13 @@ class Rota extends Model
 
     public function staff()
     {
-        // Creates a One to Many relationship with Rota <-> User
-        return $this->belongsTo(Staff::class, 'Id');
+        // Creates a One to Many relationship with Rota <-> Staff
+        return $this->belongsTo(Staff::class);
     }
 
-
+public function getStaffDetailsAttribute(){
+    return $this->belongsTo("App\Models\Staff","Staff_Id");
+}
 
     public function getMondayRoleOneAttribute($item)
     {

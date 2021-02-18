@@ -24,6 +24,11 @@ class Staff extends Model
         return $this->hasMany('App\Models\Holidays');
     }
 
+    public function rotas(){
+        // Creates a One to Many relationship with Staff <-> Rota
+        return $this->hasMany('App\Models\Rota');
+    }
+
      public function dailysales(){
         // Creates a One to Many relationship with Staff <-> Holidays
         return $this->hasMany('App\Models\DailySales');
@@ -39,9 +44,5 @@ class Staff extends Model
         }
         return $value;
     }
-     // Creates a one to many relationship to Rotas
-     public function rotas(): HasOne
-     {
-         return $this->hasOne(Rota::class);
-     }
+
 }

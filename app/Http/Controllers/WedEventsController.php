@@ -26,7 +26,6 @@ class WedEventsController extends Controller
                 where('wedevent_id', '=', $wedevent->id)->sum('amount');
             $wedevent->out = $wedevent->cost - $wedevent->out;
         }
-
         return view('admin.wedevents.index', $data);
     }
 

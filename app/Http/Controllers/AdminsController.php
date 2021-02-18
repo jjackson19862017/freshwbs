@@ -32,12 +32,11 @@ class AdminsController extends Controller
     $data['staffList'] = Staff::whereHotel('Shard')->orderBy('surname', 'asc')->orderBy('forename', 'asc')->get();
 
     // Holiday Table
-    $data['holidays'] = Holidays::orderBy('start','asc')->where('start', '>=', Carbon::now())->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->limit(5)->get();
+    $data['holidays'] = Holidays::orderBy('start','asc')->where('finish', '>=', Carbon::now())->limit(5)->get();
 
     // Dropdown Box Values for Rota Card
     $data['weekCommencing'] = Rota::select('weekCommencing')->orderBy('weekCommencing','desc')->distinct()->limit(4)->get();
 
-//dd($data['weekCommencing']);
 
 
         return view('admin.index', $data);
@@ -113,6 +112,11 @@ class AdminsController extends Controller
             $data['thisweekdate'] = $request->weekCommencing; // Gets selected user date
             $data['thisWeeksRota'] = Rota::where('WeekCommencing','=',$data['thisweekdate'])->get();
             //dd($data['thisweekdate']);
+
+
+
+            $data['staffMember'] = Arr::pluck($data['thisWeeksRota'], 'Staff_Id');
+
 
 
             foreach ($data['days'] as $day) {

@@ -19,6 +19,6 @@ Route::middleware('auth')->group(function(){
 
     // Hotel Dashboard
     Route::post('/staffs/profile', [App\Http\Controllers\AdminsController::class, 'staffDashboard'])->name('staffs.staffDashboard');
-    Route::post('/staffs/rota', [App\Http\Controllers\AdminsController::class, 'rotaDashboard'])->name('staffs.rotaDashboard');
+    Route::match(['get','post'], '/staffs/rota',"AdminsController@rotaDashboard")->name('staffs.rotaDashboard');
 
 });

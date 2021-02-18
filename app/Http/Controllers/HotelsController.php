@@ -30,7 +30,7 @@ class HotelsController extends Controller
             // Counts the holidays taken for each member of staff
             $staff->holidaysTaken = Holidays::where('staff_id','=',$staff->id)->where('start', '>=', Carbon::create(null,1,1,0,0,0))->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->pluck('daystaken')->sum(); // Returns all the holidays for the current year
         }
-        $data['holidays'] = Holidays::orderBy('start','asc')->where('start', '>=', Carbon::now())->where('finish', '<=', Carbon::create(null,12,31,23,59,59))->get();
+        $data['holidays'] = Holidays::orderBy('start','asc')->where('finish', '>=', Carbon::now())->get();
         $data['pastHolidays'] = Holidays::orderBy('start','asc')->where('finish', '<', Carbon::now())->get();
 
         return view('admin.hotels.shard.holidays', $data);
